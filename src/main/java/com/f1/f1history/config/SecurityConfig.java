@@ -10,6 +10,7 @@ import org.springframework.security.oauth2.jwt.JwtDecoders;
 @EnableWebSecurity
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 	
+	//JWT発行者(issuer)であるKeycloakのURLをフォーマット(${ホスト名}/auth/realms/${realms名})に沿って指定する
 	@Autowired
 	JwtDecoder jwtDecoder = JwtDecoders.fromIssuerLocation("http://localhost:8080/auth/realms/user");
 
@@ -21,9 +22,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 			.anyRequest().authenticated()
 			.and()
 			.csrf().disable();
-		
-		http.authorizeRequests(
-				);
 	}
 	
 }
