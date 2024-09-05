@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.f1.f1history.dao.DriverInfoMapper">
+    
+    <resultMap type="com.f1.f1history.entity.Driver" id="driverMap">
+        <id column="driver_id" property="driverId"/>
+        <result column="name" property="name"/>
+        <result column="country" property="country"/>
+        <result column="date_of_birth" property="dateOfBirth"/>
+        <result column="place_of_birth" property="placeOfBirth"/>
+        
+        <!-- Eventのリストをマッピング -->
+        <collection property="eventList" ofType="com.f1.f1history.entity.Event" column="driver_id" select="getEventsByDriverId"/>
+    </resultMap>
+    
+    <!-- Eventのマッピング -->
+    <resultMap type="com.f1.f1history.entity.Event" id="eventMap">
+        <id column="event_id" property="eventId"/>
+        <result column="driver_id" property="driverId"/>
+        <result column="description" property="description"/>
+        <result column="date" property="date"/>
+        <result column="category" property="category"/>
+    </resultMap>
+
+    <!-- 全てのDriverを取得 -->
+    <select id="getAllDriver" resultMap="driverMap">
+        SELECT * FROM drivers
+    </select>
+
+    <!-- Driverのイベントを取得するためのサブセレクト -->
+    <select id="getEventsByDriverId" resultMap="eventMap">
+        SELECT
+            event_id,
+            driver_id,
+            description,
+            date,
+            category
+        FROM events
+        WHERE driver_id = #{driverId}
+    </select>
+
+    <!-- Driverを挿入 -->
+    <insert id="insertDriver">
+        INSERT INTO drivers(
+            name,
+            country,
+            date_of_birth,
+            place_of_birth)
+        VALUES(
+            #{name},
+            #{country},
+            #{dateOfBirth},
+            #{placeOfBirth})
+    </insert>
+
+    <!-- 特定のDriverを取得 -->
+    <select id="getDriver" resultMap="driverMap">
+        SELECT * FROM drivers WHERE driver_id = #{driverId}
+    </select>
+
+    <!-- Driverを更新 -->
+    <update id="updateDriver">
+        UPDATE drivers
+        SET
+            name = #{name},
+            country = #{country},
+            date_of_birth = #{dateOfBirth},
+            place_of_birth = #{placeOfBirth}
+        WHERE
+            driver_id = #{driverId}
+    </update>
+
+    <!-- Driverを削除 -->
+    <delete id="deleteDriver">
+        DELETE FROM drivers WHERE driver_id = #{driverId}
+    </delete>
+</mapper>

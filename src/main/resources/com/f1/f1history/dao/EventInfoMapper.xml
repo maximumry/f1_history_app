@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.f1.f1history.dao.EventInfoMapper">
+	<resultMap type="com.f1.f1history.entity.Event" id="eventMap">
+	    <id column="event_id" property="eventId"/>
+	    <result column="driver_id" property="driverId"/>
+	    <result column="description" property="description"/>
+	    <result column="date" property="date"/>
+	    <result column="category" property="category"/>
+	    <association property="driver" resultMap="driverMap"/>
+	</resultMap>
+	
+	<resultMap type="com.f1.f1history.entity.Driver" id="driverMap">
+		<id column="driver_id" property="driverId"/>
+		<result column="name" property="name"/>
+		<result column="country" property="country"/>
+		<result column="date_of_birth" property="dateOfBirth"/>
+		<result column="place_of_birth" property="placeOfBirth"/>
+	</resultMap>
+	
+	<select id="getEventAll" resultMap="eventMap">
+		SELECT * FROM events
+	</select>
+	
+	<insert id="insertEvent">
+		INSERT INTO events(
+			driver_id,
+			description,
+			date,
+			category)
+		VALUES(
+			#{driverId},
+			#{description},
+			#{date},
+			#{category})
+	</insert>
+	
+	<select id="getEvent" resultMap="eventMap">
+		SELECT
+			*
+		FROM
+			events
+		LEFT OUTER JOIN 
+			drivers
+		WHERE
+			event_id = #{eventId}
+	</select>
+	
+	<update id="updateEvent">
+		UPDATE
+			events
+		SET
+			driver_id = #{driverId},
+			description = #{description},
+			date = #{date},
+			category = #{category}
+		WHERE
+			event_id = #{eventId}
+	</update>
+	
+	<delete id="deleteEvent">
+		DELETE FROM
+			events
+		WHERE
+			event_id = #{eventId}
+	</delete>
+</mapper>
