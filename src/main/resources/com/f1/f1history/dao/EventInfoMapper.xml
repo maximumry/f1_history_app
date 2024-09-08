@@ -37,11 +37,17 @@
 	
 	<select id="getEvent" resultMap="eventMap">
 		SELECT
-			*
+			events.event_id,
+			events.description,
+			events.date,
+			events.category,
+			events.driver_id,
+			drivers.driver_id,
+			drivers.name
 		FROM
 			events
 		LEFT OUTER JOIN 
-			drivers
+			drivers ON drivers.driver_id = events.driver_id
 		WHERE
 			event_id = #{eventId}
 	</select>
