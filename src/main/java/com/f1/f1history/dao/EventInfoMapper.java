@@ -17,7 +17,7 @@ public interface EventInfoMapper {
 	
 	void insertEvent(EventForm form);
 	
-	void updateEvent(String eventId,
+	void updateEvent(@Param("eventId") String eventId,
 			@Param("driverId") String driverId,
 			@Param("description") String description,
 			@Param("date") LocalDate date,

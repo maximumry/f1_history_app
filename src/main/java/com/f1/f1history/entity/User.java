@@ -1,6 +1,6 @@
 package com.f1.f1history.entity;
 
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.List;
 
 import lombok.AllArgsConstructor;
@@ -10,14 +10,14 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class Driver {
+public class User {
 	
-	private int driverId;
-	private String name;
-	private String country;
-	private LocalDate dateOfBirth;
-	private String placeOfBirth;
-	private List<Event> eventList;
 	private int userId;
-
+	private String name;
+	private String password;
+	private String role;
+	private LocalDateTime createdAt;
+	private String email;
+	private List<Driver> driverList;
+	private List<Event> eventList;
 }

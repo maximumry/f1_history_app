@@ -11,8 +11,8 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class Event {
 	
-	private String eventId;
-	private String driverId;
+	private int eventId;
+	private int driverId;
 	private String description;
 	private LocalDate date;
 	private String category;
