@@ -14,14 +14,16 @@
 		INSERT INTO users(
 			name,
 			password,
-			role,
-			created_at,
 			email)
 		VALUES(
 			#{name},
 			#{password},
-			#{role},
-			#{createdAt},
 			#{email})
 	</insert>
+	
+	<select id="findLoginUser">
+		SELECT * FROM
+			users
+		WHERE user_id = #{user_id}
+	</select>
 </mapper>
