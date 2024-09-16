@@ -27,7 +27,7 @@ public class RestDriverController {
 	
 	@GetMapping
 	public List<Driver> getDrivers(){
-		return driverService.getAllDrivers();
+		return driverService.getAllDriver();
 	}
 	
 	@PostMapping

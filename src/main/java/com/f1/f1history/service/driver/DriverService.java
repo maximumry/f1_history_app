@@ -8,7 +8,7 @@ import com.f1.f1history.form.DriverForm;
 
 public interface DriverService {
 	
-	List<Driver> getAllDrivers();
+	List<Driver> getAllDriver();
 	
 	void insertDriver(DriverForm form);
 	
