@@ -9,8 +9,6 @@
         <result column="date_of_birth" property="dateOfBirth"/>
         <result column="place_of_birth" property="placeOfBirth"/>
         <collection property="eventList" resultMap="eventMap" columnPrefix="events_"/>
-        <!-- Eventのリストをマッピング -->
-        <!-- <collection property="eventList" ofType="com.f1.f1history.entity.Event" column="driver_id" select="getEventsByDriverId"/> -->
     </resultMap>
     
     <!-- Eventのマッピング -->
@@ -25,18 +23,6 @@
     <!-- 全てのDriverを取得 -->
     <select id="getAllDriver" resultMap="driverMap">
         SELECT * FROM drivers
-    </select>
-
-    <!-- Driverのイベントを取得するためのサブセレクト -->
-    <select id="getEventsByDriverId" resultMap="eventMap">
-        SELECT
-            event_id,
-            driver_id,
-            description,
-            date,
-            category
-        FROM events
-        WHERE driver_id = #{driverId}
     </select>
 
     <!-- Driverを挿入 -->
@@ -55,7 +41,6 @@
 
     <!-- 特定のDriverを取得 -->
     <select id="getDriver" resultMap="driverMap">
-        <!-- SELECT * FROM drivers WHERE driver_id = #{driverId} -->
         SELECT
         	drivers.name,
         	drivers.country,
