@@ -10,7 +10,7 @@
 	<!-- bootstrapでヘッダーを作るところから始める -->
 	<nav class="navbar bg-body-tertiary">
 	  <div class="container-fluid">
-	    <a class="navbar-brand">Navbar</a>
+	    <a class="navbar-brand">F1 History App</a>
 	    <form class="d-flex" role="search">
 	      <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
 	      <button class="btn btn-outline-success" type="submit">Search</button>
@@ -18,12 +18,15 @@
 	  </div>
 	</nav>
 	<div class="container" id="driverArea">
+		<div class="row" id="colDriver">
+			
+		</div>
 	</div>
 </body>
 <script>
 	document.addEventListener("DOMContentLoaded", () => {
 		const url = "http://localhost:8080/driver/api"
-		let driverArea = document.getElementById("driverArea");
+		let colDriver = document.getElementById("colDriver");
 		console.log("aaa")
 		fetch(url)
 			.then(response => response.json())
@@ -38,18 +41,20 @@
 		let driverHtml = "";
 		data.forEach((driver) => {
 			driverHtml += `
-				<div class="card" style="width: 18rem;" id="driverCard">
-				  <img src="..." class="card-img-top" alt="..." id="driverImage">
-				  <div class="card-body">
-				    <h5 class="card-title" id="driverName">${driver.name}</h5>
-					<h6 class="card-subtitle mb-2 text-body-secondary">${driver.country}</h6>
-				    
-				  </div>
+				<div class="col">
+					<div class="card mt-3" style="width: 18rem;" id="driverCard">
+					  <img src="..." class="card-img-top" alt="..." id="driverImage">
+					  <div class="card-body">
+					    <h5 class="card-title" id="driverName">${driver.name}</h5>
+						<h6 class="card-subtitle mb-2 text-body-secondary">${driver.country}</h6>
+						<a href="http://localhost:8080/driver/${driver.driverId}" class="btn btn-primary">ドライバー詳細</a>
+					  </div>
+					</div>
 				</div>
 			`;
 		});
-		driverArea.insertAdjacentHTML("afterbegin", driverHtml);
+		colDriver.insertAdjacentHTML("afterbegin", driverHtml);
 	}
 </script>
-<!--<a href="http://localhost:8080/driver/${driver.driverId}" class="btn btn-primary">ドライバー詳細</a>-->
+<!---->
 </html>

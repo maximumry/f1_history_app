@@ -19,7 +19,7 @@ public class DriverServiceImpl implements DriverService {
 	private DriverInfoMapper driverInfoMapper;
 
 	@Override
-	public List<Driver> getAllDrivers() {
+	public List<Driver> getAllDriver() {
 		return driverInfoMapper.getAllDriver();
 	}
 	
