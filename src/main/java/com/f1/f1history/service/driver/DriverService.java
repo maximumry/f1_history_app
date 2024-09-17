@@ -18,4 +18,6 @@ public interface DriverService {
 	
 	void deleteDriver(int driverId);
 
+	List<Driver> getDrivers(Driver driver);
+
 }

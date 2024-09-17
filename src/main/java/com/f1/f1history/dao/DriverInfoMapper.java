@@ -27,4 +27,6 @@ public interface DriverInfoMapper {
 	
 	void deleteDriver(int driverId);
 
+	List<Driver> searchDriver(Driver driver);
+
 }

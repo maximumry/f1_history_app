@@ -75,4 +75,26 @@
     <delete id="deleteDriver">
         DELETE FROM drivers WHERE driver_id = #{driverId}
     </delete>
+    
+    <select id="searchDriver" resultMap="driverMap">
+    	SELECT
+    		drivers.name,
+        	drivers.country,
+        	drivers.date_of_birth,
+        	drivers.place_of_birth,
+        	events.event_id as events_event_id,
+        	events.description as events_description,
+        	events.date as events_date,
+        	events.category as events_category
+        FROM
+        	drivers
+        LEFT JOIN
+        	events
+        ON drivers.driver_id = events.driver_id
+        <where>
+        	<if test="drivers.name != null">
+        		drivers.name LIKE '%' || #{drivers.name} || '%'
+        	</if>
+        </where>
+    </select>
 </mapper>
