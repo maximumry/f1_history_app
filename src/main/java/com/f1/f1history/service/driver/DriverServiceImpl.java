@@ -42,4 +42,9 @@ public class DriverServiceImpl implements DriverService {
 	public void deleteDriver(int driverId) {
 		driverInfoMapper.deleteDriver(driverId);
 	}
+
+	@Override
+	public List<Driver> getDrivers(Driver driver) {
+		return driverInfoMapper.searchDriver(driver);
+	}
 }

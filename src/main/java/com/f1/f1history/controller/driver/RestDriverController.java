@@ -2,6 +2,7 @@ package com.f1.f1history.controller.driver;
 
 import java.util.List;
 
+import org.modelmapper.ModelMapper;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -24,6 +25,7 @@ import lombok.RequiredArgsConstructor;
 public class RestDriverController {
 	
 	private final DriverService driverService;
+	private final ModelMapper modelMapper;
 	
 	@GetMapping
 	public List<Driver> getDrivers(){
@@ -50,6 +52,13 @@ public class RestDriverController {
 	@DeleteMapping("/{driverId}")
 	public void deleteDriver(@PathVariable int driverId) {
 		driverService.deleteDriver(driverId);
+	}
+	
+	@GetMapping("/get/list")
+	public List<Driver> getDriverList(DriverForm form){
+		Driver driver = modelMapper.map(form, Driver.class);
+		List<Driver> driverList = driverService.getDrivers(driver);
+		return driverList;
 	}
 
 }
