@@ -10,7 +10,7 @@ jQuery(function($){
 	
 	/** 検索ボタンを押したときの処理 */
 	$('#btn-search').click(function(event){
-		
+		debugger;
 		//検索
 		search();
 	});
@@ -20,6 +20,7 @@ jQuery(function($){
 function search(){
 	//formの値を取得
 	var formData = $('#driver-search-form').serialize();
+	
 	//ajax通信
 	$.ajax({
 		type: 'GET',

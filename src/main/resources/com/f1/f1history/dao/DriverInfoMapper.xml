@@ -78,6 +78,7 @@
     
     <select id="searchDriver" resultMap="driverMap">
     	SELECT
+    		drivers.driver_id,
     		drivers.name,
         	drivers.country,
         	drivers.date_of_birth,
@@ -92,8 +93,8 @@
         	events
         ON drivers.driver_id = events.driver_id
         <where>
-        	<if test="drivers.name != null">
-        		drivers.name LIKE '%' || #{drivers.name} || '%'
+        	<if test="name != null">
+        		AND drivers.name LIKE CONCAT('%', #{name}, '%')
         	</if>
         </where>
     </select>
