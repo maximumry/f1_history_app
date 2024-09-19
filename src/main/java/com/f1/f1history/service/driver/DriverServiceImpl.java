@@ -45,6 +45,10 @@ public class DriverServiceImpl implements DriverService {
 
 	@Override
 	public List<Driver> getDrivers(Driver driver) {
-		return driverInfoMapper.searchDriver(driver);
+		List<Driver> testDriver = driverInfoMapper.searchDriver(driver);
+		for(Driver test : testDriver) {
+		System.out.println(test + "aaaa");
+		}
+		return testDriver;
 	}
 }
