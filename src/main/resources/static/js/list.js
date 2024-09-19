@@ -16,6 +16,7 @@ jQuery(function($){
 	});
 });
 
+/** git config --global http.postBuffer 524288000 */
 /** 検索処理 */
 function search(){
 	//formの値を取得
