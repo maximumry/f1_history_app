@@ -23,13 +23,9 @@ function search(){
 	var formData = $('#driver-search-form').serialize();
 	//ajax通信
 	$.ajax({
-		type: 'GET',
-		url: '/driver/api/get/list',
+		url: 'http://ergast.com/api/f1/2024/drivers.json',
 		data: formData,
 		dataType: 'json',
-		contentType: 'application/json; charset=UTF-8',
-		cache: false,
-		timeout: 5000,
 	}).done(function(data){
 		//ajax成功時の処理
 		console.log(data);
