@@ -19,8 +19,9 @@ public class DriverController {
 	}
 	
 	@GetMapping("/{driverId}")
-	public String getDriver(@PathVariable("driverId") int driverId, Model model) {
+	public String getDriver(@PathVariable("driverId") String driverId, Model model) {
 		model.addAttribute("driverId", driverId);
+		System.out.println(driverId);
 		return "/driver/detail";
 	}
 }

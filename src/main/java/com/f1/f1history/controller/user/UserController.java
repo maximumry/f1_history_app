@@ -14,10 +14,12 @@ import com.f1.f1history.form.UserForm;
 import com.f1.f1history.service.user.UserService;
 
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 
 @Controller
 @RequestMapping("/users")
 @RequiredArgsConstructor
+@Slf4j
 class UserController {
 	
 	private final ModelMapper modelMapper;
@@ -36,7 +38,16 @@ class UserController {
 		}
 		User user = modelMapper.map(form, User.class);
 		userService.signup(user);
-		return "/users/signup";
+		return "redirect:/drivers";
 	}
 	
+	@GetMapping("/login")
+	public String login() {
+		return "/users/login";
+	}
+	
+	@PostMapping("/logout")
+	public String logout() {
+		return "redirect:/logout";
+	}
 }
