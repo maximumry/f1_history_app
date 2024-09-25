@@ -27,11 +27,27 @@ fetch(driverUrl)
 	}
 }**/
 function insertInfoDriver(data){
-	let driverHtml = "";
 	
 	data.forEach((driver) => {
+		const driverImgPath = "/img/" + driver.dateOfBirth + driver.driverId + driver.permanentNumber + ".jpg";
+		const driverImg = document.getElementById("driverImg");
+		const driverName = document.getElementById("driverName");
+		const driverBirth = document.getElementById("driverBirth");
+		const driverNationality = document.getElementById("driverNationality");
+		const driverNumber = document.getElementById("driverNumber");
+		const driverLink = document.getElementById("driverLink");
+		
+		driverImg.setAttribute("src", driverImgPath);
+		driverName.textContent = `${driver.givenName} ${driver.familyName}`; 
+		driverBirth.textContent = driver.dateOfBirth.replace(/-/g, "/");
+		driverNationality.textContent = driver.nationality;
+		driverNumber.textContent = driver.permanentNumber;
+		driverLink.setAttribute("href", driver.url);
+	});
+};
+	/**
 		//ドライバー画像の変数
-		let driverImg = "/img/" + driver.dateOfBirth + driver.driverId + driver.permanentNumber + ".jpg";
+		
 		driverHtml += `
 			<div class="col-6">
 				<img  src="${driverImg}" alt="画像表示エラー" style="max-width: 100%; height: auto;">
@@ -49,9 +65,4 @@ function insertInfoDriver(data){
 		console.log(driver.dateOfBirth);
 		
 	});
-	colDriver.insertAdjacentHTML("afterbegin", driverHtml)
-}
-
-$(function() {
-	$()
-})
+	colDriver.insertAdjacentHTML("afterbegin", driverHtml)**/
