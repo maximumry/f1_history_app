@@ -15,7 +15,7 @@
 <body>
 	<nav class="navbar bg-body-tertiary">
 	  <div class="container-fluid">
-	    <a class="navbar-brand">F1 History App</a>
+	    <a class="navbar-brand"	style="color: red;">F1 History App</a>
 	    <form class="d-flex" role="search">
 	      <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
 	      <button class="btn btn-outline-success" type="submit">Search</button>
@@ -26,15 +26,31 @@
 		<div class="container">
 		  <div class="row" id="colDriver" style="padding-top: 2.5rem;">
 			<div class="col-6">
-                <img id="driverImg" src="" alt="画像表示エラー" style="max-width: 100%; height: auto;">
+                <img id="driverImg" src="" alt="画像表示エラー" style="max-width: 100%; height: 100%;">
             </div>
             <div class="col-5">
                 <ul class="list-group list-group-flush">
-                    <li class="list-group-item">名前 : <span id="driverName"></span></li>
-                    <li class="list-group-item">誕生日 : <span id="driverBirth"></span></li>
-                    <li class="list-group-item">出身国 : <span id="driverNationality"></span></li>
-                    <li class="list-group-item">カーナンバー : <span id="driverNumber"></span></li>
-                    <a id="driverLink" href="#" class="list-group-item">Wikipedia</a>
+                    <li class="list-group-item" style="display: flex; justify-content: space-between; margin-bottom: 7px;">
+						名前
+						<span id="driverName"></span>
+					</li>
+                    <li class="list-group-item"	style="display: flex; justify-content: space-between; margin-bottom: 7px;">
+						誕生日
+						<span id="driverBirth"></span>
+					</li>
+                    <li class="list-group-item"	style="display: flex; justify-content: space-between; margin-bottom: 7px;">
+						出身国
+						<span id="driverNationality"></span>
+					</li>
+                    <li class="list-group-item"	style="display: flex; justify-content: space-between;margin-bottom: 7px;">
+						カーナンバー
+						<span id="driverNumber"></span>
+					</li>
+					<li class="list-group-item"	style="display: flex; justify-content: space-between;margin-bottom: 7px;">
+						略称表記
+						<span id="abbr"></span>
+					</li>
+                    <a id="driverLink" href="#" class="list-group-item"	style="margin-bottom: 7px;">Wikipedia</a>
                 </ul>
             </div>
 		  </div>

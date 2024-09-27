@@ -25,7 +25,6 @@ function insertDriverInfo(data){
 				    <h5 class="card-title" id="driverName">${driverName}</h5>
 				    <p class="card-text mb-2">BirthDay：${driverBirthDay}</p>
 				    <p class="card-text">Nationality：${drivers.nationality}</p>
-					<a href="${drivers.url}" class="btn btn-light">Wikipedia</a>
 					<a href="http://localhost:8080/driver/${drivers.driverId}" class="btn btn-info">ドライバー詳細</a>
 				  </div>
 				</div>
