@@ -36,16 +36,46 @@ function insertInfoDriver(data){
 		const driverNationality = document.getElementById("driverNationality");
 		const driverNumber = document.getElementById("driverNumber");
 		const driverLink = document.getElementById("driverLink");
+		const abbr = document.getElementById("abbr");
 		
 		driverImg.setAttribute("src", driverImgPath);
-		driverName.textContent = `${driver.givenName} ${driver.familyName}`; 
+		driverName.textContent = `${driver.givenName} ${driver.familyName}`;
 		driverBirth.textContent = driver.dateOfBirth.replace(/-/g, "/");
 		driverNationality.textContent = driver.nationality;
 		driverNumber.textContent = driver.permanentNumber;
 		driverLink.setAttribute("href", driver.url);
+		abbr.textContent = driver.code;
+		
+		driverLink.addEventListener("mouseover", function(event){
+			setTimeout(() => {
+				event.target.style.color = "red";
+			}, 1);
+		}, false);
+		
+		driverLink.addEventListener("mouseout", function(event){
+			setTimeout(() => {
+				event.target.style.color = "";
+			}, 1);
+		}, false);
 	});
 };
-	/**
+
+/**
+$(function(){
+	$(driverLink).hover(
+		function(){
+			$(driverLink).css('border', '1px solid #00c9e8');
+			$(driverLink).css('transition', '0.5s');
+			$(driverLink).css('color', '#00c9e8');
+			$(driverLink).css('transition', '0.5s');
+		},
+		function(){
+			$(driverLink).css('border', '1px solid #FFFF');
+			$(driverLink).css('color', '#FFFF');
+		}
+	);
+});
+	
 		//ドライバー画像の変数
 		
 		driverHtml += `
