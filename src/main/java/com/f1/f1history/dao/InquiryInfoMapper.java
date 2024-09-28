@@ -1,5 +1,7 @@
 package com.f1.f1history.dao;
 
+import java.util.List;
+
 import org.apache.ibatis.annotations.Mapper;
 
 import com.f1.f1history.entity.Inquiry;
@@ -8,5 +10,7 @@ import com.f1.f1history.entity.Inquiry;
 public interface InquiryInfoMapper {
 	
 	void insertInquiry(Inquiry inquiry);
+	
+	List<Inquiry> getAllInquiry();
 
 }

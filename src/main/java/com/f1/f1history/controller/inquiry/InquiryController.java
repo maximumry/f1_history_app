@@ -42,6 +42,10 @@ public class InquiryController {
 		return "redirect:/driver";
 	}
 	
+	@GetMapping("/index")
+	public String index(@ModelAttribute Inquiry inquiry) {
+		return "/inquiry/index";
+	}
 	
 
 }
