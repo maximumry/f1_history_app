@@ -1,7 +1,8 @@
 const driverUrl = `http://ergast.com/api/f1/drivers/${driverId}.json`;
 const teamUrl = "http://ergast.com/api/f1/2024/constructors.json";
+const otherUrl = "http://localhost:8080/driver/api";
 let colDriver = document.getElementById("colDriver");
-fetch(driverUrl)
+/*fetch(driverUrl)
 	.then((response) => {
 		return response.json();
 	})
@@ -10,22 +11,27 @@ fetch(driverUrl)
 	})
 	.catch((error) => {
 		alert("読み込みエラーが発生しました");
-	})
-/**async function allFetch(){
-	try{
-		const response1 = await fetch(driverUrl);
-		const data1 = await response1.json();
-		console.log(data1)
-		insertInfoDriver(data1.MRData.DriverTable.Drivers)
-		
-		
-		const response2 = await fetch(teamUrl);
-		const data2 = await response2.json();
-		insertInfoDriver(data2.MRData.ConstructorTable.Constructors);
-	}catch(error){
-		alert("読み込みエラーが発生しました");
-	}
-}**/
+	})*/
+	window.addEventListener('DOMContentLoaded', function(){
+		allFetch();
+	});
+	async function allFetch(){
+			try{
+				const response1 = await fetch(driverUrl);
+				const data1 = await response1.json();
+				console.log(data1)
+				console.log("aa")
+				//insertInfoDriver(data1.MRData.DriverTable.Drivers)
+				
+				
+				const response2 = await fetch(otherUrl);
+				const data2 = await response2.json();
+				console.log(data2);
+				//insertInfoDriver(data2.MRData.ConstructorTable.Constructors);
+			}catch(error){
+				alert("読み込みエラーが発生しました");
+			}
+		}
 function insertInfoDriver(data){
 	
 	data.forEach((driver) => {
