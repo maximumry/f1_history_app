@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>お問い合わせ詳細</title>
+<!-- bootstrap -->
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+<script th:src="@{/webjars/jquery/jquery.min.js}" defer></script>
+<script th:src="@{/js/inquiry/detail.js}" defer></script>
+</head>
+<body>
+	<nav class="navbar bg-dark navbar-expand-lg bg-body-tertiary">
+	  <div class="container-fluid">
+	    <a class="navbar-brand" style="color: red;">F1 History App</a>
+	  </div>
+	</nav>
+	<div class="container mt-5">
+		<form id="inquiry-detail-form" method="post" th:action="@{/inquiry/detail}" class="form-signup" th:object="${inquiry}">
+			<input type="hidden" th:field="*{inquiryId}">
+			<table class="table table-striped table-bordered table-hover">
+				<tbody>
+					<tr>
+						<th class="w-25">名前</th>
+						<td th:text="*{name}"></td>
+					</tr>
+					<tr>
+						<th>メールアドレス</th>
+						<td th:text="*{email}"></td>
+					</tr>
+					<tr>
+						<th>お問い合わせ日時</th>
+						<td th:text="*{#temporals.format(createdAt, 'yyyy/MM/dd')}"></td>
+					</tr>
+					<tr>
+						<th>お問い合わせカテゴリー</th>
+						<div th:if="*{inquirySelect} == 'driver'">
+							<td>ドライバー追加</td>
+						</div>
+						<div th:if="*{inquirySelect} == 'iconic'">
+							<td>名シーン追加</td>
+						</div>
+						<div th:if="*{inquirySelect} == 'other'">
+							<td>その他</td>
+						</div>
+					</tr>
+					<tr>
+						<th>問い合わせ状況</th>
+						<td th:text="*{deletedAt} != null ? '完了' : '未完'"></td>
+					</tr>
+				</tbody>
+			</table>
+			<p>問い合わせ本文</p>
+			<div class="card">
+				<div class="card-body" th:text="*{content}"></div>
+			</div>
+		</form>
+		<div class="text-center mt-2" th:if="${inquiry.deletedAt} == null">
+			<button id="btn-delete" class="btn btn-danger" type="button">
+				問い合わせ完了
+			</button>
+		</div>
+	</div>
+</body>
+</html>

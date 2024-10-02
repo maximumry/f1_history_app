@@ -8,6 +8,10 @@ public interface InquiryService {
 	
 	void insertInquiry(Inquiry inquiry);
 	
-	List<Inquiry> 
+	List<Inquiry> getAllInquiry();
+	
+	Inquiry getInquiry(int inquiryId);
+	
+	void deleteInquiryOne(int inquiryId);
 
 }

@@ -9,6 +9,7 @@
         <result column="email" property="email"/>
         <result column="content" property="content"/>
         <result column="created_at" property="createdAt" />
+        <result column="deleted_at" property="deletedAt" />
         <association property="user" resultMap="userMap"/>
     </resultMap>
     
@@ -42,4 +43,22 @@
             #{content},
             #{userId})
     </insert>
+    
+    <select id="getInquiry" resultMap="InquiryMap">
+    	SELECT
+    		*
+    	FROM
+    		inquiries
+    	WHERE
+    		inquiry_id = ${inquiryId}
+    </select>
+    
+    <update id="deleteInquiryOne">
+    	UPDATE
+    		inquiries
+    	SET
+    		deleted_at = NOW()
+    	WHERE
+    		inquiry_id = #{inquiryId}
+    </update>
 </mapper>

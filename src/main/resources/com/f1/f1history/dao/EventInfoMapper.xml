@@ -12,10 +12,11 @@
 	
 	<resultMap type="com.f1.f1history.entity.Driver" id="driverMap">
 		<id column="driver_id" property="driverId"/>
-		<result column="name" property="name"/>
-		<result column="country" property="country"/>
-		<result column="date_of_birth" property="dateOfBirth"/>
-		<result column="place_of_birth" property="placeOfBirth"/>
+        <result column="team" property="team"/>
+        <result column="worldChampionships" property="worldChampionships"/>
+        <result column="wins" property="wins"/>
+        <result column="wiki_url" property="wikiUrl"/>
+        <result column="user_id" property="userId"/>
 	</resultMap>
 	
 	<select id="getEventAll" resultMap="eventMap">

@@ -17,15 +17,15 @@ public interface DriverInfoMapper {
 	
 	void insertDriver(DriverForm form);
 	
-	Optional<Driver> getDriver(int driverId);
+	Optional<Driver> getDriver(String driverId);
 	
-	void updateDriver(int driverId,
+	void updateDriver(String driverId,
 			@Param("name") String name,
 			@Param("country") String country,
 			@Param("dateOfBirth") LocalDate dateOfBirth,
 			@Param("placeOfBirth") String placeOfBirth);
 	
-	void deleteDriver(int driverId);
+	void deleteDriver(String driverId);
 
 	List<Driver> searchDriver(Driver driver);
 

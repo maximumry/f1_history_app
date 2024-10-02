@@ -11,12 +11,13 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class Inquiry {
 	
-	private String inquiryId;
+	private int inquiryId;
 	private String inquirySelect;
 	private String name;
 	private String email;
 	private String content;
 	private LocalDateTime createdAt;
+	private LocalDateTime deletedAt;
 	private int userId;
 	private User user;
 

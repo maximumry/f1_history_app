@@ -1,6 +1,5 @@
 package com.f1.f1history.entity;
 
-import java.time.LocalDate;
 import java.util.List;
 
 import lombok.AllArgsConstructor;
@@ -12,12 +11,13 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class Driver {
 	
-	private int driverId;
-	private String name;
-	private String country;
-	private LocalDate dateOfBirth;
-	private String placeOfBirth;
+	private String driverId;
+	private String worldChampionships;
+	private String wins;
+	private String team;
+	private String wikiUrl;
 	private List<Event> eventList;
+	private User user;
 	private int userId;
 
 }

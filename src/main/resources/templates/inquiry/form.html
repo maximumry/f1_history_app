@@ -17,7 +17,7 @@
 		<section class="mt-5" style="max-width: 568px">
 			<h1 class="text-center"><strong>お問い合わせ</strong></h1>
 			<div>
-				<form method="post" th:action="@{/inquiry}" th:object="${inquiryForm}">
+				<form method="post" th:action="@{/inquiry/complete}" th:object="${inquiryForm}">
 					<label for="inquirySelect" class="mt-5">お問い合わせ項目</label>
 				      <select th:field="*{inquirySelect}" class="mb-2"  th:classappend="${#fields.hasErrors('inquirySelect')} ? is-invalid">
 						<option value="" selected>選択してください</option>
