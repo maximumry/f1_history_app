@@ -4,11 +4,22 @@
     
     <resultMap type="com.f1.f1history.entity.Driver" id="driverMap">
         <id column="driver_id" property="driverId"/>
-        <result column="name" property="name"/>
-        <result column="country" property="country"/>
-        <result column="date_of_birth" property="dateOfBirth"/>
-        <result column="place_of_birth" property="placeOfBirth"/>
+        <result column="team" property="team"/>
+        <result column="world_championships" property="worldChampionships"/>
+        <result column="wins" property="wins"/>
+        <result column="wiki_url" property="wikiUrl"/>
+        <result column="user_id" property="userId"/>
+        <association property="user" resultMap="userMap" />
         <collection property="eventList" resultMap="eventMap" columnPrefix="events_"/>
+    </resultMap>
+    
+    <resultMap type="com.f1.f1history.entity.User" id="userMap">
+    	<id column="user_id" property="userId"/>
+    	<result column="name" property="name" />
+    	<result column="password" property="password"/>
+    	<result column="role" property="role"/>
+    	<result column="created_at" property="createdAt"/>
+    	<result column="email" property="email"/>
     </resultMap>
     
     <!-- Eventのマッピング -->
@@ -38,8 +49,12 @@
             #{dateOfBirth},
             #{placeOfBirth})
     </insert>
+    
+    <select id="getDriver" resultMap="driverMap">
+    	SELECT * FROM drivers WHERE driver_id = #{driverId}
+    </select>
 
-    <!-- 特定のDriverを取得 -->
+    <!-- 特定のDriverを取得
     <select id="getDriver" resultMap="driverMap">
         SELECT
         	drivers.name,
@@ -57,7 +72,7 @@
         ON drivers.driver_id = events.driver_id
         WHERE
         	drivers.driver_id = #{driverId}
-    </select>
+    </select> -->
 
     <!-- Driverを更新 -->
     <update id="updateDriver">

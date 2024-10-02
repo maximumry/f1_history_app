@@ -1,39 +1,28 @@
 const driverUrl = `http://ergast.com/api/f1/drivers/${driverId}.json`;
-const teamUrl = "http://ergast.com/api/f1/2024/constructors.json";
-const otherUrl = "http://localhost:8080/driver/api";
+const otherUrl = `http://localhost:8080/driver/api/${driverId}`;
 let colDriver = document.getElementById("colDriver");
-/*fetch(driverUrl)
-	.then((response) => {
-		return response.json();
-	})
-	.then((data) => {
-		insertInfoDriver(data.MRData.DriverTable.Drivers);
-	})
-	.catch((error) => {
-		alert("読み込みエラーが発生しました");
-	})*/
 	window.addEventListener('DOMContentLoaded', function(){
 		allFetch();
 	});
 	async function allFetch(){
 			try{
 				const response1 = await fetch(driverUrl);
+				if(!response1.ok) throw new Error('エルガストAPIからの読み取りに失敗しました');
 				const data1 = await response1.json();
-				console.log(data1)
-				console.log("aa")
-				//insertInfoDriver(data1.MRData.DriverTable.Drivers)
-				
+				insertInfoDriver(data1.MRData.DriverTable.Drivers)
 				
 				const response2 = await fetch(otherUrl);
+				if(!response2.ok) throw new Error('その他の読み取りに失敗しました');
 				const data2 = await response2.json();
-				console.log(data2);
-				//insertInfoDriver(data2.MRData.ConstructorTable.Constructors);
+				console.log(data2)
+				insertInfoDriverOther(data2);
+				
 			}catch(error){
 				alert("読み込みエラーが発生しました");
 			}
 		}
 function insertInfoDriver(data){
-	
+	console.log(data.dateOfBirth)
 	data.forEach((driver) => {
 		const driverImgPath = "/img/" + driver.dateOfBirth + driver.driverId + driver.permanentNumber + ".jpg";
 		const driverImg = document.getElementById("driverImg");
@@ -41,7 +30,6 @@ function insertInfoDriver(data){
 		const driverBirth = document.getElementById("driverBirth");
 		const driverNationality = document.getElementById("driverNationality");
 		const driverNumber = document.getElementById("driverNumber");
-		const driverLink = document.getElementById("driverLink");
 		const abbr = document.getElementById("abbr");
 		
 		driverImg.setAttribute("src", driverImgPath);
@@ -49,56 +37,30 @@ function insertInfoDriver(data){
 		driverBirth.textContent = driver.dateOfBirth.replace(/-/g, "/");
 		driverNationality.textContent = driver.nationality;
 		driverNumber.textContent = driver.permanentNumber;
-		driverLink.setAttribute("href", driver.url);
 		abbr.textContent = driver.code;
-		
-		driverLink.addEventListener("mouseover", function(event){
-			setTimeout(() => {
-				event.target.style.color = "red";
-			}, 1);
-		}, false);
-		
-		driverLink.addEventListener("mouseout", function(event){
-			setTimeout(() => {
-				event.target.style.color = "";
-			}, 1);
-		}, false);
 	});
 };
 
-/**
-$(function(){
-	$(driverLink).hover(
-		function(){
-			$(driverLink).css('border', '1px solid #00c9e8');
-			$(driverLink).css('transition', '0.5s');
-			$(driverLink).css('color', '#00c9e8');
-			$(driverLink).css('transition', '0.5s');
-		},
-		function(){
-			$(driverLink).css('border', '1px solid #FFFF');
-			$(driverLink).css('color', '#FFFF');
-		}
-	);
-});
+function insertInfoDriverOther(data){
+	const worldChampionsNum = document.getElementById("worldChampionsNum");
+	const winsNum = document.getElementById("winsNum");
+	const teamName = document.getElementById("teamName");
+	const driverLink = document.getElementById("driverLink");
 	
-		//ドライバー画像の変数
+	worldChampionsNum.textContent = `${data.worldChampionships}回`;
+	winsNum.textContent = `${data.wins}勝`;
+	teamName.textContent = data.team;
+	driverLink.setAttribute("href", data.wikiUrl)
+	
+	driverLink.addEventListener("mouseover", function(event){
+		setTimeout(() => {
+			event.target.style.color = "red";
+		}, 1);
+	}, false);
 		
-		driverHtml += `
-			<div class="col-6">
-				<img  src="${driverImg}" alt="画像表示エラー" style="max-width: 100%; height: auto;">
-		    </div>
-		    <div class="col-5">
-				<ul class="list-group list-group-flush">
-					<li class="list-group-item">名前 : ${driver.givenName + " " + driver.familyName}</li>
-				  	<li class="list-group-item">誕生日 : ${driver.dateOfBirth.replace(/-/g, "/")}</li>
-				  	<li class="list-group-item">出身国 : ${driver.nationality}</li>
-				  	<li class="list-group-item">カーナンバー : ${driver.permanentNumber}</li>
-				  	<a id="driverLink" href="${driver.url}" class="list-group-item">Wikipedia</a>
-				</ul>
-		    </div>
-			`;
-		console.log(driver.dateOfBirth);
-		
-	});
-	colDriver.insertAdjacentHTML("afterbegin", driverHtml)**/
+	driverLink.addEventListener("mouseout", function(event){
+		setTimeout(() => {
+			event.target.style.color = "";
+		}, 1);
+	}, false);
+}

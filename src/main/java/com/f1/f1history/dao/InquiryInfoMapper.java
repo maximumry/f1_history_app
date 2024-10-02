@@ -12,5 +12,9 @@ public interface InquiryInfoMapper {
 	void insertInquiry(Inquiry inquiry);
 	
 	List<Inquiry> getAllInquiry();
+	
+	Inquiry getInquiry(int inquiryId);
+	
+	void deleteInquiryOne(int inquiryId);
 
 }

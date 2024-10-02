@@ -13,7 +13,7 @@
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
 </head>
 <body>
-	<nav class="navbar bg-body-tertiary">
+	<nav class="navbar bg-body-tertiary" style="margin-bottom: 2.5rem;">
 	  <div class="container-fluid">
 	    <a class="navbar-brand"	style="color: red;">F1 History App</a>
 	    <form class="d-flex" role="search">
@@ -22,29 +22,41 @@
 	    </form>
 	  </div>
 	</nav>
-	<div class="container-fluid">
-		<div class="container">
-		  <div class="row" id="colDriver" style="padding-top: 2.5rem;">
+	<div class="container-fluid bg-white">
+		<div class="container bg-light">
+		  <div class="row" id="colDriver">
 			<div class="col-6">
                 <img id="driverImg" src="" alt="画像表示エラー" style="max-width: 100%; height: 100%;">
             </div>
-            <div class="col-5">
+            <div class="col-5" style="margin-top: 5px;">
                 <ul class="list-group list-group-flush">
                     <li class="list-group-item" style="display: flex; justify-content: space-between; margin-bottom: 7px;">
 						名前
 						<span id="driverName"></span>
 					</li>
-                    <li class="list-group-item"	style="display: flex; justify-content: space-between; margin-bottom: 7px;">
-						誕生日
-						<span id="driverBirth"></span>
+					<li class="list-group-item" style="display: flex; justify-content: space-between; margin-bottom: 7px;">
+						チーム
+						<span id="teamName"></span>
 					</li>
-                    <li class="list-group-item"	style="display: flex; justify-content: space-between; margin-bottom: 7px;">
-						出身国
-						<span id="driverNationality"></span>
+					<li class="list-group-item"	style="display: flex; justify-content: space-between; margin-bottom: 7px;">
+						ワールドチャンピオン
+						<span id="worldChampionsNum"></span>
+					</li>
+					<li class="list-group-item"	style="display: flex; justify-content: space-between; margin-bottom: 7px;">
+						優勝数
+						<span id="winsNum"></span>
 					</li>
                     <li class="list-group-item"	style="display: flex; justify-content: space-between;margin-bottom: 7px;">
 						カーナンバー
 						<span id="driverNumber"></span>
+					</li>
+					<li class="list-group-item"	style="display: flex; justify-content: space-between; margin-bottom: 7px;">
+						出身国
+						<span id="driverNationality"></span>
+					</li>
+                    <li class="list-group-item"	style="display: flex; justify-content: space-between; margin-bottom: 7px;">
+						誕生日
+						<span id="driverBirth"></span>
 					</li>
 					<li class="list-group-item"	style="display: flex; justify-content: space-between;margin-bottom: 7px;">
 						略称表記
@@ -55,6 +67,34 @@
             </div>
 		  </div>
 		</div>
+		<!-- 名シーンセクション -->
+		  <div class="mt-5">
+		    <h3>名シーン</h3>
+		    <div class="row">
+		      <!-- 名シーンのカード1 -->
+		      <div class="col-md-6">
+		        <div class="card mb-3">
+		          <img src="scene1.jpg" class="card-img-top" alt="名シーン1">
+		          <div class="card-body">
+		            <h5 class="card-title">2019年 モナコGP 優勝</h5>
+		            <p class="card-text">ルイス・ハミルトンが絶妙なタイヤ管理でモナコGPを制した名シーン。</p>
+		            <a href="video_link" class="btn btn-primary">ビデオを見る</a>
+		          </div>
+		        </div>
+		      </div>
+		      <!-- 名シーンのカード2 -->
+		      <div class="col-md-6">
+		        <div class="card mb-3">
+		          <img src="scene2.jpg" class="card-img-top" alt="名シーン2">
+		          <div class="card-body">
+		            <h5 class="card-title">2008年 ブラジルGP タイトル獲得</h5>
+		            <p class="card-text">最終ラップで奇跡のオーバーテイクを決めて初のF1ワールドチャンピオンに輝いた瞬間。</p>
+		            <a href="video_link" class="btn btn-primary">ビデオを見る</a>
+		          </div>
+		        </div>
+		      </div>
+		    </div>
+		  </div>
 	</div>
 </body>
 </html>

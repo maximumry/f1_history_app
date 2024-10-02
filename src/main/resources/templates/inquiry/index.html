@@ -13,28 +13,38 @@
 	    <a class="navbar-brand" style="color: red;">F1 History App</a>
 	  </div>
 	</nav>
-	<div class="container">
+	<div class="container mt-5">
 		<table class="table">
 		  <thead>
 		    <tr>
 		      <th scope="col">名前</th>
 		      <th scope="col">メールアドレス</th>
-		      <th scope="col">お問い合わせ内容</th>
 		      <th scope="col">お問い合わせ日時</th>
 			  <th scope="col">お問い合わせカテゴリー</th>
+			  <th scope="col">問い合わせ状況</th>
+			  <th scope="col"></th>
 		    </tr>
 		  </thead>
 		  <tbody>
-		    <tr th:each="inquiry : ${inquiry.">
-		      <th scope="row">2</th>
-		      <td>Jacob</td>
-		      <td>Thornton</td>
-		      <td>@fat</td>
-		    </tr>
-		    <tr>
-		      <th scope="row">3</th>
-		      <td colspan="2">Larry the Bird</td>
-		      <td>@twitter</td>
+		    <tr th:each="inquiry : ${inquiryList}">
+		      <td th:text="${inquiry.name}"></th>
+		      <td th:text="${inquiry.email}"></td>
+		      <td th:text="${#temporals.format(inquiry.createdAt, 'yyyy/MM/dd')}"></td>
+			  <div th:if="${inquiry.inquirySelect} == 'driver'">
+			  	<td>ドライバー追加</td>
+			  </div>
+			  <div th:if="${inquiry.inquirySelect} == 'iconic'">
+			  	<td>名シーン追加</td>
+			  </div>
+			  <div th:if="${inquiry.inquirySelect} == 'other'">
+  			  	<td>その他</td>
+  			  </div>
+			  <td th:text="${inquiry.deletedAt} != null ? '完了' : '未完'"></td>
+			  <td>
+				<a th:href="@{/inquiry/{inquiryId}(inquiryId=${inquiry.inquiryId})}">
+					<button type="button" class="btn btn-primary">詳細</button>
+				</a>
+			  </td>
 		    </tr>
 		  </tbody>
 		</table>

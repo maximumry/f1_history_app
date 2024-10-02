@@ -13,6 +13,8 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 public class InquiryForm {
 	
+	private int inquiryId;
+	
 	@Pattern(regexp = "driver|iconic|other", message = "いずれかを選択してください")
 	@NotBlank(message = "いずれかを選択してください")
 	private String inquirySelect;

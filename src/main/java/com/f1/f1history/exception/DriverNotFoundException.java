@@ -4,7 +4,7 @@ public class DriverNotFoundException extends RuntimeException {
 	
 	private static final long serialVersionUID = 1L;
 	
-	public DriverNotFoundException(int driverId) {
+	public DriverNotFoundException(String driverId) {
 		super(driverId + "は存在しません");
 	}
 

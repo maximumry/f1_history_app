@@ -2,6 +2,7 @@
 
 var driverData = null;
 var table = null; 
+let num = 0;
 
 /** 画面ロード時の処理 */
 jQuery(function($){
@@ -67,14 +68,9 @@ function search(){
 }**/
 
 function createSearchDriver(){
-	//検索情報を削除
-	$('#colDriver').empty();
-	
-	/**if(!driverData){
-		$('#colDriver').append(`<div class="alert alert-warning" role="alert">
-  									お探しのドライバーが見つかりませんでした
-								</div>`);
-	}**/
+	if(num >= 1){
+		driverData.destroy();
+	}
 	
 	driverData.forEach((driver) => {
 		const driverImgPath = "/img/" + driver.dateOfBirth + driver.driverId + driver.permanentNumber + ".jpg";
@@ -105,6 +101,7 @@ function createSearchDriver(){
 				event.target.style.color = "";
 			}, 1);
 		}, false);
+		
 	});
 };
 

@@ -38,19 +38,19 @@ public class RestDriverController {
 	}
 	
 	@GetMapping("/{driverId}")
-	public Driver getDriver(@PathVariable int driverId) {
+	public Driver getDriver(@PathVariable String driverId) {
 		return driverService.getDriver(driverId).orElseThrow(
 				() -> new DriverNotFoundException(driverId));
 	}
 	
 	@PutMapping("/{driverId}")
 	public void updateDriver(@RequestBody DriverForm form,
-			@PathVariable int driverId) {
+			@PathVariable String driverId) {
 		driverService.updateDriver(driverId, form);
 	}
 	
 	@DeleteMapping("/{driverId}")
-	public void deleteDriver(@PathVariable int driverId) {
+	public void deleteDriver(@PathVariable String driverId) {
 		driverService.deleteDriver(driverId);
 	}
 	

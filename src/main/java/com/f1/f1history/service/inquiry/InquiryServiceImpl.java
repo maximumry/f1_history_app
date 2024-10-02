@@ -1,5 +1,7 @@
 package com.f1.f1history.service.inquiry;
 
+import java.util.List;
+
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -19,6 +21,21 @@ public class InquiryServiceImpl implements InquiryService {
 	public void insertInquiry(Inquiry inquiry) {
 		inquiry.setUserId(1);
 		inquiryInfoMapper.insertInquiry(inquiry);
+	}
+
+	@Override
+	public List<Inquiry> getAllInquiry() {
+		return inquiryInfoMapper.getAllInquiry();
+	}
+
+	@Override
+	public Inquiry getInquiry(int inquiryId) {
+		return inquiryInfoMapper.getInquiry(inquiryId);
+	}
+
+	@Override
+	public void deleteInquiryOne(int inquiryId) {
+		inquiryInfoMapper.deleteInquiryOne(inquiryId);
 	}
 
 }
