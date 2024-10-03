@@ -67,34 +67,23 @@
             </div>
 		  </div>
 		</div>
-		<!-- 名シーンセクション -->
-		  <div class="mt-5">
-		    <h3>名シーン</h3>
-		    <div class="row">
-		      <!-- 名シーンのカード1 -->
-		      <div class="col-md-6">
-		        <div class="card mb-3">
-		          <img src="scene1.jpg" class="card-img-top" alt="名シーン1">
-		          <div class="card-body">
-		            <h5 class="card-title">2019年 モナコGP 優勝</h5>
-		            <p class="card-text">ルイス・ハミルトンが絶妙なタイヤ管理でモナコGPを制した名シーン。</p>
-		            <a href="video_link" class="btn btn-primary">ビデオを見る</a>
-		          </div>
-		        </div>
-		      </div>
-		      <!-- 名シーンのカード2 -->
-		      <div class="col-md-6">
-		        <div class="card mb-3">
-		          <img src="scene2.jpg" class="card-img-top" alt="名シーン2">
-		          <div class="card-body">
-		            <h5 class="card-title">2008年 ブラジルGP タイトル獲得</h5>
-		            <p class="card-text">最終ラップで奇跡のオーバーテイクを決めて初のF1ワールドチャンピオンに輝いた瞬間。</p>
-		            <a href="video_link" class="btn btn-primary">ビデオを見る</a>
-		          </div>
-		        </div>
-		      </div>
-		    </div>
-		  </div>
+		<div class="container bg-light pt-5 pb-5">
+			<!-- 名シーンセクション -->
+			<div class="row">
+				<div class="col" id="colDriverEvent">
+					<div class="card mt-3 w-50" style="width: 20rem;">
+					  <img src="..." class="card-img-top" alt="..." id="eventImg">
+					  <div class="card-body">
+					    <h5 class="card-title" id="eventTitle"></h5>
+						<p class="card-text" id="eventDate"></p>
+						<p class="card-text" id="eventText"></p>
+						<p class="card-text" id="eventCondition"></p>
+					    <a href="#" class="btn btn-danger" id="youtubeUrl">YouTube</a>
+					  </div>
+					</div>
+				</div>
+			</div>
+		</div>
 	</div>
 </body>
 </html>

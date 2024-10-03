@@ -25,10 +25,13 @@
     <!-- Eventのマッピング -->
     <resultMap type="com.f1.f1history.entity.Event" id="eventMap">
         <id column="event_id" property="eventId"/>
-        <result column="driver_id" property="driverId"/>
-        <result column="description" property="description"/>
-        <result column="date" property="date"/>
-        <result column="category" property="category"/>
+	    <result column="driver_id" property="driverId"/>
+	    <result column="description" property="description"/>
+	    <result column="date" property="date"/>
+	    <result column="category" property="category"/>
+	    <result column="title" property="title"/>
+	    <result column="youtube_url" property="youtubeUrl"/>
+	    <result column="weather_condition" property="weatherCondition" />
     </resultMap>
 
     <!-- 全てのDriverを取得 -->
@@ -51,7 +54,25 @@
     </insert>
     
     <select id="getDriver" resultMap="driverMap">
-    	SELECT * FROM drivers WHERE driver_id = #{driverId}
+    	SELECT
+    		drivers.driver_id,
+    		drivers.team,
+    		drivers.world_championships,
+    		drivers.wins,
+    		drivers.wiki_url,
+    		drivers.user_id,
+    		events.event_id as events_event_id,
+    		events.description as events_description,
+    		events.date as events_date,
+    		events.category as events_category,
+    		events.weather_condition as events_weather_condition,
+    		events.title as events_title,
+    		events.youtube_url as events_youtube_url
+    	FROM drivers 
+    	LEFT JOIN
+    		events
+    	ON drivers.driver_id = events.driver_id
+    	WHERE drivers.driver_id = #{driverId}
     </select>
 
     <!-- 特定のDriverを取得
