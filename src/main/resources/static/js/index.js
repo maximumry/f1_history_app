@@ -14,7 +14,7 @@ function insertDriverInfo(data){
 	let driverHtml = "";
 	data.forEach((drivers) => {
 		let driverName = drivers.givenName + " " + drivers.familyName;
-		let image = "/img/" + drivers.dateOfBirth + drivers.driverId + drivers.permanentNumber + ".jpg";
+		let image = "/img/driver/" + drivers.dateOfBirth + drivers.driverId + drivers.permanentNumber + ".jpg";
         var driverBirthDay = drivers.dateOfBirth.replace(/-/g, '/');
 				  
 		driverHtml += `

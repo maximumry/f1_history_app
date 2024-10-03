@@ -12,10 +12,15 @@ import lombok.NoArgsConstructor;
 public class Event {
 	
 	private int eventId;
-	private int driverId;
+	private String driverId;
 	private String description;
 	private LocalDate date;
 	private String category;
+	private String weatherCondition;
+	private String user_id;
+	private String title;
+	private String youtubeUrl;
 	private Driver driver;
+	private User user;
 
 }

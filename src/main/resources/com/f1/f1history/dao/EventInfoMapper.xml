@@ -7,7 +7,20 @@
 	    <result column="description" property="description"/>
 	    <result column="date" property="date"/>
 	    <result column="category" property="category"/>
+	    <result column="weather_condition" property="weatherCondition" />
+	    <result column="title" property="title"/>
+	    <result column="youtube_url" property="youtubeUrl"/>
 	    <association property="driver" resultMap="driverMap"/>
+	    <association property="user" resultMap="userMap" />
+	</resultMap>
+	
+	<resultMap type="com.f1.f1history.entity.User" id="userMap">
+		<id column="user_id" property="userId"/>
+	    <result column="name" property="name"/>
+	    <result column="password" property="password"/>
+	    <result column="role" property="role"/>
+	    <result column="created_at" property="createdAt"/>
+	    <result column="email" property="email"/>
 	</resultMap>
 	
 	<resultMap type="com.f1.f1history.entity.Driver" id="driverMap">
@@ -37,20 +50,20 @@
 	</insert>
 	
 	<select id="getEvent" resultMap="eventMap">
-		SELECT
+		<!--  SELECT
 			events.event_id,
 			events.description,
 			events.date,
 			events.category,
 			events.driver_id,
-			drivers.driver_id,
-			drivers.name
+			drivers.driver_id
 		FROM
 			events
 		LEFT OUTER JOIN 
 			drivers ON drivers.driver_id = events.driver_id
 		WHERE
-			event_id = #{eventId}
+			driver_id = #{driverId}-->
+		SELECT * FROM  events WHERE driver_id = #{driverId}
 	</select>
 	
 	<update id="updateEvent">

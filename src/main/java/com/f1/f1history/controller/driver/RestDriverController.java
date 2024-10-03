@@ -39,8 +39,10 @@ public class RestDriverController {
 	
 	@GetMapping("/{driverId}")
 	public Driver getDriver(@PathVariable String driverId) {
-		return driverService.getDriver(driverId).orElseThrow(
+		Driver driver = driverService.getDriver(driverId).orElseThrow(
 				() -> new DriverNotFoundException(driverId));
+		System.out.println(driver);
+		return driver;
 	}
 	
 	@PutMapping("/{driverId}")

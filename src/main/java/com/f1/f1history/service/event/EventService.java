@@ -12,10 +12,10 @@ public interface EventService {
 	
 	void insertEvent(EventForm form);
 	
-	void updateEvent(String eventId, EventForm form);
+	void updateEvent(String driverId, EventForm form);
 	
-	Optional<Event> getEvent(String eventId);
+	Optional<Event> getEvent(String driverId);
 	
-	void deleteEvent(String eventId);
+	void deleteEvent(String driverId);
 
 }

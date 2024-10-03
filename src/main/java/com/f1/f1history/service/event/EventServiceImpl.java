@@ -28,18 +28,18 @@ public class EventServiceImpl implements EventService {
 	}
 	
 	@Override
-	public void updateEvent(String eventId, EventForm form) {
-		eventInfoMapper.updateEvent(eventId, form.getDriverId(), form.getDescription(), form.getDate(), form.getCategory());
+	public void updateEvent(String driverId, EventForm form) {
+		eventInfoMapper.updateEvent(driverId, form.getDriverId(), form.getDescription(), form.getDate(), form.getCategory());
 	}
 	
 	@Override
-	public Optional<Event> getEvent(String eventId){
-		return eventInfoMapper.getEvent(eventId);
+	public Optional<Event> getEvent(String driverId){
+		return eventInfoMapper.getEvent(driverId);
 	}
 	
 	@Override
-	public void deleteEvent(String eventId) {
-		eventInfoMapper.deleteEvent(eventId);
+	public void deleteEvent(String driverId) {
+		eventInfoMapper.deleteEvent(driverId);
 	}
 
 }

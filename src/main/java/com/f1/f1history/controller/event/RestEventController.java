@@ -20,8 +20,8 @@ import lombok.RequiredArgsConstructor;
 
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("/event")
-public class EventController {
+@RequestMapping("/event/api")
+public class RestEventController {
 	
 	private final EventService eventService;
 
@@ -35,20 +35,20 @@ public class EventController {
 		eventService.insertEvent(form);
 	}
 	
-	@GetMapping("/{eventId}")
-	public Event getEvent(@PathVariable String eventId) {
-		return eventService.getEvent(eventId).orElseThrow(
-				() -> new EventNotFoundException(eventId));
+	@GetMapping("/{driverId}")
+	public Event getEvent(@PathVariable String driverId) {
+		return eventService.getEvent(driverId).orElseThrow(
+				() -> new EventNotFoundException(driverId));
 	}
 	
-	@PutMapping("/{eventId}")
-	public void updateEvent(@PathVariable String eventId,
+	@PutMapping("/{driverId}")
+	public void updateEvent(@PathVariable String driverId,
 			@RequestBody EventForm form) {
-		eventService.updateEvent(eventId, form);
+		eventService.updateEvent(driverId, form);
 	}
 	
-	@DeleteMapping("/{eventId}")
-	public void deleteEvent(@PathVariable String eventId) {
-		eventService.deleteEvent(eventId);
+	@DeleteMapping("/{driverId}")
+	public void deleteEvent(@PathVariable String driverId) {
+		eventService.deleteEvent(driverId);
 	}
 }
