@@ -55,23 +55,24 @@
     
     <select id="getDriver" resultMap="driverMap">
     	SELECT
-    		drivers.driver_id,
-    		drivers.team,
-    		drivers.world_championships,
-    		drivers.wins,
-    		drivers.wiki_url,
-    		drivers.user_id,
-    		events.event_id as events_event_id,
-    		events.description as events_description,
-    		events.date as events_date,
-    		events.category as events_category,
-    		events.weather_condition as events_weather_condition,
-    		events.title as events_title,
-    		events.youtube_url as events_youtube_url
-    	FROM drivers 
+    		drivers.driver_id
+    		,drivers.team
+    		,drivers.world_championships
+    		,drivers.wins
+    		,drivers.wiki_url
+    		,drivers.user_id
+    		,events.event_id as events_event_id
+    		,events.description as events_description
+    		,events.date as events_date
+    		,events.category as events_category
+    		,events.weather_condition as events_weather_condition
+    		,events.title as events_title
+    		,events.youtube_url as events_youtube_url
+    	FROM drivers
     	LEFT JOIN
     		events
     	ON drivers.driver_id = events.driver_id
+    	<!-- and 1 != 1 -->
     	WHERE drivers.driver_id = #{driverId}
     </select>
 

@@ -6,6 +6,7 @@
 <script th:src="@{/js/detail.js}" defer></script>
 <script th:inline="javascript">
 	const driverId = /*[[${driverId}]]*/"driver";
+	type="text/javascript";
 </script>
 <script th:src="@{/webjars/jquery/jquery.min.js}" defer></script>
 <script th:src="@{/webjars/datatables/js/jquery.dataTables.min.js}" defer></script>
@@ -69,19 +70,8 @@
 		</div>
 		<div class="container bg-light pt-5 pb-5">
 			<!-- 名シーンセクション -->
-			<div class="row">
-				<div class="col" id="colDriverEvent">
-					<div class="card mt-3 w-50" style="width: 20rem;">
-					  <img src="..." class="card-img-top" alt="..." id="eventImg">
-					  <div class="card-body">
-					    <h5 class="card-title" id="eventTitle"></h5>
-						<p class="card-text" id="eventDate"></p>
-						<p class="card-text" id="eventText"></p>
-						<p class="card-text" id="eventCondition"></p>
-					    <a href="#" class="btn btn-danger" id="youtubeUrl">YouTube</a>
-					  </div>
-					</div>
-				</div>
+			<div class="row" id="colDriverEvent">
+				<!-- detail.jsで要素を生成してる -->
 			</div>
 		</div>
 	</div>

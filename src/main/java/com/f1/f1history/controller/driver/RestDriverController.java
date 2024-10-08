@@ -41,7 +41,6 @@ public class RestDriverController {
 	public Driver getDriver(@PathVariable String driverId) {
 		Driver driver = driverService.getDriver(driverId).orElseThrow(
 				() -> new DriverNotFoundException(driverId));
-		System.out.println(driver);
 		return driver;
 	}
 	
