@@ -15,7 +15,7 @@ public class DriverController {
 	
 	@GetMapping
 	public String getDrivers(@ModelAttribute DriverForm form) {
-		return "/driver/index";
+		return "/driver/home";
 	}
 	
 	@GetMapping("/{driverId}")

@@ -17,12 +17,6 @@ let colDriver = document.getElementById("colDriver");
 				const data2 = await response2.json();
 				insertInfoDriverOther(data2);
 				
-				/**const response3 = await fetch(eventUrl);
-				if(!response3.ok) throw new Error('イベントの読み取りに失敗しました');
-				const data3 = await response3.json();
-				console.log(data3)
-				//insertInfoEvent(data3);**/
-				
 			}catch(error){
 				alert("読み込みエラーが発生しました");
 			}
@@ -53,32 +47,45 @@ function insertInfoDriverOther(data){
 	const teamName = document.getElementById("teamName");
 	const driverLink = document.getElementById("driverLink");
 	
-	//ドライバープロフィールをDOMに挿入
 	worldChampionsNum.textContent = `${data.worldChampionships}回`;
 	winsNum.textContent = `${data.wins}勝`;
 	teamName.textContent = data.team;
 	driverLink.setAttribute("href", data.wikiUrl)
 	
-	let eventListAry =  [];
-	data.eventList.forEach((event) => {
-		//各ドライバーのイベントDOM取得
-		const eventImgPath = ``;
-		const colDriverEvent = document.getElementById("colDriverEvent");
-		const eventImg = document.getElementById("eventImg");
-		const eventTitle = document.getElementById("eventTitle");
-		const eventCondition = document.getElementById("eventCondition");
-		const youtubeUrl = document.getElementById("youtubeUrl");
+	//詳細ページのドライバーイベントを表示するための処理
+	const colDriverEvent = document.getElementById("colDriverEvent");
+	let driverEventHtml = "";
+	if(data.eventList.length == 0){
+		//もしイベントが0だった時の処理を書く
+		driverEventHtml = `<p>ドライバーイベントがありませんでした。<a href="/inquiry/form">こちら</a>からあなたの好きなドライバーの名シーンを追加しませんか？</p>`;
+		colDriverEvent.insertAdjacentHTML("afterbegin", driverEventHtml);
+	}else{
+		data.eventList.forEach((event, i) => {
+		let eventImgPath = ``;
+		let eventTitle = event.title;
+		let eventDate = event.date.replace(/-/g, '/');
+		let eventText = event.description;
+		let eventCondition = event.weatherCondition;
+		let youtubeUrl = event.youtubeUrl;
 		
-		for(let i = 0;data.eventList.length;i++){
-			eventListAry[i] = data.eventList[i];
-			eventTitle.textContent = eventListAry[i].title;
-			eventDate.textContent = eventListAry[i].date.replace(/-/g, '/');
-			eventCondition.textContent = `天候：${eventListAry[i].weatherCondition}`;
-			eventText.textContent = eventListAry[i].description;
-			youtubeUrl.setAttribute("href", eventListAry[i].youtubeUrl)
-		}
-	});
-	
+		driverEventHtml += `
+			<div class="col">
+				<div class="card mt-3 w-100 h-100" style="width: 20rem;">
+				  <img src="${eventImgPath}" class="card-img-top" alt="..." id="eventImg">
+				  <div class="card-body">
+				    <h5 class="card-title" id="eventTitle">${eventTitle}</h5>
+					<p class="card-text" id="eventDate">${eventDate}</p>
+					<p class="card-text" id="eventText">${eventText}</p>
+					<p class="card-text" id="eventCondition">${eventCondition}</p>
+				    <a href="${youtubeUrl}" class="card-link" id="youtubeUrl">YouTube</a>
+				  </div>
+				</div>
+			</div>
+			`
+		});
+		colDriverEvent.insertAdjacentHTML("afterbegin", driverEventHtml);
+	}
+		
 	driverLink.addEventListener("mouseover", function(event){
 		setTimeout(() => {
 			event.target.style.color = "red";
