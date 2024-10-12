@@ -19,7 +19,7 @@ public class InquiryServiceImpl implements InquiryService {
 
 	@Override
 	public void insertInquiry(Inquiry inquiry) {
-		inquiry.setUserId(1);
+		inquiry.setUserId("1");
 		inquiryInfoMapper.insertInquiry(inquiry);
 	}
 

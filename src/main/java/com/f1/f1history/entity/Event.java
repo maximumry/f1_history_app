@@ -11,13 +11,13 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class Event {
 	
-	private int eventId;
+	private String eventId;
 	private String driverId;
 	private String description;
 	private LocalDate date;
 	private String category;
 	private String weatherCondition;
-	private String user_id;
+	private String userId;
 	private String title;
 	private String youtubeUrl;
 	private Driver driver;

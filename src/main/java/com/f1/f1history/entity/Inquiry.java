@@ -18,7 +18,7 @@ public class Inquiry {
 	private String content;
 	private LocalDateTime createdAt;
 	private LocalDateTime deletedAt;
-	private int userId;
+	private String userId;
 	private User user;
 
 }

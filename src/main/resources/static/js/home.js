@@ -24,13 +24,12 @@ jQuery(function($){
 		
 		//home.htmlのセレクトボックスに変化があった場合に実行される関数
 		sortDriver.addEventListener("change", (e) => {
-			console.log(e.isTrusted)
 			let descendSort = "";
 			const selectVal = e.target.value;
 			if(selectVal == "familyName"){
 				//sortの引数にはdataの値を二つ比べる為にある
-				descendSort = data.sort((number, number2) => {
-					return (number.familyName < number2.familyName) ? -1 : 1;
+				descendSort = data.sort((driver1, driver2) => {
+					return (driver1.familyName < driver2.familyName) ? -1 : 1;
 				});
 			}else if(selectVal == "carNum"){
 				descendSort = data.sort((a, b) => {
@@ -48,7 +47,7 @@ jQuery(function($){
 		//ユーザーが(/driver) エンドポイントにアクセスした時、sortされた後に値を表示させる関数
 		function aftSelectDriver(data){
 			
-			//もしすでに表示させているdriverがいたら空にする
+			//すでに表示させているdriverがいたら空にするにして、sort後や検索後のdriverのみを表示させる
 			if(rowDriver){
 				rowDriver.innerHTML = '';
 			}
