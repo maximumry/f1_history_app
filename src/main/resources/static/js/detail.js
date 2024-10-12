@@ -1,6 +1,5 @@
 const driverUrl = `http://ergast.com/api/f1/drivers/${driverId}.json`;
 const otherUrl = `http://localhost:8080/driver/api/${driverId}`;
-const eventUrl = `http://localhost:8080/event/api/${driverId}`;
 let colDriver = document.getElementById("colDriver");
 	window.addEventListener('DOMContentLoaded', function(){
 		allFetch();
@@ -78,6 +77,7 @@ function insertInfoDriverOther(data){
 					<p class="card-text" id="eventText">${eventText}</p>
 					<p class="card-text" id="eventCondition">${eventCondition}</p>
 				    <a href="${youtubeUrl}" class="card-link" id="youtubeUrl">YouTube</a>
+				    <a href="/event/${event.eventId}" class="card-link">イベント編集</a>
 				  </div>
 				</div>
 			</div>

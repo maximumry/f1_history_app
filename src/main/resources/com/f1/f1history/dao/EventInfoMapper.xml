@@ -10,6 +10,7 @@
 	    <result column="weather_condition" property="weatherCondition" />
 	    <result column="title" property="title"/>
 	    <result column="youtube_url" property="youtubeUrl"/>
+	    <result column="user_id" property="userId"/>
 	    <association property="driver" resultMap="driverMap"/>
 	    <association property="user" resultMap="userMap" />
 	</resultMap>
@@ -38,44 +39,47 @@
 	
 	<insert id="insertEvent">
 		INSERT INTO events(
-			driver_id,
-			description,
-			date,
-			category)
+			driver_id
+			,description
+			,date
+			,category
+			,user_id
+			,weather_condition
+			,title
+			,youtube_url)
 		VALUES(
-			#{driverId},
-			#{description},
-			#{date},
-			#{category})
+			#{driverId}
+			,#{description}
+			,#{date}
+			,#{category}
+			,#{userId}
+			,#{weatherCondition}
+			,#{title}
+			,#{youtubeUrl})
 	</insert>
 	
 	<select id="getEvent" resultMap="eventMap">
-		<!--  SELECT
-			events.event_id,
-			events.description,
-			events.date,
-			events.category,
-			events.driver_id,
-			drivers.driver_id
-		FROM
+		SELECT
+			*
+		FROM 
 			events
-		LEFT OUTER JOIN 
-			drivers ON drivers.driver_id = events.driver_id
-		WHERE
-			driver_id = #{driverId}-->
-		SELECT * FROM  events WHERE driver_id = #{driverId}
+		WHERE 
+			event_id = #{eventId}
 	</select>
 	
 	<update id="updateEvent">
 		UPDATE
 			events
 		SET
-			driver_id = #{driverId},
-			description = #{description},
-			date = #{date},
-			category = #{category}
+			driver_id = #{event.driverId}
+			,description = #{event.description}
+			,date = #{event.date}
+			,category = #{event.category}
+			,weather_condition = #{event.weatherCondition}
+			,title = #{event.title}
+			,youtube_url = #{event.youtubeUrl})
 		WHERE
-			event_id = #{eventId}
+			event_id = #{event.eventId}
 	</update>
 	
 	<delete id="deleteEvent">

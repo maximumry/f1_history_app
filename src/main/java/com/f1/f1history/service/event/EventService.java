@@ -4,17 +4,16 @@ import java.util.List;
 import java.util.Optional;
 
 import com.f1.f1history.entity.Event;
-import com.f1.f1history.form.EventForm;
 
 public interface EventService {
 	
 	List<Event> getEventAll();
 	
-	void insertEvent(EventForm form);
+	void insertEvent(Event event);
 	
-	void updateEvent(String driverId, EventForm form);
+	void updateEvent(Event event);
 	
-	Optional<Event> getEvent(String driverId);
+	Optional<Event> getEvent(String eventId);
 	
 	void deleteEvent(String driverId);
 

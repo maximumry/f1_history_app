@@ -7,7 +7,6 @@ import org.springframework.stereotype.Service;
 
 import com.f1.f1history.dao.EventInfoMapper;
 import com.f1.f1history.entity.Event;
-import com.f1.f1history.form.EventForm;
 
 import lombok.RequiredArgsConstructor;
 
@@ -23,18 +22,18 @@ public class EventServiceImpl implements EventService {
 	}
 	
 	@Override
-	public void insertEvent(EventForm form) {
-		eventInfoMapper.insertEvent(form);
+	public void insertEvent(Event event) {
+		eventInfoMapper.insertEvent(event);
 	}
 	
 	@Override
-	public void updateEvent(String driverId, EventForm form) {
-		eventInfoMapper.updateEvent(driverId, form.getDriverId(), form.getDescription(), form.getDate(), form.getCategory());
+	public void updateEvent(Event event) {
+		eventInfoMapper.updateEvent(event);
 	}
 	
 	@Override
-	public Optional<Event> getEvent(String driverId){
-		return eventInfoMapper.getEvent(driverId);
+	public Optional<Event> getEvent(String eventId){
+		return eventInfoMapper.getEvent(eventId);
 	}
 	
 	@Override

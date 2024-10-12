@@ -18,6 +18,6 @@ public class Driver {
 	private String wikiUrl;
 	private List<Event> eventList;
 	private User user;
-	private int userId;
+	private String userId;
 
 }
