@@ -15,7 +15,6 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -70,22 +69,44 @@ public class RestEventController {
 	}
 	
 	@PutMapping("/{eventId}")
-	public void updateEvent(@PathVariable String eventId,
-			@Validated @RequestBody EventForm form,
+	public EventRestResult updateEvent(@PathVariable String eventId,
+			@Validated EventForm form,
 			BindingResult result,
 			Locale locale) {
 		if(result.hasErrors()) {
 			Map<String, String> errors = new HashMap<String, String>();
 			
-			
+			for(FieldError error : result.getFieldErrors()) {
+				String message = messageSource.getMessage(error, locale);
+				errors.put(error.getField(), message);
+			}
+			return new EventRestResult(90, errors);
 		}
+		modelMapper.getConfiguration().setAmbiguityIgnored(true);
 		Event event = modelMapper.map(form, Event.class);
 		event.setEventId(eventId);
 		eventService.updateEvent(event);
+		return new EventRestResult(0, null);
 	}
 	
-	@DeleteMapping("/{driverId}")
-	public void deleteEvent(@PathVariable String driverId) {
-		eventService.deleteEvent(driverId);
+	@DeleteMapping("/{eventId}")
+	public EventRestResult deleteEvent(@PathVariable String eventId,
+			@Validated EventForm form,
+			BindingResult result,
+			Locale locale) {
+		if(result.hasErrors()) {
+			Map<String, String> errors = new HashMap<String, String>();
+			
+			for(FieldError error : result.getFieldErrors()) {
+				String message = messageSource.getMessage(error, locale);
+				errors.put(error.getField(), message);
+			}
+			return new EventRestResult(90, errors);
+		}
+		modelMapper.getConfiguration().setAmbiguityIgnored(true);
+		Event event = modelMapper.map(form, Event.class);
+		event.setEventId(eventId);
+		eventService.deleteEvent(event);
+		return new EventRestResult(0, null);
 	}
 }

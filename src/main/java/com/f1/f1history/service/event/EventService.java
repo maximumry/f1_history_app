@@ -15,6 +15,6 @@ public interface EventService {
 	
 	Optional<Event> getEvent(String eventId);
 	
-	void deleteEvent(String driverId);
+	void deleteEvent(Event event);
 
 }

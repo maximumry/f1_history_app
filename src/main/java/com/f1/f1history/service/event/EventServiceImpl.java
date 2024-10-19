@@ -37,8 +37,8 @@ public class EventServiceImpl implements EventService {
 	}
 	
 	@Override
-	public void deleteEvent(String driverId) {
-		eventInfoMapper.deleteEvent(driverId);
+	public void deleteEvent(Event event) {
+		eventInfoMapper.deleteEvent(event);
 	}
 
 }

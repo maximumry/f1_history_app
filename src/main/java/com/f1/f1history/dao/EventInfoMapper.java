@@ -19,6 +19,6 @@ public interface EventInfoMapper {
 	
 	Optional<Event> getEvent(String eventId);
 	
-	void deleteEvent(String eventId);
+	void deleteEvent(@Param("event") Event event);
 
 }

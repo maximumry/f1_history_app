@@ -23,4 +23,9 @@ public class DriverController {
 		model.addAttribute("driverId", driverId);
 		return "/driver/detail";
 	}
+	
+	@GetMapping("/form")
+	public String driverForm(@ModelAttribute DriverForm form) {
+		return "/driver/form";
+	}
 }
