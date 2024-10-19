@@ -1,7 +1,5 @@
 package com.f1.f1history.form;
 
-import java.time.LocalDate;
-
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 
@@ -15,17 +13,21 @@ import lombok.NoArgsConstructor;
 public class DriverForm {
 	
 	@NotNull
-	private String name;
+	private String userId;
 	
 	@NotBlank
-	private String country;
+	private String driverId;
 	
 	@NotNull
-	private LocalDate dateOfBirth;
+	private String team;
 	
 	@NotBlank
-	private String placeOfBirth;
+	private String worldChampionships;
 	
-//	private List<Event> eventId;
+	@NotBlank
+	private String wins;
+	
+	@NotBlank
+	private String wikiUrl;
 
 }

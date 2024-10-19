@@ -72,12 +72,13 @@
 			events
 		SET
 			driver_id = #{event.driverId}
+			,user_id = #{event.userId}
 			,description = #{event.description}
 			,date = #{event.date}
 			,category = #{event.category}
 			,weather_condition = #{event.weatherCondition}
 			,title = #{event.title}
-			,youtube_url = #{event.youtubeUrl})
+			,youtube_url = #{event.youtubeUrl}
 		WHERE
 			event_id = #{event.eventId}
 	</update>
@@ -86,6 +87,6 @@
 		DELETE FROM
 			events
 		WHERE
-			event_id = #{eventId}
+			event_id = #{event.eventId}
 	</delete>
 </mapper>

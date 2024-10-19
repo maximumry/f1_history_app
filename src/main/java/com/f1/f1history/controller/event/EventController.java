@@ -20,7 +20,9 @@ public class EventController {
 	}
 	
 	@GetMapping("/{eventId}")
-	public String getMethodName(@PathVariable("eventId") String eventId, Model model) {
+	public String getMethodName(@PathVariable("eventId") String eventId,
+			@ModelAttribute EventForm form,
+			Model model) {
 		model.addAttribute("eventId", eventId);
 		return "/event/detail";
 	}

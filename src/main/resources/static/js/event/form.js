@@ -17,7 +17,7 @@ jQuery(function($){
 		for(var i in data){
 			$('#driverSelectbox').append("<option value=" + data[i].driverId + ">" + data[i].driverId + "</option>");
 		}
-	}).fail(function(jqXHR, textStatus, errorThrow){
+	}).fail(function(jqXHR, textStatus, errorThrown){
 		alert("ドライバー情報の取得に失敗しました。ページをリロードしてもう一度お試しください")
 	})
 });
@@ -29,7 +29,8 @@ function insertEvent(){
 	removeValidResult();
 	
 	//フォームの値を取得
-	var formData = $('#event-insert-form').serializeArray();
+	var formData = $('#event-insert-form').serializeArray()
+	console.log(formData)
 	//ajax通信
 	$.ajax({
 		type: "POST",
@@ -40,6 +41,7 @@ function insertEvent(){
 	}).done(function(data){
 		//ajax通信成功時の処理
 		if(data.result === 90){
+			console.log(data.result)
 			//validationエラー時の処理
 			$.each(data.errors, function(key, value){
 				reflectValidResult(key, value)
