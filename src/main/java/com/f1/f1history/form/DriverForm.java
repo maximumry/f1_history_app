@@ -11,22 +11,22 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 public class DriverForm {
-	
+
 	@NotNull
 	private String userId;
-	
+
 	@NotBlank
 	private String driverId;
-	
-	@NotNull
+
+	@NotBlank
 	private String team;
-	
+
 	@NotBlank
 	private String worldChampionships;
-	
+
 	@NotBlank
 	private String wins;
-	
+
 	@NotBlank
 	private String wikiUrl;
 

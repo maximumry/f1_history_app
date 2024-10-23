@@ -12,20 +12,28 @@ import com.f1.f1history.form.DriverForm;
 @Controller
 @RequestMapping("/driver")
 public class DriverController {
-	
+
 	@GetMapping
 	public String getDrivers(@ModelAttribute DriverForm form) {
 		return "/driver/home";
 	}
-	
+
 	@GetMapping("/{driverId}")
 	public String getDriver(@PathVariable("driverId") String driverId, Model model) {
 		model.addAttribute("driverId", driverId);
 		return "/driver/detail";
 	}
-	
+
 	@GetMapping("/form")
 	public String driverForm(@ModelAttribute DriverForm form) {
-		return "/driver/form";
+		return "/driver/driver-form";
+	}
+
+	@GetMapping("/{driverId}/edit")
+	public String editDriver(@PathVariable("driverId") String driverId,
+			@ModelAttribute DriverForm form,
+			Model model) {
+		model.addAttribute("driverId", driverId);
+		return "/driver/driver-edit";
 	}
 }

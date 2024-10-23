@@ -8,11 +8,9 @@ jQuery(function($){
 		url: `/event/api/${eventId}`,
 		dataType: "json",
 	}).done(function(data){
-		console.log(data)
 		showEventDetails(data);
 	}).fail(function(jqXHR, textStatus, errorThrown){
-		alert("イベント取得に失敗しました")
-		console.log(jqXHR + "イベント取得失敗");
+		alert("イベントの取得に失敗しました")
 	})
 	
 	//イベント詳細画面のセレクトボックスにドライバー情報を表示のための非同期処理
@@ -101,7 +99,6 @@ function reflectValidResult(key, value){
 }
 
 //Restでバリデーションを実装する
-//
 function removeValidResult(){
 	$('.is-invalid').removeClass('is-invalid');
 	$('.invalid-feedback').remove();

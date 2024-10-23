@@ -30,26 +30,25 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 @RequestMapping("/event/api")
 public class RestEventController {
-	
+
 	private final EventService eventService;
 	private final ModelMapper modelMapper;
 	private final MessageSource messageSource;
-	
 
 	@GetMapping
-	public List<Event> getAllEvent(){
+	public List<Event> getAllEvent() {
 		return eventService.getEventAll();
 	}
-	
+
 	@PostMapping
 	public EventRestResult insertEvent(@Validated EventForm form,
 			BindingResult result,
 			Locale locale) {
-		if(result.hasErrors()) {
+		if (result.hasErrors()) {
 			Map<String, String> errors = new HashMap<>();
-			
+
 			//エラーメッセージを取得
-			for(FieldError error : result.getFieldErrors()) {
+			for (FieldError error : result.getFieldErrors()) {
 				String message = messageSource.getMessage(error, locale);
 				errors.put(error.getField(), message);
 			}
@@ -61,22 +60,22 @@ public class RestEventController {
 		eventService.insertEvent(event);
 		return new EventRestResult(0, null);
 	}
-	
+
 	@GetMapping("/{eventId}")
 	public Event getEvent(@PathVariable String eventId) {
 		return eventService.getEvent(eventId).orElseThrow(
 				() -> new EventNotFoundException(eventId));
 	}
-	
+
 	@PutMapping("/{eventId}")
 	public EventRestResult updateEvent(@PathVariable String eventId,
 			@Validated EventForm form,
 			BindingResult result,
 			Locale locale) {
-		if(result.hasErrors()) {
+		if (result.hasErrors()) {
 			Map<String, String> errors = new HashMap<String, String>();
-			
-			for(FieldError error : result.getFieldErrors()) {
+
+			for (FieldError error : result.getFieldErrors()) {
 				String message = messageSource.getMessage(error, locale);
 				errors.put(error.getField(), message);
 			}
@@ -88,16 +87,16 @@ public class RestEventController {
 		eventService.updateEvent(event);
 		return new EventRestResult(0, null);
 	}
-	
+
 	@DeleteMapping("/{eventId}")
 	public EventRestResult deleteEvent(@PathVariable String eventId,
 			@Validated EventForm form,
 			BindingResult result,
 			Locale locale) {
-		if(result.hasErrors()) {
+		if (result.hasErrors()) {
 			Map<String, String> errors = new HashMap<String, String>();
-			
-			for(FieldError error : result.getFieldErrors()) {
+
+			for (FieldError error : result.getFieldErrors()) {
 				String message = messageSource.getMessage(error, locale);
 				errors.put(error.getField(), message);
 			}

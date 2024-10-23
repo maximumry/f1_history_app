@@ -4,6 +4,7 @@ let colDriver = document.getElementById("colDriver");
 	window.addEventListener('DOMContentLoaded', function(){
 		allFetch();
 	});
+	
 	async function allFetch(){
 			try{
 				const response1 = await fetch(driverUrl);
@@ -40,6 +41,7 @@ function insertInfoDriver(data){
 };
 
 function insertInfoDriverOther(data){
+	
 	//ドライバープロフィールのDOM取得
 	const worldChampionsNum = document.getElementById("worldChampionsNum");
 	const winsNum = document.getElementById("winsNum");
@@ -97,4 +99,32 @@ function insertInfoDriverOther(data){
 			event.target.style.color = "";
 		}, 1);
 	}, false);
+	
+	//ドライバー編集ボタンが押された時の処理
+	const editDriverBtn = document.getElementById('edit-driver-btn');
+	editDriverBtn.addEventListener('click', function(){
+		window.location.href = `/driver/${data.driverId}/edit`;
+	})
+
+	//ドライバー削除ボタンが押された時の処理
+	const deleteDriverBtn = document.getElementById("delete-driver-btn");
+	deleteDriverBtn.addEventListener('click', async () => {
+		
+		const deleteConfirm = confirm("ドライバーを削除してもよろいいですか？");
+		
+		if(deleteConfirm){
+			try{
+					const response = await fetch(
+					`http://localhost:8080/driver/api/${driverId}`,
+					{
+						method: 'DELETE'
+					})
+			}catch(error){
+				alert("削除に失敗しました");
+				window.location.href = "/driver";
+			}
+		}else{
+			console.log("delete cancel")
+		}
+	})
 }
