@@ -24,7 +24,7 @@
 					<input type="hidden" name="userId" value="1">
 				  <div class="mb-3 mt-3">
 					<label for="driverId" class="form-label">ドライバーの選択</label>
-					<select clss="mb-2" th:classappend="${#fields.hasErrors('driverId')} ? is-invalid" id="driverSelectbox" name="driverId">
+					<select clss="mb-2" th:classappend="${#fields.hasErrors('driverId')} ? is-invalid" id="driverSelectbox" th:field="*{driverId}">
 						<option value="" selected>選択してください</option>
 						<!-- form.jsでドライバー選択ができるように非同期処理実装してる -->
 					</select>

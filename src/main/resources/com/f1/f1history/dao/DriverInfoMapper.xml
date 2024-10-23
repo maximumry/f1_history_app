@@ -42,15 +42,19 @@
     <!-- Driverを挿入 -->
     <insert id="insertDriver">
         INSERT INTO drivers(
-            name,
-            country,
-            date_of_birth,
-            place_of_birth)
+            driver_id
+            ,user_id
+            ,wins
+            ,wiki_url
+            ,team
+            ,world_championships)
         VALUES(
-            #{name},
-            #{country},
-            #{dateOfBirth},
-            #{placeOfBirth})
+            #{driverId}
+            ,#{userId}
+            ,#{wins}
+            ,#{wikiUrl}
+            ,#{team}
+            ,#{worldChampionships})
     </insert>
     
     <select id="getDriver" resultMap="driverMap">
@@ -100,12 +104,14 @@
     <update id="updateDriver">
         UPDATE drivers
         SET
-            name = #{name},
-            country = #{country},
-            date_of_birth = #{dateOfBirth},
-            place_of_birth = #{placeOfBirth}
+            driver_id = #{driver.driverId}
+            ,user_id = #{driver.userId}
+            ,wins = #{driver.wins}
+            ,wiki_url = #{driver.wikiUrl}
+            ,world_championships = #{driver.worldChampionships}
+            ,team = #{driver.team}
         WHERE
-            driver_id = #{driverId}
+            driver_id = #{driver.driverId}
     </update>
 
     <!-- Driverを削除 -->

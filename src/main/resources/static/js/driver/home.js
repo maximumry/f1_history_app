@@ -1,16 +1,15 @@
 'use strict';
 jQuery(function($){
 	const url = "http://ergast.com/api/f1/2024/drivers.json"
+	const url2 = "http://localhost:8080/driver/api/test"
 	const sortDriver = document.getElementById("sortDriver");
 	const rowDriver = document.getElementById("rowDriver");
 	
-	console.log("通ったよ");
 	fetch(url)
 		.then(response => {
 			return response.json();
 		})
 		.then((data) => {
-			console.log("通った2")
 			insertDriverInfo(data.MRData.DriverTable.Drivers);
 		})
 		.catch((error) => {
