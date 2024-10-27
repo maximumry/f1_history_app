@@ -11,12 +11,12 @@ public interface DriverService {
 
 	void insertDriver(Driver driver);
 
-	Optional<Driver> getDriver(String driverId);
+	List<Driver> getDriver(String driverId);
 
 	void updateDriver(Driver driver);
 
 	void deleteDriver(String driverId);
 
-	List<Driver> getDrivers(Driver driver);
+	Optional<Driver> recommendDrivers(String driverId);
 
 }

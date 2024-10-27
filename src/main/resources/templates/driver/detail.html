@@ -4,8 +4,8 @@
 <meta charset="UTF-8">
 <title>F1HistoryApp</title>
 <!-- jQuery読み込み -->
-<script th:src="@{/webjars/jquery/jquery.min.js}" defer></script>
 <script th:src="@{/js/driver/detail.js}" defer></script>
+<script th:src="@{/webjars/jquery/jquery.min.js}" defer></script>
 <script th:inline="javascript">
 	const driverId = /*[[${driverId}]]*/"driver";
 </script>
@@ -73,6 +73,13 @@
 		<div class="container bg-light pt-5 pb-5">
 			<!-- 名シーンセクション -->
 			<div class="row" id="colDriverEvent">
+				<!-- detail.jsで要素を生成してる -->
+			</div>
+		</div>
+		<div class="container bg-white pt-5 pb-5">
+			<!-- 詳細に表示されたドライバーの関連ドライバーを表示 -->
+			<h3 id="recRelaDriver"></h3>
+			<div class="row" id="colRecDriver">
 				<!-- detail.jsで要素を生成してる -->
 			</div>
 		</div>
