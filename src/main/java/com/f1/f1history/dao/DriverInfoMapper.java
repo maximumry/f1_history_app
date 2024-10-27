@@ -21,6 +21,6 @@ public interface DriverInfoMapper {
 
 	void deleteDriver(@Param("driverId") String driverId);
 
-	List<Driver> searchDriver(Driver driver);
+	Optional<Driver> searchDriver(Driver driver);
 
 }

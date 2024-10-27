@@ -1,7 +1,6 @@
 'use strict';
 jQuery(function($){
 	const url = "http://ergast.com/api/f1/2024/drivers.json"
-	const url2 = "http://localhost:8080/driver/api/test"
 	const sortDriver = document.getElementById("sortDriver");
 	const rowDriver = document.getElementById("rowDriver");
 	
@@ -43,7 +42,7 @@ jQuery(function($){
 			aftSelectDriver(descendSort);
 		})
 		
-		//ユーザーが(/driver) エンドポイントにアクセスした時、sortされた後に値を表示させる関数
+		//ユーザーが(/driver) エンドポイントにアクセスした時とsortされた後に値を表示させる関数
 		function aftSelectDriver(data){
 			
 			//すでに表示させているdriverがいたら空にするにして、sort後や検索後のdriverのみを表示させる

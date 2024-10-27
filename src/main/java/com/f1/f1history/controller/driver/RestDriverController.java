@@ -19,7 +19,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.f1.f1history.entity.Driver;
-import com.f1.f1history.exception.DriverNotFoundException;
 import com.f1.f1history.exception.EventRestResult;
 import com.f1.f1history.form.DriverForm;
 import com.f1.f1history.service.driver.DriverService;
@@ -61,9 +60,8 @@ public class RestDriverController {
 	}
 
 	@GetMapping("/{driverId}")
-	public Driver getDriver(@PathVariable String driverId) {
-		Driver driver = driverService.getDriver(driverId).orElseThrow(
-				() -> new DriverNotFoundException(driverId));
+	public List<Driver> getDriver(@PathVariable String driverId) {
+		List<Driver> driver = driverService.getDriver(driverId);
 		return driver;
 	}
 
@@ -91,13 +89,6 @@ public class RestDriverController {
 	@DeleteMapping("/{driverId}")
 	public void deleteDriver(@PathVariable String driverId) {
 		driverService.deleteDriver(driverId);
-	}
-
-	@GetMapping("/get/list")
-	public List<Driver> getDriverList(DriverForm form) {
-		Driver driver = modelMapper.map(form, Driver.class);
-		List<Driver> driverList = driverService.getDrivers(driver);
-		return driverList;
 	}
 
 }
