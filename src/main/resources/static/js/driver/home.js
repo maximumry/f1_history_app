@@ -1,5 +1,97 @@
 'use strict';
+
 jQuery(function($){
+	//セレクトボックスで1950年から生成
+	let dateY = new Date().getFullYear();
+	let past = dateY - 1949
+	let html = ''
+	
+	for(let i = 0;i < past;i++){
+		html += '<option value="' + (dateY - i) + '">' + (dateY - i) + '</option>'
+	}
+	$('#year').html(html)
+	
+	//画面が読み込まれたら今年の年数を引数として関数を実行してAPIから値を取得、表示
+	insertRaceData(dateY)
+	function insertRaceData(year){
+		const allRaceUrl = `https://ergast.com/api/f1/${year}.json`
+		const winRaceUrl = `https://ergast.com/api/f1/${year}/results/1.json`
+		
+		async function allFetch(){
+			const urls = [allRaceUrl, winRaceUrl]
+			
+			let response = await Promise.all(urls.map(url => fetch(url)))
+			let data = await Promise.all(response.map(res => res.json()))
+			let raceData;
+			let raceWinData;
+			//二つのAPIを呼び出したので配列を用意して代入する
+			for(let i = 0;i < data.length;i++){
+				$.each(data[i], function(index, value){
+					if(i === 0){
+						raceData = value.RaceTable
+					}else{
+						raceWinData = value.RaceTable.Races
+					}
+				})
+			}
+			insertRace(raceData, raceWinData);
+		}
+		
+		allFetch()
+	}
+	
+	//セレクトボックスに変化があった時の処理
+	$('#year').change(function(){
+		insertRaceData($(this).val())
+	})
+	
+	//insertRaceData関数で取得したレースデータをDOMに挿入して
+	function insertRace(raceData, raceWinData){
+		//前回の値を削除する処理
+		$('#raceDataTbody').empty()
+		//選択されたシーズンを表示する
+		let season = raceData.season
+		$('#season').text("シーズン：" + season)
+		
+		//選択されたシーズンのレースを表示
+		$.each(raceData.Races, function(index, value){
+			//優勝者を抽出
+			let raceWinner = raceWinData[index].Results[0].Driver.givenName + " " + raceWinData[index].Results[0].Driver.familyName
+					
+			var raceDataHtml = `
+				<tr>
+			      <th scope="row" id="round">${value.round}</th>
+			      <td id="raceName">${value.raceName}</td>
+			      <td id="date">${value.date.replace(/-/g, "/")}</td>
+			      <td id="circuitName">${value.Circuit.circuitName}</td>
+			      <td id="wins" style="background-color: #e6b422">${raceWinner}</td>
+			      <td id="url"><a href="${value.url}" style="text-decoration: none; color: #000000" class="wikiLinkBtn">${value.raceName}のWikipedia情報</a></td>
+			      <td id="detail"><a href="/event/${value.season}_${value.round}" class="btn btn-primary">レース詳細</a></td>
+		    	</tr>
+			`
+			$('#raceDataTbody').append(raceDataHtml)
+		})
+		
+	}
+		
+	$(document).on('mouseover', '.wikiLinkBtn', function(){
+	    $(this).css({
+	        color: "#E00400"
+	  	 })
+	})
+	
+	$(document).on('mouseout', '.wikiLinkBtn', function(){
+		$(this).css({
+			color: "#000000"
+		})
+	})
+	
+})
+
+//前レースを取得する
+/**jQuery(function($){
+	
+	//ErgastAPIから全てのレースを取得 + Driver情報も全て取得して
 	const url = "http://ergast.com/api/f1/2024/drivers.json"
 	const sortDriver = document.getElementById("sortDriver");
 	const rowDriver = document.getElementById("rowDriver");
@@ -52,7 +144,7 @@ jQuery(function($){
 			let driverHtml = "";
 			data.forEach((drivers) => {
 				let driverName = drivers.givenName + " " + drivers.familyName;
-				let image = "/img/driver/" + drivers.dateOfBirth + drivers.driverId + drivers.permanentNumber + ".jpg";
+				let image = "/img/driver/" + drivers.driverId + ".jpg";
 		        var driverBirthDay = drivers.dateOfBirth.replace(/-/g, '/');
 						  
 				driverHtml += `
@@ -72,7 +164,7 @@ jQuery(function($){
 			rowDriver.insertAdjacentHTML("afterbegin", driverHtml);
 		}
 		
-		/** 検索ボタンを押したときの処理 */
+		//検索ボタンを押したときの処理 
 		$('#btn-search').click(function(event){
 			//検索後の値を挿入するための配列を下記で用意
 			let newData = [];
@@ -89,4 +181,4 @@ jQuery(function($){
 			aftSelectDriver(newData)
 		});
 	}
-});
+});*/

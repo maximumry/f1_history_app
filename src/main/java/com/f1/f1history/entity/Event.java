@@ -1,6 +1,7 @@
 package com.f1.f1history.entity;
 
 import java.time.LocalDate;
+import java.util.List;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -10,7 +11,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 public class Event {
-	
+
 	private String eventId;
 	private String driverId;
 	private String description;
@@ -22,5 +23,6 @@ public class Event {
 	private String youtubeUrl;
 	private Driver driver;
 	private User user;
+	private List<Comment> commentList;
 
 }

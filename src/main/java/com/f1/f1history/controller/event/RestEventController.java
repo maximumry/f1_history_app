@@ -53,12 +53,12 @@ public class RestEventController {
 				errors.put(error.getField(), message);
 			}
 			//エラー結果の返却
-			return new EventRestResult(90, errors);
+			return new EventRestResult(90, errors, null);
 		}
 		modelMapper.getConfiguration().setAmbiguityIgnored(true);
 		Event event = modelMapper.map(form, Event.class);
 		eventService.insertEvent(event);
-		return new EventRestResult(0, null);
+		return new EventRestResult(0, null, null);
 	}
 
 	@GetMapping("/{eventId}")
@@ -79,13 +79,13 @@ public class RestEventController {
 				String message = messageSource.getMessage(error, locale);
 				errors.put(error.getField(), message);
 			}
-			return new EventRestResult(90, errors);
+			return new EventRestResult(90, errors, null);
 		}
 		modelMapper.getConfiguration().setAmbiguityIgnored(true);
 		Event event = modelMapper.map(form, Event.class);
 		event.setEventId(eventId);
 		eventService.updateEvent(event);
-		return new EventRestResult(0, null);
+		return new EventRestResult(0, null, null);
 	}
 
 	@DeleteMapping("/{eventId}")
@@ -100,12 +100,12 @@ public class RestEventController {
 				String message = messageSource.getMessage(error, locale);
 				errors.put(error.getField(), message);
 			}
-			return new EventRestResult(90, errors);
+			return new EventRestResult(90, errors, null);
 		}
 		modelMapper.getConfiguration().setAmbiguityIgnored(true);
 		Event event = modelMapper.map(form, Event.class);
 		event.setEventId(eventId);
 		eventService.deleteEvent(event);
-		return new EventRestResult(0, null);
+		return new EventRestResult(0, null, null);
 	}
 }
