@@ -4,7 +4,6 @@
 jQuery(function($){
 	/** 登録ボタンを押した時の処理 */
 	$('#btn-event-form').click(function(event){
-		//debugger
 		//イベント登録
 		insertEvent();
 	});
@@ -73,11 +72,7 @@ function reflectValidResult(key, value){
 	
 	//エラーメッセージ追加
 	if(key === 'title'){
-		$('input[name=' + key + ']').addClacc('is-invalid');
-		//エラーメッセージ追加
-		$('input[name=' + key + ']')
-			.parent().parent()
-			.append('<div class="text-danger">' + value + '</div>');
+		$('input[name=' + key + ']').addClass('is-invalid');
 			
 	}else{
 		//CSS適用

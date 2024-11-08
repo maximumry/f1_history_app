@@ -11,7 +11,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 public class User {
-	
+
 	private String userId;
 	private String name;
 	private String password;
@@ -21,4 +21,5 @@ public class User {
 	private List<Driver> driverList;
 	private List<Event> eventList;
 	private List<Inquiry> inquiryList;
+	private List<Comment> commentList;
 }

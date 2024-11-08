@@ -24,15 +24,31 @@
 	</nav>
 	<div class="container-fluid">
 	<div class="container">
-		<select class="form-select" aria-label="Default select example" id="sortDriver">
-		  <option selected>ドライバーを並び替え</option>
-		  <option value="familyName">ファミリーネーム</option>
-		  <option value="carNum">カーナンバー</option>
-		  <option value="age">年齢</option>
+		<select id="year">
+			<!-- home.jsで年度を生成 -->
 		</select>
-		<div class="row" id="rowDriver">
-			
-		</div>
+<!--		<select class="form-select" aria-label="Default select example" id="sortDriver">-->
+<!--		  <option selected>ドライバーを並び替え</option>-->
+<!--		  <option value="familyName">ファミリーネーム</option>-->
+<!--		  <option value="carNum">カーナンバー</option>-->
+<!--		  <option value="age">年齢</option>-->
+<!--		</select>-->
+		<p id="season"></p>
+		<table class="table	table-striped">
+		  <thead>
+		    <tr>
+		      <th scope="col">ラウンド</th>
+		      <th scope="col">レース名</th>
+			  <th scope="col">日付</th>
+		      <th scope="col">サーキット</th>
+			  <th scope="col">優勝者</th>
+		      <th scope="col">情報</th>
+		    </tr>
+		  </thead>
+		  <tbody id="raceDataTbody">
+
+		  </tbody>
+		</table>
 	</div>
 </body>
 </html>

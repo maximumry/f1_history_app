@@ -23,15 +23,24 @@ jQuery(function($){
 //ドライバー情報の値を表示させる関数
 function setDriverDetail(data){
 	
-	$('#driverId').val(data.driverId);
-	
-	$('#team').val(data.team);
-	
-	$('#worldChampionships').val(data.worldChampionships);
-	
-	$('#wins').val(data.wins);
-	
-	$('#wikiUrl').val(data.wikiUrl);
+	// レコメンドのドライバーを取得しているためforEachで繰り返しをして、
+	// HTMLでサーバーサイドから取得したdriverIdと一致するドライバーのみを条件分岐で処理する。
+	data.forEach((driver) => {
+		
+		if(driver.driverId === driverId){
+			console.log(driver)
+			$('#driverId').val(driver.driverId);
+			
+			$('#team').val(driver.team);
+			
+			$('#worldChampionships').val(driver.worldChampionships);
+			
+			$('#wins').val(driver.wins);
+			
+			$('#wikiUrl').val(driver.wikiUrl);
+		}
+		
+	})
 }
 
 //ドライバー情報を更新する関数

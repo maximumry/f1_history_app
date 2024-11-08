@@ -47,12 +47,12 @@
 				  </div>
 				  <div class="mb-3">
   				    <label for="weather-condition" class="form-label">天候状況</label>
-  				    <input type="text" class="form-control" th:field="*{weatherCondition}" id="weather-condition" th:errorclass="is-invalid">
+  				    <input type="text" class="form-control" th:field="*{weatherCondition}" id="weatherCondition" th:errorclass="is-invalid">
   					<div class="invalid-feedback" th:errors="*{weatherCondition}"></div>
   				  </div>
 				  <div class="mb-3 mt-2">
   				    <label for="youtube-url" class="form-label">YouTubeのURL</label>
-  				    <input type="url" th:field="*{youtubeUrl}" class="form-control" id="youtube-url" th:errorclass="is-invalid">
+  				    <input type="url" th:field="*{youtubeUrl}" class="form-control" id="youtubeUrl" th:errorclass="is-invalid">
   					<div class="invalid-feedback" th:errors="*{youtubeUrl}"></div>
   				  </div>
 				  <div class="form-floating">

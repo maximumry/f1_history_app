@@ -16,9 +16,11 @@ let colDriver = document.getElementById("colDriver");
 //外部APIからの値をドライバー詳細画面に表示
 function insertInfoDriver(drivers){
 	
+	// ulrsは外部APIとデータベースからのURLで成り立っている
+	//外部APIのURLから指定した値を抽出して取得
 	let driverData = drivers[0].MRData.DriverTable.Drivers[0]
 	
-	const driverImgPath = "/img/driver/" + driverData.dateOfBirth + driverData.driverId + driverData.permanentNumber + ".jpg";
+	const driverImgPath = "/img/driver/" + driverData.driverId + ".jpg";
 	const driverImg = document.getElementById("driverImg");
 	const driverName = document.getElementById("driverName");
 	const driverBirth = document.getElementById("driverBirth");
@@ -33,6 +35,7 @@ function insertInfoDriver(drivers){
 	driverNumber.textContent = driverData.permanentNumber;
 	abbr.textContent = driverData.code;
 	
+	//urls配列のインデックス1からデータベースで取得した値を表示する処理
 	drivers[1].forEach((driver) => {
 		//ドライバー詳細画面 右側のDOMを取得
 		const worldChampionsNum = document.getElementById("worldChampionsNum");
@@ -41,7 +44,7 @@ function insertInfoDriver(drivers){
 		const driverLink = document.getElementById("driverLink");
 		const recRelaDriver = document.getElementById("recRelaDriver");
 			
-		//一覧画面で選択されたドライバーの詳細を表示するための条件分岐(レコメンドも含めた値が取得されるための条件分岐)
+		//一覧画面で選択されたドライバーの詳細を表示するための条件分岐(レコメンドも含めた値が取得されるために必要な条件分岐)
 		if(driver.driverId === driverId){
 			
 			worldChampionsNum.textContent = `${driver.worldChampionships}回`;
@@ -89,13 +92,15 @@ function insertInfoDriver(drivers){
 			
 			//レコメンドドライバー表示のためのDOM取得
 			const colRecDriver = document.getElementById("colRecDriver");
-			
+			let driverImage = "/img/driver/" + driver.driverId + ".jpg";
 			let recDriverHtml = "";
 			recDriverHtml += `
-				<div class="col" id="colDriver">
+				<div class="col">
 					<div class="card mt-3" style="width: 20rem;" id="driverCard">
 					  <div class="card-body">
+					    <img src="${driverImage}" class="card-img-top" id="driverImage">
 					    <h5 class="card-title" id="driverName">${driver.driverId}</h5>
+					    <p class="card-text">Team：${driver.team}</p>
 						<a href="http://localhost:8080/driver/${driver.driverId}" class="btn btn-info">ドライバー詳細</a>
 					  </div>
 					</div>
@@ -106,6 +111,7 @@ function insertInfoDriver(drivers){
 		recRelaDriver.textContent = driverId + "に関連したドライバー"
 	})
 	
+	//Wikipediaフォームにマウスカーソルを合わせると赤に変化する処理
 	driverLink.addEventListener("mouseover", function(event){
 		setTimeout(() => {
 			event.target.style.color = "red";
@@ -147,11 +153,3 @@ function insertInfoDriver(drivers){
 	})
 	
 };
-
-//データベースから取得した値を詳細画面に表示
-function insertInfoDriverOther(recDriver){
-	
-	
-	
-	
-}

@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import com.f1.f1history.form.CommentForm;
 import com.f1.f1history.form.EventForm;
 
 @Controller
@@ -20,10 +21,11 @@ public class EventController {
 
 	@GetMapping("/{eventId}")
 	public String getMethodName(@PathVariable("eventId") String eventId,
-			@ModelAttribute EventForm form,
+			@ModelAttribute CommentForm form,
 			Model model) {
-		model.addAttribute("eventId", eventId);
-		return "/event/detail";
+		String[] eventSplit = eventId.split("_");
+		model.addAttribute("eventId", eventSplit);
+		return "/event/event-detail";
 	}
 
 }
