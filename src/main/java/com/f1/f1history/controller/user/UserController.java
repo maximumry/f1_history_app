@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import com.f1.f1history.entity.User;
+import com.f1.f1history.entity.MUser;
 import com.f1.f1history.form.UserForm;
 import com.f1.f1history.service.user.UserService;
 
@@ -17,37 +17,37 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
 @Controller
-@RequestMapping("/users")
+@RequestMapping("/user")
 @RequiredArgsConstructor
 @Slf4j
 class UserController {
-	
+
 	private final ModelMapper modelMapper;
 	private final UserService userService;
-	
+
 	@GetMapping("/signup")
 	public String signup(@ModelAttribute UserForm form) {
-		return "/users/signup";
+		return "/user/signup";
 	}
-	
+
 	@PostMapping("/signup")
 	public String registerUser(@ModelAttribute @Validated UserForm form,
 			BindingResult result) {
-		if(result.hasErrors()) {
-			return "/users/signup";
+		if (result.hasErrors()) {
+			return "/user/signup";
 		}
-		User user = modelMapper.map(form, User.class);
+		MUser user = modelMapper.map(form, MUser.class);
 		userService.signup(user);
-		return "redirect:/drivers";
+		return "redirect:/driver";
 	}
-	
+
 	@GetMapping("/login")
-	public String login() {
-		return "/users/login";
+	public String showLoginForm(@ModelAttribute UserForm userForm) {
+		return "/user/login";
 	}
-	
+
 	@PostMapping("/logout")
 	public String logout() {
-		return "redirect:/logout";
+		return "redirect:/login";
 	}
 }

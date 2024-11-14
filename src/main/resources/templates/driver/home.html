@@ -1,5 +1,6 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head>
 <meta charset="UTF-8">
 <title>F1HistoryApp</title>
@@ -14,8 +15,11 @@
 	<nav class="navbar bg-dark navbar-expand-lg bg-body-tertiary">
 	  <div class="container-fluid">
 	    <a class="navbar-brand" style="color: red;">F1 History App</a>
-		<a class="navbar-brand mb-2 mb-lg-0" style="margin: 0 20px 0 auto;" th:href="@{/driver/form}">ドライバー追加</a>
+		<form th:action="@{/user/logout}" method="post" style="margin: 0 20px 0 auto;">
+			<button type="submit" class="btn btn-secondary">ログアウト</button>
+		</form>
 		<a class="navbar-brand mb-2 mb-lg-0" th:href="@{/inquiry/form}">お問い合わせ</a>
+		<a class="navbar-brand mb-2 mb-lg-0" th:href="@{/admin}" sec:authorize="hasAuthority('ADMIN')">ユーザー管理</a>
 	    <form class="d-flex" role="search" id="driver-search-form">
 	      <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search" name="driverId" id="searchDriverDetail">
 	      <button class="btn btn-outline-success" type="button" id="btn-search">Search</button>
@@ -27,12 +31,6 @@
 		<select id="year">
 			<!-- home.jsで年度を生成 -->
 		</select>
-<!--		<select class="form-select" aria-label="Default select example" id="sortDriver">-->
-<!--		  <option selected>ドライバーを並び替え</option>-->
-<!--		  <option value="familyName">ファミリーネーム</option>-->
-<!--		  <option value="carNum">カーナンバー</option>-->
-<!--		  <option value="age">年齢</option>-->
-<!--		</select>-->
 		<p id="season"></p>
 		<table class="table	table-striped">
 		  <thead>

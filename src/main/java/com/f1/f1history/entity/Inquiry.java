@@ -19,6 +19,6 @@ public class Inquiry {
 	private LocalDateTime createdAt;
 	private LocalDateTime deletedAt;
 	private String userId;
-	private User user;
+	private MUser user;
 
 }

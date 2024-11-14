@@ -16,7 +16,7 @@ public class Comment {
 	private int userId;
 	private String eventId;
 	private LocalDateTime createdAt;
-	private User user;
+	private MUser user;
 	private Event event;
 
 }

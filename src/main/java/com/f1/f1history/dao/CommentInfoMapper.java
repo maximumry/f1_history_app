@@ -11,7 +11,11 @@ public interface CommentInfoMapper {
 
 	void insertComment(Comment comment);
 
-	List<Comment> getAllComment(String eventId);
+	List<Comment> getEventComment(String eventId);
 
 	Comment getComment(int commentId);
+
+	int deleteComment(String commentId);
+
+	List<Comment> getAllComment();
 }

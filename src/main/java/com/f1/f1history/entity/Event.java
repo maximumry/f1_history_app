@@ -22,7 +22,7 @@ public class Event {
 	private String title;
 	private String youtubeUrl;
 	private Driver driver;
-	private User user;
+	private MUser user;
 	private List<Comment> commentList;
 
 }

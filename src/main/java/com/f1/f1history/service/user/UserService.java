@@ -1,11 +1,14 @@
 package com.f1.f1history.service.user;
 
-import com.f1.f1history.entity.User;
+import java.util.List;
+
+import com.f1.f1history.entity.MUser;
 
 public interface UserService {
-	
-	public void signup(User user);
-	
-	public User findLoginUser(int userId);
 
+	public void signup(MUser user);
+
+	MUser findLoginUser(String email);
+
+	List<MUser> getUsers();
 }
