@@ -10,6 +10,7 @@ import org.springframework.context.MessageSource;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
 import org.springframework.validation.annotation.Validated;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -31,6 +32,11 @@ public class RestCommentController {
 	private final CommentService commentService;
 	private final ModelMapper modelMapper;
 	private final MessageSource messageSource;
+
+	@GetMapping
+	public List<Comment> getAllComment() {
+		return commentService.getAllComment();
+	}
 
 	@GetMapping("/{eventId}")
 	public List<Comment> getComment(@PathVariable String eventId) {
@@ -57,4 +63,11 @@ public class RestCommentController {
 		Comment comment2 = commentService.insertComment(comment);
 		return new EventRestResult(0, null, comment2);
 	}
+
+	@DeleteMapping("/{commentId}")
+	public boolean deleteComment(@PathVariable String commentId) {
+		boolean result = commentService.deleteComment(commentId);
+		return result;
+	}
+
 }

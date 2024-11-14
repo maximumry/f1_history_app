@@ -25,7 +25,22 @@ public class CommentServiceImpl implements CommentService {
 
 	@Override
 	public List<Comment> getComment(String eventId) {
-		return commentInfoMapper.getAllComment(eventId);
+		return commentInfoMapper.getEventComment(eventId);
+	}
+
+	@Override
+	public boolean deleteComment(String commentId) {
+		int result = commentInfoMapper.deleteComment(commentId);
+		if (result == 0) {
+			return false;
+		} else {
+			return true;
+		}
+	}
+
+	@Override
+	public List<Comment> getAllComment() {
+		return commentInfoMapper.getAllComment();
 	}
 
 }

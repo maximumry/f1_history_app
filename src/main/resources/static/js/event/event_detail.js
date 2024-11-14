@@ -45,7 +45,7 @@ jQuery(function($){
 	function showComments(commentData){
 		$.each(commentData, function(index, value){
 			var commentHtml = `
-				<div class="card mb-2">
+				<div class="card mb-2" id="cardContainer${value.commentId}">
 					<div class="card-body">
 				    	<h5 class="card-title">${value.user.name}</h5>
 				    	<p class="card-text">${value.content}</p>
@@ -70,6 +70,11 @@ jQuery(function($){
 		postComment()
 	})
 	
+	//コメント入力フォームを空にする関数
+	function resetForm(){
+		$('textarea').val('')
+	}
+	
 	// コメントをPOSTリクエストで送信する処理
 	function postComment(){
 		//同じバリデーションが重なって表示されないようにバリデーションを削除
@@ -86,24 +91,28 @@ jQuery(function($){
 			//ajaxに成功した時の処理の関数
 			if(data.result === 0){
 				const comment = data.comment
+				console.log(data)
 				const newComment = `
-					<div class="card mb-2">
-						<div class="card-body">
-							<input type="hidden" 
+					<div class="card mb-2" id="cardContainer${comment.commentId}">
+						<div class="card-body"">
 					    	<h5 class="card-title">${comment.user.name}</h5>
 					    	<p class="card-text">${comment.content}</p>
 					    	<div class="card-footer text-body-secondary">
 					    		${comment.createdAt.year}/${comment.createdAt.monthValue}/${comment.createdAt.dayOfMonth} ${comment.createdAt.hour}:${comment.createdAt.minute}
 							</div>
 							<div class="text-end">
-								<button type="button" class="commentDeleteBtn" data-id="${comment.commentid}">
+								<button type="button" class="commentDeleteBtn" data-id="${comment.commentId}">
 									<img src="/img/event/trash.png" class="card-img-top" alt="画像が読み込まれませんでした" style="width: 30px; height: 30px;">
 								</button>
 							</div>
 						</div>
 					</div>
 				`
+				//コメント欄の先頭へDOMを挿入
 				$('#showComment').prepend(newComment)
+				
+				//入力フォームをクリアにする
+				resetForm()
 			}else if(data.result === 90){
 				$.each(data.errors, function(key, value){
 					reflectValidResult(key, value)
@@ -117,18 +126,26 @@ jQuery(function($){
 	// コメント削除ボタンが押された時の処理を設定
 	$(document).on('click', '.commentDeleteBtn', function(event){
 		var documentComment = $(this).data('id')
-		console.log("通った")
 		if(confirm("削除してもよろしいですか？")){
 			deleteComment(documentComment)
 		}
 	})
 	
-	function deleteComment(comment){
+	function deleteComment(commentId){
 		//同じバリデーションが重なって表示されないようにバリデーションを削除
-		console.log(comment)
-		
-		console.log("あああ")
-		
+		$.ajax({
+			type: 'DELETE',
+			url: `/comment/${commentId}`,
+			dataType: 'json',
+		}).done(function(data){
+			if(data === true){
+				$(`#cardContainer${commentId}`).remove()
+			}else if(data === false){
+				alert("削除に失敗しました")
+			}
+		}).fail(function(jqXHR, textStatus, errorThrown){
+			alert("削除に失敗しました")
+		})
 	}
 	
 	// 入力フィールドにバリデーションエラーを表示するための関数

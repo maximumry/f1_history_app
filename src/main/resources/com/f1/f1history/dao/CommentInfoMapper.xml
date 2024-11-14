@@ -13,7 +13,7 @@
     </resultMap>
     
     <!-- Userのマッピング -->
-    <resultMap type="com.f1.f1history.entity.User" id="userMap">
+    <resultMap type="com.f1.f1history.entity.MUser" id="userMap">
     	<id column="user_id" property="userId"/>
     	<result column="name" property="name" />
     	<result column="password" property="password"/>
@@ -46,7 +46,7 @@
     </insert>
     
     <!-- eventId(選択されたレース)に一致したレコードを取得 -->
-    <select id="getAllComment" resultMap="commentMap">
+    <select id="getEventComment" resultMap="commentMap">
     	SELECT 
     		comments.comment_id as comment_id
     		,comments.content as content
@@ -80,6 +80,28 @@
     		users
     	ON users.user_id = comments.user_id
     	WHERE comments.comment_id = #{commentId}
+    </select>
+    
+    <delete id="deleteComment">
+    	DELETE FROM 
+    		comments
+    	WHERE comment_id = #{commentId}
+    </delete>
+    
+    <select id="getAllComment" resultMap="commentMap"> 
+    	SELECT 
+    		comments.comment_id as comment_id
+    		,comments.content as content
+    		,comments.user_id as user_id
+    		,comments.event_id as event_id
+    		,comments.created_at as created_at
+    		,users.user_id as user_id
+    		,users.name as name
+    	FROM
+    		comments
+    	LEFT JOIN
+    		users
+    	ON users.user_id = comments.user_id
     </select>
 
 </mapper>

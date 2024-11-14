@@ -10,4 +10,8 @@ public interface CommentService {
 
 	List<Comment> getComment(String eventId);
 
+	boolean deleteComment(String commentId);
+
+	List<Comment> getAllComment();
+
 }

@@ -17,7 +17,7 @@ public class Driver {
 	private String team;
 	private String wikiUrl;
 	private List<Event> eventList;
-	private User user;
+	private MUser user;
 	private String userId;
 
 }
