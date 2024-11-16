@@ -12,7 +12,7 @@
 <body>
 	<div class="container-fluid">
 		<div class="d-flex justify-content-center align-items-center vh-100">
-			<form method="post" th:action="@{/user/signup}" th:object="${userForm}">
+			<form method="post" th:action="@{/user/signup}" th:object="${MUserForm}" class="w-50">
 				<h2 class="text-center">ログイン</h2>
 				<div class="mt-3">
 					<label for="email">メールアドレス</label>

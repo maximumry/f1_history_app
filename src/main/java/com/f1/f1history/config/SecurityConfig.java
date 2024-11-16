@@ -27,12 +27,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 		this.userDetailsService = userDetailsService;
 	}
 
-	//	//JWT発行者(issuer)であるKeycloakのURLをフォーマット(${ホスト名}/auth/realms/${realms名})に沿って指定する
-	//	@Autowired
-	//	CustomJwtConverter customJwtConverter;
-	//	
-	//	JwtDecoder jwtDecoder = JwtDecoders.fromIssuerLocation("http://localhost:8080/auth/realms/user");
-
 	@Bean
 	public PasswordEncoder passwordEncoder() {
 		return new BCryptPasswordEncoder();
@@ -92,7 +86,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 	@Override
 	protected void configure(AuthenticationManagerBuilder auth) throws Exception {
 		PasswordEncoder encoder = passwordEncoder();
-
 		//ユーザーデータで認証
 		auth
 				.userDetailsService(userDetailsService)

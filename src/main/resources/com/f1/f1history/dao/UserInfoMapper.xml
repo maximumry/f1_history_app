@@ -8,7 +8,15 @@
 	    <result column="role" property="role"/>
 	    <result column="created_at" property="createdAt"/>
 	    <result column="email" property="email"/>
+	    <collection property="CommentList" resultMap="commentMap" columnPrefix="comments_"/>
 	</resultMap>
+	
+	<resultMap type="com.f1.f1history.entity.Comment" id="commentMap">
+        <id column="comment_id" property="commentId"/>
+        <result column="content" property="content"/>
+        <result column="event_id" property="eventId"/>
+        <result column="created_at" property="createdAt"/>
+    </resultMap>
 	
 	<insert id="signup">
 		INSERT INTO users(
@@ -37,5 +45,59 @@
 			*
 		FROM
 			users
+	</select>
+	
+	<select id="getUser" resultMap="userMap">
+		SELECT
+			*
+		FROM
+			users
+		WHERE
+			user_id = #{user_id}
+	</select>
+	
+	<select id="getUserAndComment" resultMap="userMap">
+		SELECT
+			users.user_id as user_id
+			,users.name as name
+			,users.email as email
+			,users.password password
+			,comments.comment_id as comment_id
+			,comments.content as content
+			,comments.event_id as event_id
+			,comments.created_at as created_at
+		FROM
+			users
+		LEFT JOIN
+			comments
+		ON users.user_id = comments.user_id
+		WHERE users.user_id = #{userId}
+	</select>
+	
+	<update id="updateUser">
+		UPDATE
+			users
+		SET
+			name = #{mUser.name}
+			,email = #{mUser.email}
+			,password = #{mUser.password}
+			,role = #{mUser.role}
+		WHERE user_id = #{mUser.userId}
+	</update>
+	
+	<delete id="deleteUser">
+		DELETE FROM
+			users
+		WHERE
+			user_id = #{mUser.userId}
+	</delete>
+	
+	<select id="getUserPassword" resultType="String">
+		SELECT
+			password
+		FROM 
+			users
+		WHERE
+			user_id = #{userId}
 	</select>
 </mapper>
