@@ -5,12 +5,12 @@ import java.util.List;
 
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
-import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
+import com.f1.f1history.config.CustomUserDetails;
 import com.f1.f1history.entity.MUser;
 
 import lombok.RequiredArgsConstructor;
@@ -23,8 +23,6 @@ public class UserDetailsServiceImpl implements UserDetailsService {
 
 	@Override
 	public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
-
-		System.out.println(email + "emailきた");
 		//ユーザー情報取得
 		MUser loginUser = userService.findLoginUser(email);
 
@@ -37,15 +35,15 @@ public class UserDetailsServiceImpl implements UserDetailsService {
 		GrantedAuthority authority = new SimpleGrantedAuthority(loginUser.getRole());
 		List<GrantedAuthority> authorities = new ArrayList<>();
 		authorities.add(authority);
-		System.out.println("role" + loginUser.getRole());
-		System.out.println("authoritiy" + authorities);
 
 		//UserDetails生成
-		UserDetails userDetails = (UserDetails) new User(loginUser.getUserId(),
+		UserDetails user = new CustomUserDetails(
+				loginUser.getUserId(),
+				loginUser.getEmail(),
 				loginUser.getPassword(),
 				authorities);
 
-		return userDetails;
+		return user;
 	}
 
 }

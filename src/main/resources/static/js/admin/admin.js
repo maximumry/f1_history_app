@@ -43,7 +43,7 @@ jQuery(function($){
 			     	<td class="email">${value.email}</td>
 			      	<td class="role">${value.role == 'ADMIN' ? "管理者" : "一般"}</td>
 			     	<td class="createdAt">${value.createdAt.year}/${value.createdAt.monthValue}/${value.createdAt.dayOfMonth}</td>
-			      	<td class="userDetail"><p><a href="/user/detail" class="link-warning link-offset-2 link-underline-opacity-25 link-underline-opacity-100-hover">編集</a></p></td>
+			      	<td class="userDetail"><p><a href="/admin/${value.userId}" class="link-warning link-offset-2 link-underline-opacity-25 link-underline-opacity-100-hover">編集</a></p></td>
 		    	</tr>
 			`
 			$('#adminWrapper').append(userHtml)

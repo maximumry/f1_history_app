@@ -1,6 +1,5 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <title>ログイン</title>
@@ -14,7 +13,7 @@
 <!--    <div>username：<span th:text="${username}"></span></div>-->
 <!--    <a href="/">Back</a>-->
 	<div class="d-flex justify-content-center align-items-center vh-100">
-		<form method="post" th:action="@{/user/login}" th:object="${userForm}">
+		<form method="post" th:action="@{/user/login}" th:object="${MUserForm}" class="w-50">
 			<h2 class="text-center">ログイン</h2>
 			<p th:if="${session['SPRING_SECURITY_LAST_EXCEPTION']} != null"
 			   th:text="${session['SPRING_SECURITY_LAST_EXCEPTION'].message}"

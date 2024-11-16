@@ -6,9 +6,17 @@ import com.f1.f1history.entity.MUser;
 
 public interface UserService {
 
-	public void signup(MUser user);
+	void signup(MUser user);
 
 	MUser findLoginUser(String email);
 
 	List<MUser> getUsers();
+
+	MUser getUser(String userId);
+
+	void updateUser(MUser user);
+
+	void deleteUser(MUser user);
+
+	List<String> getAuthority();
 }
