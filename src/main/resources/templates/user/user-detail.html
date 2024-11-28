@@ -10,20 +10,17 @@
 <!-- bootstrap -->
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
 </head>
 <body>
 	<nav class="navbar bg-dark navbar-expand-lg bg-body-tertiary">
 	  <div class="container-fluid">
-	    <a class="navbar-brand" style="color: red;">F1 History App</a>
+	    <a class="navbar-brand" style="color: red;" th:href="@{/driver}">F1 History App</a>
 		<form th:action="@{/user/logout}" method="post" style="margin: 0 20px 0 auto;">
 			<button type="submit" class="btn btn-secondary">ログアウト</button>
 		</form>
 		<a class="navbar-brand mb-2 mb-lg-0" th:href="@{/inquiry/form}">お問い合わせ</a>
 		<a class="navbar-brand mb-2 mb-lg-0" th:href="@{/admin}" sec:authorize="hasAuthority('ADMIN')">ユーザー管理</a>
-	    <form class="d-flex" role="search" id="driver-search-form">
-	      <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search" name="driverId" id="searchDriverDetail">
-	      <button class="btn btn-outline-success" type="button" id="btn-search">Search</button>
-	    </form>
 	  </div>
 	</nav>
 	<div class="container">
@@ -46,11 +43,67 @@
 					<input type="password" class="form-control" th:field="*{password}" th:errorclass="is-invalid" id="password" placeholder="変更する場合は入力、変更しない場合は空のままにして下さい">
 					<div class="invalid-feedback" th:errors="*{password}"></div>
 		 		</div>
+				<input type="hidden" th:field="*{role}">
 				<div class="text-center mt-3">
 					<input type="submit" name="update" value="アカウント更新" class="btn btn-outline-success me-5" id="updateBtn">
 					<input type="submit" name="delete" value="アカウント削除" class="btn btn-outline-danger" id="deleteBtn">
 				</div>
+				<div class="text-center mt-5">
+					<i class="bi bi-arrow-down-circle-fill" th:text="'下に' + *{name} + 'さんが投稿したコメント一覧があります'"></i>
+					<div>
+						<i class="bi bi-arrow-down-circle-fill"><a class="link-opacity-75-hover" href="#inquiry">問い合わせ一覧</a></i>
+					</div>
+				</div>
 			</form>
+		</div>
+		<!-- コメント表示領域 -->
+		<div class="mb-3 mt-3" id="showComment">
+			<div th:each="comment:${commentList}">
+				<div class="card mb-2" th:id="'cardContainer' + ${comment.commentId}">
+					<div class="card-body">
+				    	<h5 class="card-title" th:text="${comment.user.name}"></h5>
+				    	<p class="card-text" th:text="${comment.content}"></p>
+				    	<div class="d-flex justify-content-between align-items-center">
+				    		<div class="card-footer text-body-secondary w-100" th:text="${#temporals.format(comment.createdAt, 'yyyy/MM/dd HH:mm:ss')}">
+								
+							</div>
+							<div class="text-end mt-2">
+								<button type="button" class="commentDeleteBtn" th:attr="data-id=${comment.commentId}">
+									<img th:src="@{/img/event/trash.png}" class="card-img-top" alt="画像が読み込まれませんでした" style="width: 30px; height: 35px;">
+								</button>
+							</div>
+				    	</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<!-- 問い合わせ表示領域 -->
+		<div class="mb-5 mt-5" id="inquiry">
+			<h2 class="text-center">問い合わせ一覧</h2>
+			<table class="table">
+			  <thead>
+			    <tr>
+			      <th scope="col">お問い合わせ日時</th>
+				  <th scope="col">お問い合わせカテゴリー</th>
+				  <th scope="col">問い合わせ内容</th>
+			    </tr>
+			  </thead>
+			  <tbody>
+			    <tr th:each="inquiry : ${inquiryList}">
+			      <td th:text="${#temporals.format(inquiry.createdAt, 'yyyy/MM/dd HH:mm:ss')}"></td>
+				  <div th:if="${inquiry.inquirySelect} == 'account'">
+				  	<td>アカウントに関する問い合わせ</td>
+				  </div>
+				  <div th:if="${inquiry.inquirySelect} == 'problem'">
+				  	<td>トラブル・技術的な問題に関する問い合わせ</td>
+				  </div>
+				  <div th:if="${inquiry.inquirySelect} == 'other'">
+	  			  	<td>そのほかのお問い合わせ</td>
+	  			  </div>
+				  <td th:text="${inquiry.content}"></td>
+			    </tr>
+			  </tbody>
+			</table>
 		</div>
 	</div>
 </body>

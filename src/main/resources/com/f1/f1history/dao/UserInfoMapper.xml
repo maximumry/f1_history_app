@@ -8,7 +8,8 @@
 	    <result column="role" property="role"/>
 	    <result column="created_at" property="createdAt"/>
 	    <result column="email" property="email"/>
-	    <collection property="CommentList" resultMap="commentMap" columnPrefix="comments_"/>
+	    <collection property="commentList" resultMap="commentMap" columnPrefix="comments_"/>
+	    <collection property="inquiryList" resultMap="inquiryMap" columnPrefix="inquiries_"/>
 	</resultMap>
 	
 	<resultMap type="com.f1.f1history.entity.Comment" id="commentMap">
@@ -16,6 +17,14 @@
         <result column="content" property="content"/>
         <result column="event_id" property="eventId"/>
         <result column="created_at" property="createdAt"/>
+    </resultMap>
+    
+    <resultMap type="com.f1.f1history.entity.Inquiry" id="inquiryMap">
+        <id column="inquiry_id" property="inquiryId"/>
+        <result column="inquiry_select" property="inquirySelect" />
+        <result column="content" property="content"/>
+        <result column="created_at" property="createdAt" />
+        <result column="deleted_at" property="deletedAt" />
     </resultMap>
 	
 	<insert id="signup">
@@ -49,29 +58,30 @@
 	
 	<select id="getUser" resultMap="userMap">
 		SELECT
-			*
-		FROM
-			users
-		WHERE
-			user_id = #{user_id}
-	</select>
-	
-	<select id="getUserAndComment" resultMap="userMap">
-		SELECT
 			users.user_id as user_id
 			,users.name as name
 			,users.email as email
-			,users.password password
-			,comments.comment_id as comment_id
-			,comments.content as content
-			,comments.event_id as event_id
-			,comments.created_at as created_at
+			,users.password as password
+			,users.role as role
+			,users.created_at as created_at
+			,comments.comment_id as comments_comment_id
+			,comments.content as comments_content
+			,comments.event_id as comments_event_id
+			,comments.created_at as comments_created_at
+			,inquiries.inquiry_id as inquiries_inquiry_id
+			,inquiries.content as inquiries_content
+			,inquiries.inquiry_select as inquiries_inquiry_select
+			,inquiries.created_at as inquiries_created_at
 		FROM
 			users
 		LEFT JOIN
 			comments
 		ON users.user_id = comments.user_id
-		WHERE users.user_id = #{userId}
+		LEFT JOIN
+			inquiries
+		ON users.user_id = inquiries.user_id
+		WHERE
+			users.user_id = #{user_id}
 	</select>
 	
 	<update id="updateUser">

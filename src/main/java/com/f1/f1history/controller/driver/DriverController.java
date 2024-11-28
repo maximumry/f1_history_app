@@ -30,7 +30,7 @@ public class DriverController {
 	@GetMapping("/{driverId}")
 	public String getDriver(@PathVariable("driverId") String driverId, Model model) {
 		model.addAttribute("driverId", driverId);
-		return "/driver/detail";
+		return "/driver/driver-detail";
 	}
 
 	@GetMapping("/form")

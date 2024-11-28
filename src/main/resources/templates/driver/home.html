@@ -14,40 +14,50 @@
 <body>
 	<nav class="navbar bg-dark navbar-expand-lg bg-body-tertiary">
 	  <div class="container-fluid">
-	    <a class="navbar-brand" style="color: red;">F1 History App</a>
+	    <a class="navbar-brand" style="color: red;" th:href="@{/driver}">F1 History App</a>
 		<form th:action="@{/user/logout}" method="post" style="margin: 0 20px 0 auto;">
 			<button type="submit" class="btn btn-secondary">ログアウト</button>
 		</form>
 		<a class="navbar-brand mb-2 mb-lg-0" th:href="@{/user/{userId}(userId=${userId})}">アカウント管理</a>
 		<a class="navbar-brand mb-2 mb-lg-0" th:href="@{/inquiry/form}">お問い合わせ</a>
 		<a class="navbar-brand mb-2 mb-lg-0" th:href="@{/admin}" sec:authorize="hasAuthority('ADMIN')">ユーザー管理</a>
-	    <form class="d-flex" role="search" id="driver-search-form">
-	      <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search" name="driverId" id="searchDriverDetail">
-	      <button class="btn btn-outline-success" type="button" id="btn-search">Search</button>
+	    <form class="d-flex" role="search" id="searchRaceForm">
+	      <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search" name="raceSearch">
+	      <button class="btn btn-outline-success" type="button" id="raceBtnSearch">Search</button>
 	    </form>
 	  </div>
 	</nav>
 	<div class="container-fluid">
-	<div class="container">
-		<select id="year">
-			<!-- home.jsで年度を生成 -->
-		</select>
-		<p id="season"></p>
-		<table class="table	table-striped">
-		  <thead>
-		    <tr>
-		      <th scope="col">ラウンド</th>
-		      <th scope="col">レース名</th>
-			  <th scope="col">日付</th>
-		      <th scope="col">サーキット</th>
-			  <th scope="col">優勝者</th>
-		      <th scope="col">情報</th>
-		    </tr>
-		  </thead>
-		  <tbody id="raceDataTbody">
-
-		  </tbody>
-		</table>
-	</div>
+		<div class="container text-center mt-3 mb-3">
+		  <div class="row">
+		    <div class="col">
+				<select id="year" class="form-select w-0">
+					<!-- home.jsで年度を生成 -->
+				</select>
+				<span class="badge text-bg-info">見つけたいシーズンを選択</span>
+		    </div>
+		    <div class="col">
+				<h4 id="season"></h4>
+		    </div>
+		</div>
+		</div>
+		<div class="container ms-5">
+			<table class="table	table-striped">
+			  <thead>
+			    <tr>
+			      <th scope="col">ラウンド</th>
+			      <th scope="col">レース名</th>
+				  <th scope="col">日付</th>
+			      <th scope="col">サーキット</th>
+				  <th scope="col">優勝者</th>
+				  <th scope="col">コンストラクター</th>
+			      <th scope="col">情報</th>
+			    </tr>
+			  </thead>
+			  <tbody id="raceDataTbody">
+	
+			  </tbody>
+			</table>
+		</div>
 </body>
 </html>

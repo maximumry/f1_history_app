@@ -10,7 +10,10 @@
 <body>
 	<nav class="navbar bg-dark navbar-expand-lg bg-body-tertiary">
 	  <div class="container-fluid">
-	    <a class="navbar-brand" style="color: red;">F1 History App</a>
+	    <a class="navbar-brand" style="color: red;" th:href="@{/driver}">F1 History App</a>
+		<form th:action="@{/user/logout}" method="post" style="margin: 0 20px 0 auto;">
+			<button type="submit" class="btn btn-secondary">ログアウト</button>
+		</form>
 	  </div>
 	</nav>
 	<div class="container-md" style="display: flex; justify-content: center;">
@@ -21,21 +24,11 @@
 					<label for="inquirySelect" class="mt-5">お問い合わせ項目</label>
 				      <select th:field="*{inquirySelect}" class="mb-2"  th:classappend="${#fields.hasErrors('inquirySelect')} ? is-invalid">
 						<option value="" selected>選択してください</option>
-				        <option value="driver">ドライバーの追加</option>
-				        <option value="iconic">名シーンの追加</option>
+				        <option value="account">アカウントに関する問い合わせ</option>
+				        <option value="problem">トラブル・技術的な問題に関する問い合わせ</option>
 				        <option value="other">そのほかのお問い合わせ</option>
 				      </select>
 					  <div class="invalid-feedback" th:if="${#fields.hasErrors('inquirySelect')}" th:errors="*{inquirySelect}"></div>
-				  <div class="mb-3 mt-2">
-				    <label for="exampleInputEmail1" class="form-label">お名前</label>
-				    <input type="text" th:field="*{name}" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="例) 山田 太郎" th:errorclass="is-invalid">
-					<div class="invalid-feedback" th:errors="*{name}"></div>
-				  </div>
-				  <div class="mb-3">
-				    <label for="exampleInputPassword1" class="form-label">メールアドレス</label>
-				    <input type="email" class="form-control" th:field="*{email}" id="exampleInputPassword1" placeholder="例) yamada@example.com" th:errorclass="is-invalid">
-					<div class="invalid-feedback" th:errors="*{email}"></div>
-				  </div>
 				  <div class="form-floating">
 				    <textarea class="form-control" th:field="*{content}" placeholder="Leave a comment here" id="floatingTextarea2" style="height: 200px" th:errorclass="is-invalid"></textarea>
 				    <label for="floatingTextarea2">お問合せ本文</label>
@@ -44,6 +37,7 @@
 				  <button type="submit" class="btn btn-primary mt-3">送信する</button>
 				</form>
 			</div>
+			<p class="mt-5" th:text="'問い合わせは' + ${userName} + 'のメールアドレスに返信させていただきます'"></p>
 		</section>
 	</div>
 </body>

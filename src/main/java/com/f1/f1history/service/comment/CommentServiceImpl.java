@@ -29,13 +29,17 @@ public class CommentServiceImpl implements CommentService {
 	}
 
 	@Override
-	public boolean deleteComment(String commentId) {
-		int result = commentInfoMapper.deleteComment(commentId);
-		if (result == 0) {
-			return false;
-		} else {
-			return true;
+	public boolean deleteComment(String commentId, String userId) {
+		Comment comment = commentInfoMapper.getComment(Integer.parseInt(commentId));
+		if (userId.equals(comment.getUserId())) {
+			int result = commentInfoMapper.deleteComment(commentId);
+			if (result == 0) {
+				return false;
+			} else {
+				return true;
+			}
 		}
+		return false;
 	}
 
 	@Override
