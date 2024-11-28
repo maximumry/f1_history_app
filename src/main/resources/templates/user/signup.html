@@ -27,6 +27,9 @@
 				<div class="mt-3">
 					<label for="password">パスワード</label>
 					<input type="password" class="form-control" th:field="*{password}" th:errorclass="is-invalid" id="password">
+					<div class="form-text">
+				        ※ 12文字以上、255文字以内で入力してください
+				    </div>
 					<div class="invalid-feedback" th:errors="*{password}"></div>
 		 		</div>
 				<div class="text-center mt-3">

@@ -41,6 +41,9 @@
 				<div class="mt-3">
 					<label for="password">パスワード</label>
 					<input type="password" class="form-control" th:field="*{password}" th:errorclass="is-invalid" id="password" placeholder="変更する場合は入力、変更しない場合は空のままにして下さい">
+					<div class="form-text">
+				        ※ 12文字以上、255文字以内で入力してください
+				    </div>
 					<div class="invalid-feedback" th:errors="*{password}"></div>
 		 		</div>
 				<input type="hidden" th:field="*{role}">
