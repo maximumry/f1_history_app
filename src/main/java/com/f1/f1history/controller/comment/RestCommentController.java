@@ -7,6 +7,7 @@ import java.util.Map;
 
 import org.modelmapper.ModelMapper;
 import org.springframework.context.MessageSource;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
 import org.springframework.validation.annotation.Validated;
@@ -17,6 +18,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.f1.f1history.config.CustomUserDetails;
 import com.f1.f1history.entity.Comment;
 import com.f1.f1history.exception.EventRestResult;
 import com.f1.f1history.form.CommentForm;
@@ -46,7 +48,8 @@ public class RestCommentController {
 	@PostMapping
 	public EventRestResult insertComment(@Validated CommentForm form,
 			BindingResult result,
-			Locale locale) {
+			Locale locale,
+			@AuthenticationPrincipal CustomUserDetails user) {
 		if (result.hasErrors()) {
 			Map<String, String> errors = new HashMap<String, String>();
 
@@ -58,15 +61,17 @@ public class RestCommentController {
 			}
 			return new EventRestResult(90, errors, null);
 		}
+		String userId = user.getUserId();
 		Comment comment = modelMapper.map(form, Comment.class);
-		comment.setUserId(1);
-		Comment comment2 = commentService.insertComment(comment);
-		return new EventRestResult(0, null, comment2);
+		comment.setUserId(userId);
+		Comment aftComment = commentService.insertComment(comment);
+		return new EventRestResult(0, null, aftComment);
 	}
 
 	@DeleteMapping("/{commentId}")
-	public boolean deleteComment(@PathVariable String commentId) {
-		boolean result = commentService.deleteComment(commentId);
+	public boolean deleteComment(@PathVariable String commentId,
+			@AuthenticationPrincipal CustomUserDetails user) {
+		boolean result = commentService.deleteComment(commentId, user.getUserId());
 		return result;
 	}
 

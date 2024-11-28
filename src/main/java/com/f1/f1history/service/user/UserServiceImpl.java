@@ -4,10 +4,12 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.f1.f1history.config.CustomUserDetails;
 import com.f1.f1history.dao.UserInfoMapper;
 import com.f1.f1history.entity.MUser;
 
@@ -31,7 +33,8 @@ public class UserServiceImpl implements UserService {
 
 	@Override
 	public MUser findLoginUser(String email) {
-		return userInfoMapper.findLoginUser(email);
+		return userInfoMapper.findLoginUser(email)
+				.orElseThrow(() -> new UsernameNotFoundException("User not found"));
 	}
 
 	@PreAuthorize("hasAuthority('ADMIN')")
@@ -43,6 +46,7 @@ public class UserServiceImpl implements UserService {
 	@Override
 	public MUser getUser(String userId) {
 		return userInfoMapper.getUser(userId);
+
 	}
 
 	@Override
@@ -71,6 +75,14 @@ public class UserServiceImpl implements UserService {
 		authorityList.add("GENERAL");
 
 		return authorityList;
+	}
+
+	@Override
+	public boolean emailUniqueForUpdate(MUser value, CustomUserDetails userDetails) {
+		if (value.getUserId().equals(userDetails.getUserId())) {
+			return true;
+		}
+		return false;
 	}
 
 }

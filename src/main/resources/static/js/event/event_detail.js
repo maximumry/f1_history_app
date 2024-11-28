@@ -16,15 +16,16 @@ jQuery(function($){
 	
 	//非同期通信の処理を開始
 	allAjax()
-	
-	//非同期処理で得たデータをHTMlの入った変数に定義。
+
+	//非同期処理で得たデータを変数に定義してDOMに挿入
 	function detailRaceInsert(raceDetail){
 		$.each(raceDetail.Races[0].Results, function(index, value){
+			let driverId = value.Driver.driverId
 			var raceDetailHtml = `
 				<tr>
 			      <td class="position">${value.position}</th>
 			      <td class="carNum">${value.number}</td>
-			      <td class="driverName">${value.Driver.givenName} ${value.Driver.familyName}</td>
+			      <td class="driverName"><a href="/driver/${driverId}" class="link-dark link-offset-2 link-underline-opacity-25 link-underline-opacity-100-hover">${value.Driver.givenName} ${value.Driver.familyName}</a></td>
 			      <td class="constructor">${value.Constructor.name}</td>
 			      <td class="startGrid">${value.grid}</td>
 			      <td class="status">${value.status}</td>
@@ -44,19 +45,30 @@ jQuery(function($){
 	
 	function showComments(commentData){
 		$.each(commentData, function(index, value){
+			//ログイン中のユーザーがコメントを投稿した場合は削除ボタンを表示する処理
+			if(userId == value.user.userId){
+				var deleteBtnHtml = `
+					<div class="text-end mt-2">
+						<button type="button" class="commentDeleteBtn" data-id="${value.commentId}">
+							<img src="/img/event/trash.png" class="card-img-top" alt="画像が読み込まれませんでした" style="width: 30px; height: 35px;">
+						</button>
+					</div>
+				`
+			}else{
+				var deleteBtnHtml = ``
+			}
+			
 			var commentHtml = `
 				<div class="card mb-2" id="cardContainer${value.commentId}">
 					<div class="card-body">
 				    	<h5 class="card-title">${value.user.name}</h5>
 				    	<p class="card-text">${value.content}</p>
-				    	<div class="card-footer text-body-secondary">
-							${value.createdAt.year}/${value.createdAt.monthValue}/${value.createdAt.dayOfMonth} ${value.createdAt.hour}:${value.createdAt.minute}
-						</div>
-						<div class="text-end">
-							<button type="button" class="commentDeleteBtn" data-id="${value.commentId}">
-								<img src="/img/event/trash.png" class="card-img-top" alt="画像が読み込まれませんでした" style="width: 30px; height: 30px;">
-							</button>
-						</div>
+				    	<div class="d-flex justify-content-between align-items-center">
+				    		<div class="card-footer text-body-secondary w-100">
+								${value.createdAt.year}/${value.createdAt.monthValue}/${value.createdAt.dayOfMonth} ${value.createdAt.hour}:${value.createdAt.minute}
+							</div>
+							${deleteBtnHtml}
+				    	</div>
 					</div>
 				</div>
 			`
@@ -94,16 +106,18 @@ jQuery(function($){
 				console.log(data)
 				const newComment = `
 					<div class="card mb-2" id="cardContainer${comment.commentId}">
-						<div class="card-body"">
+						<div class="card-body">
 					    	<h5 class="card-title">${comment.user.name}</h5>
 					    	<p class="card-text">${comment.content}</p>
-					    	<div class="card-footer text-body-secondary">
-					    		${comment.createdAt.year}/${comment.createdAt.monthValue}/${comment.createdAt.dayOfMonth} ${comment.createdAt.hour}:${comment.createdAt.minute}
-							</div>
-							<div class="text-end">
-								<button type="button" class="commentDeleteBtn" data-id="${comment.commentId}">
-									<img src="/img/event/trash.png" class="card-img-top" alt="画像が読み込まれませんでした" style="width: 30px; height: 30px;">
-								</button>
+					    	<div class="d-flex justify-content-between align-items-center">
+						    	<div class="card-footer text-body-secondary w-100">
+						    		${comment.createdAt.year}/${comment.createdAt.monthValue}/${comment.createdAt.dayOfMonth} ${comment.createdAt.hour}:${comment.createdAt.minute}
+								</div>
+								<div class="text-end mt-2">
+									<button type="button" class="commentDeleteBtn" data-id="${comment.commentId}">
+										<img src="/img/event/trash.png" class="card-img-top" alt="画像が読み込まれませんでした" style="width: 30px; height: 35px;">
+									</button>
+								</div>
 							</div>
 						</div>
 					</div>

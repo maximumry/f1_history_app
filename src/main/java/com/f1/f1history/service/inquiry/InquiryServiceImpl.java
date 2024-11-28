@@ -14,12 +14,11 @@ import lombok.RequiredArgsConstructor;
 @Transactional
 @RequiredArgsConstructor
 public class InquiryServiceImpl implements InquiryService {
-	
+
 	private final InquiryInfoMapper inquiryInfoMapper;
 
 	@Override
 	public void insertInquiry(Inquiry inquiry) {
-		inquiry.setUserId("1");
 		inquiryInfoMapper.insertInquiry(inquiry);
 	}
 

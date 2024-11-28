@@ -10,11 +10,9 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 public class Inquiry {
-	
+
 	private int inquiryId;
 	private String inquirySelect;
-	private String name;
-	private String email;
 	private String content;
 	private LocalDateTime createdAt;
 	private LocalDateTime deletedAt;

@@ -5,8 +5,6 @@
     <resultMap type="com.f1.f1history.entity.Inquiry" id="InquiryMap">
         <id column="inquiry_id" property="inquiryId"/>
         <result column="inquiry_select" property="inquirySelect" />
-        <result column="name" property="name"/>
-        <result column="email" property="email"/>
         <result column="content" property="content"/>
         <result column="created_at" property="createdAt" />
         <result column="deleted_at" property="deletedAt" />
@@ -23,25 +21,29 @@
 	    <result column="email" property="email"/>
 	</resultMap>
 
-    <!-- 全てのDriverを取得 -->
+    <!-- 全ての問い合わせを取得 -->
     <select id="getAllInquiry" resultMap="InquiryMap">
-        SELECT * FROM inquiries
+        SELECT
+        	*
+        FROM
+        	inquiries
+        LEFT JOIN
+        	users
+        ON
+        	users.user_id = inquiries.user_id
+        ORDER BY inquiries.created_at DESC
     </select>
 
-    <!-- Driverを挿入 -->
+    <!-- 問い合わせ情報を挿入 -->
     <insert id="insertInquiry">
         INSERT INTO inquiries(
-        	inquiry_select,
-            name,
-            email,
-            content,
-            user_id)
+        	inquiry_select
+            ,content
+            ,user_id)
         VALUES(
-        	#{inquirySelect},
-            #{name},
-            #{email},
-            #{content},
-            #{userId})
+        	#{inquirySelect}
+            ,#{content}
+            ,#{userId})
     </insert>
     
     <select id="getInquiry" resultMap="InquiryMap">
@@ -49,6 +51,9 @@
     		*
     	FROM
     		inquiries
+    	LEFT JOIN
+    		users
+    	ON users.user_id = inquiries.user_id
     	WHERE
     		inquiry_id = ${inquiryId}
     </select>

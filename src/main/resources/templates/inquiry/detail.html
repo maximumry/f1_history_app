@@ -12,7 +12,10 @@
 <body>
 	<nav class="navbar bg-dark navbar-expand-lg bg-body-tertiary">
 	  <div class="container-fluid">
-	    <a class="navbar-brand" style="color: red;">F1 History App</a>
+	    <a class="navbar-brand" style="color: red;" th:href="@{/driver}">F1 History App</a>
+		<form th:action="@{/user/logout}" method="post" style="margin: 0 20px 0 auto;">
+			<button type="submit" class="btn btn-secondary">ログアウト</button>
+		</form>
 	  </div>
 	</nav>
 	<div class="container mt-5">
@@ -22,26 +25,26 @@
 				<tbody>
 					<tr>
 						<th class="w-25">名前</th>
-						<td th:text="*{name}"></td>
+						<td th:text="*{user.name}"></td>
 					</tr>
 					<tr>
 						<th>メールアドレス</th>
-						<td th:text="*{email}"></td>
+						<td th:text="*{user.email}"></td>
 					</tr>
 					<tr>
 						<th>お問い合わせ日時</th>
-						<td th:text="*{#temporals.format(createdAt, 'yyyy/MM/dd')}"></td>
+						<td th:text="*{#temporals.format(createdAt, 'yyyy/MM/dd HH:mm:ss')}"></td>
 					</tr>
 					<tr>
 						<th>お問い合わせカテゴリー</th>
-						<div th:if="*{inquirySelect} == 'driver'">
-							<td>ドライバー追加</td>
+						<div th:if="*{inquirySelect} == 'account'">
+							<td>アカウントに関する問い合わせ</td>
 						</div>
-						<div th:if="*{inquirySelect} == 'iconic'">
-							<td>名シーン追加</td>
+						<div th:if="*{inquirySelect} == 'problem'">
+							<td>トラブル・技術的な問題に関する問い合わせ</td>
 						</div>
 						<div th:if="*{inquirySelect} == 'other'">
-							<td>その他</td>
+							<td>そのほかのお問い合わせ</td>
 						</div>
 					</tr>
 					<tr>

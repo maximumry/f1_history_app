@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.f1.f1history.entity.MUser;
-import com.f1.f1history.form.MUserForm;
+import com.f1.f1history.form.UpdateMUserForm;
 import com.f1.f1history.service.user.UserService;
 
 import lombok.RequiredArgsConstructor;
@@ -36,7 +36,7 @@ public class AdminController {
 	public String getUser(@PathVariable("userId") String userId,
 			Model model) {
 		MUser user = userService.getUser(userId);
-		MUserForm userForm = modelMapper.map(user, MUserForm.class);
+		UpdateMUserForm userForm = modelMapper.map(user, UpdateMUserForm.class);
 		List<String> authorityList = userService.getAuthority();
 		model.addAttribute("authorityList", authorityList);
 		model.addAttribute("MUserForm", userForm);
@@ -44,9 +44,10 @@ public class AdminController {
 	}
 
 	@PostMapping(value = "detail", params = "update")
-	public String updateUser(@ModelAttribute @Validated MUserForm mUserForm,
+	public String updateUser(@ModelAttribute @Validated UpdateMUserForm mUserForm,
 			BindingResult result,
 			Model model) {
+		System.out.println(result.getAllErrors());
 		if (result.hasErrors()) {
 			List<String> authorityList = userService.getAuthority();
 			model.addAttribute("authorityList", authorityList);
@@ -59,7 +60,7 @@ public class AdminController {
 	}
 
 	@PostMapping(value = "detail", params = "delete")
-	public String deleteUser(@ModelAttribute MUserForm mUserForm) {
+	public String deleteUser(@ModelAttribute UpdateMUserForm mUserForm) {
 		MUser user = modelMapper.map(mUserForm, MUser.class);
 		userService.deleteUser(user);
 		return "redirect:/admin";

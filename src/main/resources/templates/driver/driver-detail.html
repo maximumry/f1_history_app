@@ -5,7 +5,7 @@
 <title>F1HistoryApp</title>
 <!-- jQuery読み込み -->
 <script th:src="@{/webjars/jquery/jquery.min.js}" defer></script>
-<script th:src="@{/js/driver/detail.js}" defer></script>
+<script th:src="@{/js/driver/driver_detail.js}" defer></script>
 <script th:inline="javascript">
 	const driverId = /*[[${driverId}]]*/"driver";
 </script>
@@ -27,25 +27,13 @@
 		<div class="container bg-light">
 		  <div class="row" id="colDriver">
 			<div class="col-6">
-                <img id="driverImg" src="" alt="画像表示エラー" style="max-width: 100%; height: 100%;">
+				<img id="driverImg" src="https://upload.wikimedia.org/wikipedia/commons/8/89/Alain_Prost%2C_1990_USA_GP_Phoenix.jpg" alt="画像表示エラー" style="width: 100%; height: 80%;">
             </div>
             <div class="col-5" style="margin-top: 5px;">
                 <ul class="list-group list-group-flush">
                     <li class="list-group-item" style="display: flex; justify-content: space-between; margin-bottom: 7px;">
 						名前
 						<span id="driverName"></span>
-					</li>
-					<li class="list-group-item" style="display: flex; justify-content: space-between; margin-bottom: 7px;">
-						チーム
-						<span id="teamName"></span>
-					</li>
-					<li class="list-group-item"	style="display: flex; justify-content: space-between; margin-bottom: 7px;">
-						ワールドチャンピオン
-						<span id="worldChampionsNum"></span>
-					</li>
-					<li class="list-group-item"	style="display: flex; justify-content: space-between; margin-bottom: 7px;">
-						優勝数
-						<span id="winsNum"></span>
 					</li>
                     <li class="list-group-item"	style="display: flex; justify-content: space-between;margin-bottom: 7px;">
 						カーナンバー
@@ -63,25 +51,12 @@
 						略称表記
 						<span id="abbr"></span>
 					</li>
-                    <a id="driverLink" href="#" class="list-group-item link-info link-offset-2 link-underline-opacity-25 link-underline-opacity-100-hover"	style="margin-bottom: 7px;">Wikipedia</a>
+					<li class="list-group-item"	style="display: flex; justify-content: space-between;margin-bottom: 7px;">
+						<a id="driverLink" href="#" class="pull-right link-info link-offset-2 link-underline-opacity-25 link-underline-opacity-100-hover">Wikipedia</a>
+					</li>
                 </ul>
             </div>
 		  </div>
-		  <button id="edit-driver-btn" class="btn btn-light mt-3" type="button">ドライバー編集</button>
-		  <button id="delete-driver-btn" class="btn btn-danger mt-3" type="button">ドライバー削除</button>
-		</div>
-		<div class="container bg-light pt-5 pb-5">
-			<!-- 名シーンセクション -->
-			<div class="row" id="colDriverEvent">
-				<!-- detail.jsで要素を生成してる -->
-			</div>
-		</div>
-		<div class="container bg-white pt-5 pb-5">
-			<!-- 詳細に表示されたドライバーの関連ドライバーを表示 -->
-			<h3 id="recRelaDriver"></h3>
-			<div class="row" id="colRecDriver">
-				<!-- detail.jsで要素を生成してる -->
-			</div>
 		</div>
 	</div>
 </body>

@@ -1,6 +1,7 @@
 package com.f1.f1history.dao;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
@@ -12,7 +13,7 @@ public interface UserInfoMapper {
 
 	void signup(MUser mUser);
 
-	MUser findLoginUser(String email);
+	Optional<MUser> findLoginUser(String email);
 
 	List<MUser> getUsers();
 
