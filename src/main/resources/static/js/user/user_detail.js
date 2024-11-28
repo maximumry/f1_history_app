@@ -2,16 +2,19 @@
 jQuery(function($){
 	
 	$('#updateBtn').click(function(event){
-		if (confirm("アカウント情報を更新しますか？")) {
+		let updateResult = confirm("アカウント情報を更新しますか？")
+		if (updateResult) {
+			alert("アカウントを更新しました")
 		  	$('#userDetailForm').submit()
 		}else{
+			event.preventDefault()
 			alert("アカウント更新をキャンセルしました")
 		}
 	})
 	
 	$('#deleteBtn').click(function(event){
-		let result = confirm("アカウントを削除してもよろしいですか？\nアカウントは元に戻せませんのでご注意下さい")
-		if(result){
+		let deleteResult = confirm("アカウントを削除してもよろしいですか？\nアカウントは元に戻せませんのでご注意下さい")
+		if(deleteResult){
 			alert("アカウントを削除しました")
 			window.location.href = "/user/login"
 		}else{

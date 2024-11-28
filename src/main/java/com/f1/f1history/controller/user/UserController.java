@@ -80,13 +80,14 @@ class UserController {
 	public String updateUser(@ModelAttribute @Validated UpdateMUserForm mUserForm,
 			BindingResult result,
 			Model model) {
+		System.out.println(result.getAllErrors());
 		if (result.hasErrors()) {
 			model.addAttribute("MUserForm", mUserForm);
 			return "/user/user-detail";
 		}
 		MUser user = modelMapper.map(mUserForm, MUser.class);
 		userService.updateUser(user);
-		return "redirect:/driver/home";
+		return "redirect:/user/" + user.getUserId();
 	}
 
 	@PostMapping(value = "detail", params = "delete")

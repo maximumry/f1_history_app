@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -79,7 +80,11 @@ public class UserServiceImpl implements UserService {
 
 	@Override
 	public boolean emailUniqueForUpdate(MUser value, CustomUserDetails userDetails) {
-		if (value.getUserId().equals(userDetails.getUserId())) {
+		String authorityStr = "";
+		for (GrantedAuthority authority : userDetails.getAuthorities()) {
+			authorityStr = authority.getAuthority();
+		}
+		if (value.getUserId().equals(userDetails.getUserId()) || authorityStr.equals("ADMIN")) {
 			return true;
 		}
 		return false;

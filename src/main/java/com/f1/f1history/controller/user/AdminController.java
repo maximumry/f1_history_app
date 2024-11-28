@@ -44,7 +44,7 @@ public class AdminController {
 	}
 
 	@PostMapping(value = "detail", params = "update")
-	public String updateUser(@ModelAttribute @Validated UpdateMUserForm mUserForm,
+	public String updateUser(@Validated @ModelAttribute UpdateMUserForm mUserForm,
 			BindingResult result,
 			Model model) {
 		System.out.println(result.getAllErrors());

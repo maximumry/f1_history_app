@@ -26,7 +26,7 @@ public class MUserForm {
 	@Size(min = 12, max = 255, message = "12文字以上、255文字以内で入力してください")
 	private String password;
 
-	@NotBlank(message = "メールアドレスを入力してください")
+	@NotNull(message = "メールアドレスを入力してください")
 	@Email(message = "メールアドレスの形式が間違っています")
 	@Size(max = 100, message = "1〜100桁を入力してください")
 	@UniqueEmail
