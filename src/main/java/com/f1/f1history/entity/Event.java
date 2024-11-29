@@ -18,7 +18,7 @@ public class Event {
 	private LocalDate date;
 	private String category;
 	private String weatherCondition;
-	private String userId;
+	private int userId;
 	private String title;
 	private String youtubeUrl;
 	private Driver driver;

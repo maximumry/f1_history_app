@@ -61,9 +61,8 @@ public class RestCommentController {
 			}
 			return new EventRestResult(90, errors, null);
 		}
-		String userId = user.getUserId();
 		Comment comment = modelMapper.map(form, Comment.class);
-		comment.setUserId(userId);
+		comment.setUserId(user.getUserId());
 		Comment aftComment = commentService.insertComment(comment);
 		return new EventRestResult(0, null, aftComment);
 	}

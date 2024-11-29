@@ -17,7 +17,7 @@ import lombok.NoArgsConstructor;
 public class MUserForm {
 
 	@NotNull
-	private int userId;
+	private String userId;
 
 	@NotBlank(message = "名前を入力してください")
 	@Size(max = 50, message = "50文字以内で入力してください")

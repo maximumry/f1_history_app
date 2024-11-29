@@ -17,6 +17,7 @@ import com.f1.f1history.entity.Comment;
 import com.f1.f1history.entity.Inquiry;
 import com.f1.f1history.entity.MUser;
 import com.f1.f1history.form.MUserForm;
+import com.f1.f1history.form.SignupForm;
 import com.f1.f1history.form.UpdateMUserForm;
 import com.f1.f1history.service.user.UserService;
 
@@ -31,17 +32,18 @@ class UserController {
 	private final UserService userService;
 
 	@GetMapping("/signup")
-	public String signup(@ModelAttribute MUserForm mUserForm) {
+	public String signup(@ModelAttribute SignupForm signupForm) {
 		return "/user/signup";
 	}
 
 	@PostMapping("/signup")
-	public String registerUser(@ModelAttribute @Validated MUserForm mUserForm,
+	public String registerUser(@ModelAttribute @Validated SignupForm signupForm,
 			BindingResult result) {
+		System.out.println(result.getAllErrors());
 		if (result.hasErrors()) {
 			return "/user/signup";
 		}
-		MUser user = modelMapper.map(mUserForm, MUser.class);
+		MUser user = modelMapper.map(signupForm, MUser.class);
 		userService.signup(user);
 		return "redirect:/driver";
 	}

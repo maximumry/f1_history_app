@@ -5,6 +5,7 @@ import java.util.Optional;
 import javax.validation.ConstraintValidator;
 import javax.validation.ConstraintValidatorContext;
 
+import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
 
 import com.f1.f1history.config.CustomUserDetails;
@@ -22,14 +23,26 @@ public class UniqueEmailValidator implements ConstraintValidator<UniqueEmail, St
 
 	@Override
 	public boolean isValid(String value, ConstraintValidatorContext context) {
-		CustomUserDetails userDetails = (CustomUserDetails) SecurityContextHolder.getContext().getAuthentication()
+		Object userDetails = SecurityContextHolder.getContext().getAuthentication()
 				.getPrincipal();
 
 		Optional<MUser> mUserOptional = userInfoMapper.findLoginUser(value);
-		if (mUserOptional.isPresent()) {
-			return userService.emailUniqueForUpdate(mUserOptional.get(), userDetails);
+
+		if (userDetails instanceof CustomUserDetails) {
+			CustomUserDetails customUserDetails = (CustomUserDetails) userDetails;
+			String authorityStr = "";
+			for (GrantedAuthority authority : customUserDetails.getAuthorities()) {
+				authorityStr = authority.getAuthority();
+			}
+
+			if (mUserOptional.isPresent()) {
+				return userService.emailUniqueForUpdate(mUserOptional.get(), customUserDetails.getUserId(),
+						authorityStr);
+			}
 		}
-		return mUserOptional.isEmpty();
+		boolean flag = mUserOptional.isEmpty();
+		System.out.println(flag);
+		return flag;
 	}
 
 }

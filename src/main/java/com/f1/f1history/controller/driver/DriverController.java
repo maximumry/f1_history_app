@@ -22,8 +22,7 @@ public class DriverController {
 	public String getDrivers(@ModelAttribute DriverForm form,
 			Model model,
 			@AuthenticationPrincipal CustomUserDetails user) {
-		String userId = user.getUserId();
-		model.addAttribute("userId", userId);
+		model.addAttribute("userId", user.getUserId());
 		return "/driver/home";
 	}
 

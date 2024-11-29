@@ -4,13 +4,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.security.access.prepost.PreAuthorize;
-import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.f1.f1history.config.CustomUserDetails;
 import com.f1.f1history.dao.UserInfoMapper;
 import com.f1.f1history.entity.MUser;
 
@@ -54,7 +52,8 @@ public class UserServiceImpl implements UserService {
 	public void updateUser(MUser mUser) {
 		//パスワード変更がされない(フォームが空で送信された)場合はuserIdを元にパスワードを取得してmUserオブジェクトに取得したパスワードをセットしてる
 		if (mUser.getPassword() == null || mUser.getPassword().isEmpty()) {
-			String password = userInfoMapper.getUserPassword(mUser.getUserId());
+			String userIdStr = String.valueOf(mUser.getUserId());
+			String password = userInfoMapper.getUserPassword(userIdStr);
 			mUser.setPassword(password);
 		} else {
 			String rawPassword = mUser.getPassword();
@@ -79,12 +78,8 @@ public class UserServiceImpl implements UserService {
 	}
 
 	@Override
-	public boolean emailUniqueForUpdate(MUser value, CustomUserDetails userDetails) {
-		String authorityStr = "";
-		for (GrantedAuthority authority : userDetails.getAuthorities()) {
-			authorityStr = authority.getAuthority();
-		}
-		if (value.getUserId().equals(userDetails.getUserId()) || authorityStr.equals("ADMIN")) {
+	public boolean emailUniqueForUpdate(MUser value, String userId, String authority) {
+		if (value.getUserId().equals(userId) || authority.equals("ADMIN")) {
 			return true;
 		}
 		return false;

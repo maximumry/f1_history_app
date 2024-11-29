@@ -6,7 +6,6 @@ import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
 import com.f1.f1history.validation.UniqueEmail;
-import com.f1.f1history.validation.UniquePassword;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -15,16 +14,13 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class UpdateMUserForm {
+public class SignupForm {
 
-	@NotNull
-	private String userId;
-
-	@NotNull(message = "名前を入力してください")
+	@NotBlank(message = "名前を入力してください")
 	@Size(max = 50, message = "50文字以内で入力してください")
 	private String name;
 
-	@UniquePassword
+	@Size(min = 12, max = 255, message = "12文字以上、255文字以内で入力してください")
 	private String password;
 
 	@NotNull(message = "メールアドレスを入力してください")
