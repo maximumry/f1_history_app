@@ -35,7 +35,7 @@ public class UniqueEmailValidator implements ConstraintValidator<UniqueEmail, St
 			System.out.println("送られてきたemail" + user.getEmail());
 			System.out.println("ログイン中email" + customUserDetails.getEmail());
 			if (user.getEmail().equals(customUserDetails.getEmail())
-					&& user.getUserId().equals(customUserDetails.getUserId())) {
+					&& !user.getUserId().equals(customUserDetails.getUserId())) {
 				return true;
 			}
 		}

@@ -4,7 +4,6 @@ jQuery(function($){
 	$('#updateBtn').click(function(event){
 		let updateResult = confirm("アカウント情報を更新しますか？")
 		if (updateResult) {
-			alert("アカウントを更新しました")
 		  	$('#userDetailForm').submit()
 		}else{
 			event.preventDefault()
