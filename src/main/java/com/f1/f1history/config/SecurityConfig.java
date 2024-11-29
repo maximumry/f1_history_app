@@ -69,19 +69,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
 		//一時的に無効化
 		http.csrf().disable();
-
-		//		//リクエスト制御
-		//		http.authorizeRequests(
-		//				requests -> requests
-		//					.antMatchers(HttpMethod.GET, "admin/hello").hasRole("user")
-		//					.antMatchers(HttpMethod.GET, "/user/hello").permitAll());
-		//		
-		//		http.oauth2ResourceServer(
-		//				oauth2ResourceServerCustomizer ->
-		//					oauth2ResourceServerCustomizer.jwt(jwtCustomizer ->
-		//							//2つの変換処理で利用するクラス(ConverterIF実装クラス/JwtDecoderIF実装クラス)にここでセットする
-		//							jwtCustomizer.jwtAuthenticationConverter((Converter<Jwt, ? extends AbstractAuthenticationToken>) customJwtConverter).decoder(jwtDecoder))
-		//		);
 	}
 
 	@Override

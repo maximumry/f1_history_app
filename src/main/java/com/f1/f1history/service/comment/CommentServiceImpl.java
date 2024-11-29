@@ -30,7 +30,7 @@ public class CommentServiceImpl implements CommentService {
 
 	@Override
 	public boolean deleteComment(String commentId, String userId) {
-		Comment comment = commentInfoMapper.getComment(Integer.parseInt(commentId));
+		Comment comment = commentInfoMapper.getComment(commentId);
 		if (userId.equals(comment.getUserId())) {
 			int result = commentInfoMapper.deleteComment(commentId);
 			if (result == 0) {

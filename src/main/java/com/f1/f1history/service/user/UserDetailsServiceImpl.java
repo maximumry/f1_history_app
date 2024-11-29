@@ -37,13 +37,11 @@ public class UserDetailsServiceImpl implements UserDetailsService {
 		authorities.add(authority);
 
 		//UserDetails生成
-		UserDetails user = new CustomUserDetails(
+		return new CustomUserDetails(
 				loginUser.getUserId(),
 				loginUser.getEmail(),
 				loginUser.getPassword(),
 				authorities);
-
-		return user;
 	}
 
 }

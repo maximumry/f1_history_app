@@ -13,7 +13,7 @@ public interface CommentInfoMapper {
 
 	List<Comment> getEventComment(String eventId);
 
-	Comment getComment(int commentId);
+	Comment getComment(String commentId);
 
 	int deleteComment(String commentId);
 

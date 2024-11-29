@@ -11,7 +11,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class Comment {
 
-	private int commentId;
+	private String commentId;
 	private String content;
 	private String userId;
 	private String eventId;

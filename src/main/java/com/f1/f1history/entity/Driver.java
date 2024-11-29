@@ -10,7 +10,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 public class Driver {
-	
+
 	private String driverId;
 	private String worldChampionships;
 	private String wins;
@@ -18,6 +18,6 @@ public class Driver {
 	private String wikiUrl;
 	private List<Event> eventList;
 	private MUser user;
-	private String userId;
+	private int userId;
 
 }
