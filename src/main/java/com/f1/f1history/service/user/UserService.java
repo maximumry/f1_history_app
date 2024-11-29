@@ -2,6 +2,7 @@ package com.f1.f1history.service.user;
 
 import java.util.List;
 
+import com.f1.f1history.config.CustomUserDetails;
 import com.f1.f1history.entity.MUser;
 
 public interface UserService {
@@ -20,5 +21,5 @@ public interface UserService {
 
 	List<String> getAuthority();
 
-	boolean emailUniqueForUpdate(MUser value, String userId, String authority);
+	boolean emailUniqueForUpdate(MUser value, CustomUserDetails userDetails);
 }

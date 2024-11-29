@@ -39,7 +39,6 @@ class UserController {
 	@PostMapping("/signup")
 	public String registerUser(@ModelAttribute @Validated SignupForm signupForm,
 			BindingResult result) {
-		System.out.println(result.getAllErrors());
 		if (result.hasErrors()) {
 			return "/user/signup";
 		}
@@ -82,20 +81,19 @@ class UserController {
 	public String updateUser(@ModelAttribute @Validated UpdateMUserForm mUserForm,
 			BindingResult result,
 			Model model) {
-		System.out.println(result.getAllErrors());
 		if (result.hasErrors()) {
 			model.addAttribute("MUserForm", mUserForm);
 			return "/user/user-detail";
 		}
 		MUser user = modelMapper.map(mUserForm, MUser.class);
 		userService.updateUser(user);
-		return "redirect:/user/" + user.getUserId();
+		return "redirect:/driver";
 	}
 
 	@PostMapping(value = "detail", params = "delete")
 	public String deleteUser(@ModelAttribute UpdateMUserForm mUserForm) {
 		MUser user = modelMapper.map(mUserForm, MUser.class);
 		userService.deleteUser(user);
-		return "redirect:/driver/home";
+		return "redirect:/user/logout";
 	}
 }
