@@ -15,12 +15,14 @@
 	<nav class="navbar bg-dark navbar-expand-lg bg-body-tertiary">
 	  <div class="container-fluid">
 	    <a class="navbar-brand" style="color: red;" th:href="@{/driver}">F1 History App</a>
-		<form th:action="@{/user/logout}" method="post" style="margin: 0 20px 0 auto;">
-			<button type="submit" class="btn btn-secondary">ログアウト</button>
-		</form>
-		<a class="navbar-brand mb-2 mb-lg-0" th:href="@{/user/{userId}(userId=${userId})}">アカウント管理</a>
-		<a class="navbar-brand mb-2 mb-lg-0" th:href="@{/inquiry/form}">お問い合わせ</a>
-		<a class="navbar-brand mb-2 mb-lg-0" th:href="@{/admin}" sec:authorize="hasAuthority('ADMIN')">ユーザー管理</a>
+		<th:block th:if="${userId ne null}">
+			<form th:action="@{/user/logout}" method="post" style="margin: 0 20px 0 auto;">
+				<button type="submit" class="btn btn-secondary">ログアウト</button>
+			</form>
+			<a class="navbar-brand mb-2 mb-lg-0" th:href="@{/user/{userId}(userId=${userId})}">アカウント管理</a>
+			<a class="navbar-brand mb-2 mb-lg-0" th:href="@{/inquiry/form}">お問い合わせ</a>
+			<a class="navbar-brand mb-2 mb-lg-0" th:href="@{/admin}" sec:authorize="hasAuthority('ADMIN')">ユーザー管理</a>
+		</th:block>
 	    <form class="d-flex" role="search" id="searchRaceForm">
 	      <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search" name="raceSearch">
 	      <button class="btn btn-outline-success" type="button" id="raceBtnSearch">Search</button>
