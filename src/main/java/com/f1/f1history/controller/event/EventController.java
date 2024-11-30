@@ -26,6 +26,12 @@ public class EventController {
 			@AuthenticationPrincipal CustomUserDetails user,
 			@ModelAttribute CommentForm form,
 			Model model) {
+		if (user == null) {
+			String[] eventSplit = eventId.split("_");
+			model.addAttribute("userId", null);
+			model.addAttribute("eventId", eventSplit);
+			return "/event/event-detail";
+		}
 		String[] eventSplit = eventId.split("_");
 		model.addAttribute("userId", user.getUserId());
 		model.addAttribute("eventId", eventSplit);

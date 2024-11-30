@@ -81,7 +81,6 @@ class UserController {
 	public String updateUser(@ModelAttribute @Validated UpdateMUserForm mUserForm,
 			BindingResult result,
 			Model model) {
-		System.out.println(result);
 		if (result.hasErrors()) {
 			model.addAttribute("MUserForm", mUserForm);
 			return "/user/user-detail";

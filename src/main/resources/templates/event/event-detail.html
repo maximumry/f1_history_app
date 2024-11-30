@@ -41,22 +41,25 @@
 		</table>
 	</div>
 	
-	<!-- コメント投稿フォーム -->
-	<div class="container" style="height: 100px">
-		<div>
-		<form id="commentInsertForm" th:object="${commentForm}" style="height: 80%;">
-			<div class="mb-3 h-100">
-				<input type="hidden" th:field="*{eventId}" id="hiddenEventId">
-			    <textarea class="form-control" placeholder="コメントをポスト" style="height: 100%;" th:field="*{content}"></textarea>
+	<th:block th:if="${userId ne null">
+		<!-- コメント投稿フォーム -->
+		<div class="container" style="height: 100px">
+			<div>
+			<form id="commentInsertForm" th:object="${commentForm}" style="height: 80%;">
+				<div class="mb-3 h-100">
+					<input type="hidden" th:field="*{eventId}" id="hiddenEventId">
+				    <textarea class="form-control" placeholder="コメントをポスト" style="height: 100%;" th:field="*{content}"></textarea>
+				</div>
+				<button type="button" class="btn btn-primary" id="commentInsertBtn">コメント</button>
+			</form>
 			</div>
-			<button type="button" class="btn btn-primary" id="commentInsertBtn">コメント</button>
-		</form>
+		
+			<!-- コメント表示領域 -->
+			<div class="mb-3 mt-3" id="showComment">
+				
+			</div>
 		</div>
+	</th:block>
 	
-		<!-- コメント表示領域 -->
-		<div class="mb-3 mt-3" id="showComment">
-			
-		</div>
-	</div>
 </body>
 </html>
