@@ -71,6 +71,7 @@ class UserController {
 			inquiry.setUser(user);
 		}
 		UpdateMUserForm userForm = modelMapper.map(user, UpdateMUserForm.class);
+		userService.keepCurrentLoginUser(userId);
 		model.addAttribute("inquiryList", inquiryList);
 		model.addAttribute("commentList", commentList);
 		model.addAttribute("MUserForm", userForm);

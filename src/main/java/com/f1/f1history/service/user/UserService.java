@@ -22,4 +22,8 @@ public interface UserService {
 	List<String> getAuthority();
 
 	boolean emailUniqueForUpdate(MUser value, CustomUserDetails userDetails);
+
+	void keepCurrentLoginUser(String userId);
+
+	String getCurrentLoginUser();
 }

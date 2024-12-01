@@ -23,6 +23,7 @@ public class UserServiceImpl implements UserService {
 
 	private final PasswordEncoder encoder;
 	private final UserInfoMapper userInfoMapper;
+	private String keepUserId = "";
 
 	@Override
 	public void signup(MUser user) {
@@ -89,6 +90,16 @@ public class UserServiceImpl implements UserService {
 			return true;
 		}
 		return false;
+	}
+
+	@Override
+	public void keepCurrentLoginUser(String userId) {
+		keepUserId = userId;
+	}
+
+	@Override
+	public String getCurrentLoginUser() {
+		return keepUserId;
 	}
 
 }

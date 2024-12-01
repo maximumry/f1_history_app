@@ -38,6 +38,7 @@ public class AdminController {
 		MUser user = userService.getUser(userId);
 		UpdateMUserForm userForm = modelMapper.map(user, UpdateMUserForm.class);
 		List<String> authorityList = userService.getAuthority();
+		userService.keepCurrentLoginUser(userId);
 		model.addAttribute("authorityList", authorityList);
 		model.addAttribute("MUserForm", userForm);
 		return "/admin/admin-user-detail";
