@@ -23,6 +23,9 @@
 			<a class="navbar-brand mb-2 mb-lg-0" th:href="@{/inquiry/form}">お問い合わせ</a>
 			<a class="navbar-brand mb-2 mb-lg-0" th:href="@{/admin}" sec:authorize="hasAuthority('ADMIN')">ユーザー管理</a>
 		</th:block>
+		<th:block th:if="${userId eq null}">
+			<a th:href="@{/user/login}" class="btn btn-primary">ログイン</a>
+		</th:block>
 	    <form class="d-flex" role="search" id="searchRaceForm">
 	      <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search" name="raceSearch">
 	      <button class="btn btn-outline-success" type="button" id="raceBtnSearch">Search</button>

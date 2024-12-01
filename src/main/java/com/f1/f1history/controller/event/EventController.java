@@ -30,6 +30,10 @@ public class EventController {
 			String[] eventSplit = eventId.split("_");
 			model.addAttribute("userId", null);
 			model.addAttribute("eventId", eventSplit);
+			for (String string : eventSplit) {
+				System.out.println(string);
+			}
+
 			return "/event/event-detail";
 		}
 		String[] eventSplit = eventId.split("_");

@@ -18,7 +18,15 @@
 	<!-- ヘッダー -->
 	<nav class="navbar bg-dark navbar-expand-lg bg-body-tertiary">
 	  <div class="container-fluid">
-	    <a class="navbar-brand" style="color: red;">F1 History App</a>
+	    <a class="navbar-brand" style="color: red;" th:href="@{/driver}">F1 History App</a>
+		<th:block th:if="${userId ne null}">
+			<form th:action="@{/user/logout}" method="post" style="margin: 0 20px 0 auto;">
+				<button type="submit" class="btn btn-secondary">ログアウト</button>
+			</form>
+		</th:block>
+		<th:block th:if="${userId eq null}">
+			<a th:href="@{/user/login}" class="btn btn-primary">ログイン</a>
+		</th:block>
 	  </div>
 	</nav>
 	<!-- テーブル形式でレース結果を表示 -->
@@ -41,7 +49,7 @@
 		</table>
 	</div>
 	
-	<th:block th:if="${userId ne null">
+	<th:block th:if="${userId ne null}">
 		<!-- コメント投稿フォーム -->
 		<div class="container" style="height: 100px">
 			<div>
@@ -60,6 +68,10 @@
 			</div>
 		</div>
 	</th:block>
-	
+	<th:block th:if="${userId eq null}">
+		<div class="container d-flex justify-content-center mt-3 mb-5">
+			<a th:href="@{/user/login}" class="link-primary link-offset-2 link-underline-opacity-25 link-underline-opacity-100-hover">ログインをしてコメントしてみましょう</a>
+		</div>
+	</th:block>
 </body>
 </html>

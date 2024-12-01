@@ -10,6 +10,7 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import com.f1.f1history.config.CustomUserDetails;
 import com.f1.f1history.dao.UserInfoMapper;
 import com.f1.f1history.entity.MUser;
+import com.f1.f1history.service.user.UserService;
 
 import lombok.RequiredArgsConstructor;
 
@@ -17,6 +18,7 @@ import lombok.RequiredArgsConstructor;
 public class UniqueEmailValidator implements ConstraintValidator<UniqueEmail, String> {
 
 	private final UserInfoMapper userInfoMapper;
+	private final UserService userService;
 
 	@Override
 	public boolean isValid(String value, ConstraintValidatorContext context) {
@@ -32,10 +34,9 @@ public class UniqueEmailValidator implements ConstraintValidator<UniqueEmail, St
 		if (userDetails instanceof CustomUserDetails) {
 			CustomUserDetails customUserDetails = (CustomUserDetails) userDetails;
 			MUser user = mUserOptional.get();
-			System.out.println("送られてきたemail" + user.getEmail());
-			System.out.println("ログイン中email" + customUserDetails.getEmail());
-			if (user.getEmail().equals(customUserDetails.getEmail())
-					&& !user.getUserId().equals(customUserDetails.getUserId())) {
+			String requestUserId = userService.getCurrentLoginUser();
+			if (requestUserId.equals(customUserDetails.getUserId())
+					&& user.getUserId().equals(customUserDetails.getUserId())) {
 				return true;
 			}
 		}
