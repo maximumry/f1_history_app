@@ -1,5 +1,7 @@
 package com.f1.f1history.controller.driver;
 
+import java.util.Map;
+
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -10,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.f1.f1history.config.CustomUserDetails;
 import com.f1.f1history.form.DriverForm;
+import com.f1.f1history.service.driver.DriverService;
 
 import lombok.RequiredArgsConstructor;
 
@@ -18,14 +21,20 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public class DriverController {
 
+	private final DriverService driverService;
+
 	@GetMapping
 	public String getDrivers(@ModelAttribute DriverForm form,
 			Model model,
 			@AuthenticationPrincipal CustomUserDetails user) {
 		if (user == null) {
+			Map<String, String> yearDecade = driverService.getByDecade();
+			model.addAttribute("yearDecade", yearDecade);
 			model.addAttribute("userId", null);
 			return "/driver/home";
 		}
+		Map<String, String> yearDecade = driverService.getByDecade();
+		model.addAttribute("yearDecade", yearDecade);
 		model.addAttribute("userId", user.getUserId());
 		return "/driver/home";
 	}

@@ -85,8 +85,11 @@ jQuery(function($){
 		})
 		
 		let formData = ''
+		let yearDecade = ''
 		//検索ボタンを押したときの処理
 		$('#raceBtnSearch').click(function(event){
+			//セレクトボックスのvalueを受け取ってその期間のyearを繰り返しで検索実施
+			yearDecade = $('#selectYearDecade').val()
 			formData = $('#searchRaceForm').serialize();
 			$.ajax({
 				type: 'GET',

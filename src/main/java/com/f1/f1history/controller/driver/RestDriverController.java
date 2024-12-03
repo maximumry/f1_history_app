@@ -34,6 +34,8 @@ public class RestDriverController {
 	private final ModelMapper modelMapper;
 	private final MessageSource messageSource;
 
+	//private static final String URL = 
+
 	@GetMapping
 	public List<Driver> getDrivers() {
 		return driverService.getAllDriver();

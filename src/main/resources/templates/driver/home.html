@@ -26,6 +26,12 @@
 		<th:block th:if="${userId eq null}">
 			<a th:href="@{/user/login}" class="btn btn-primary"	style="margin: 0 20px 0 auto;">ログイン</a>
 		</th:block>
+		<select class="form-select me-1" aria-label="Default select example" style="width: auto;" id="selectYearDecade">
+			<option th:each="decade : ${yearDecade}" 
+                    th:value="${decade.key}" 
+                    th:text="${decade.value}">
+            </option>
+		</select>
 	    <form class="d-flex" role="search" id="searchRaceForm">
 	      <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search" name="raceSearch">
 	      <button class="btn btn-outline-success" type="button" id="raceBtnSearch">Search</button>
