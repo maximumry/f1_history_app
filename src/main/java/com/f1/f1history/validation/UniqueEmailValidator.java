@@ -31,15 +31,16 @@ public class UniqueEmailValidator implements ConstraintValidator<UniqueEmail, St
 		if (mUserOptional.isEmpty())
 			return true;
 
-		if (userDetails instanceof CustomUserDetails) {
-			CustomUserDetails customUserDetails = (CustomUserDetails) userDetails;
-			MUser user = mUserOptional.get();
-			String requestUserId = userService.getCurrentLoginUser();
-			if (requestUserId.equals(customUserDetails.getUserId())
-					&& user.getUserId().equals(customUserDetails.getUserId())) {
-				return true;
-			}
+		CustomUserDetails customUserDetails = (CustomUserDetails) userDetails;
+		MUser user = mUserOptional.get();
+		String requestUserId = userService.getCurrentLoginUser();
+		System.out.println(requestUserId + "ゲットuserId");
+		if (requestUserId.equals(customUserDetails.getUserId())
+				|| user.getUserId().equals(customUserDetails.getUserId())
+				|| requestUserId.equals(user.getUserId())) {
+			return true;
 		}
+
 		return false;
 	}
 

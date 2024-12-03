@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.f1.f1history.entity.Comment;
 import com.f1.f1history.entity.Inquiry;
@@ -38,13 +39,17 @@ class UserController {
 
 	@PostMapping("/signup")
 	public String registerUser(@ModelAttribute @Validated SignupForm signupForm,
-			BindingResult result) {
+			BindingResult result,
+			Model model,
+			RedirectAttributes redirectAttributes) {
 		if (result.hasErrors()) {
 			return "/user/signup";
 		}
 		MUser user = modelMapper.map(signupForm, MUser.class);
 		userService.signup(user);
-		return "redirect:/driver";
+		MUserForm mUserForm = modelMapper.map(user, MUserForm.class);
+		redirectAttributes.addFlashAttribute("MUserForm", mUserForm);
+		return "redirect:/user/login";
 	}
 
 	@GetMapping("/login")

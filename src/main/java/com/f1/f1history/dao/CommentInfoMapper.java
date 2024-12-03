@@ -18,4 +18,6 @@ public interface CommentInfoMapper {
 	int deleteComment(String commentId);
 
 	List<Comment> getAllComment();
+
+	List<Comment> selectAllUser(String userId);
 }

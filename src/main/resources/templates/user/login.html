@@ -12,6 +12,12 @@
 <body>
 <!--    <div>username：<span th:text="${username}"></span></div>-->
 <!--    <a href="/">Back</a>-->
+	<nav class="navbar bg-dark navbar-expand-lg bg-body-tertiary">
+		<div class="container-fluid">
+			<a class="navbar-brand" style="color: red;" th:href="@{/driver}">F1 History App</a>
+		</div>
+	</nav>
+	
 	<div class="d-flex justify-content-center align-items-center vh-100">
 		<form method="post" th:action="@{/user/login}" th:object="${MUserForm}" class="w-50">
 			<h2 class="text-center">ログイン</h2>

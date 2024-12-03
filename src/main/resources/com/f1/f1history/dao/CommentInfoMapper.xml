@@ -103,5 +103,17 @@
     		users
     	ON users.user_id = comments.user_id
     </select>
+    
+    <select id="selectAllUser" resultMap="commentMap">
+    	SELECT
+    		*
+    	FROM
+    		comments
+    	LEFT JOIN
+    		users
+    	ON comments.user_id = users.user_id
+    	WHERE
+    		comments.user_id = #{userId}
+    </select>
 
 </mapper>

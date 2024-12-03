@@ -39,13 +39,14 @@ public class AdminController {
 		UpdateMUserForm userForm = modelMapper.map(user, UpdateMUserForm.class);
 		List<String> authorityList = userService.getAuthority();
 		userService.keepCurrentLoginUser(userId);
+		System.out.println(userId + "keepuserId");
 		model.addAttribute("authorityList", authorityList);
 		model.addAttribute("MUserForm", userForm);
 		return "/admin/admin-user-detail";
 	}
 
 	@PostMapping(value = "detail", params = "update")
-	public String updateUser(@Validated @ModelAttribute UpdateMUserForm mUserForm,
+	public String updateUser(@ModelAttribute @Validated UpdateMUserForm mUserForm,
 			BindingResult result,
 			Model model) {
 		System.out.println(result.getAllErrors());
