@@ -55,7 +55,7 @@
     		users
     	ON users.user_id = inquiries.user_id
     	WHERE
-    		inquiry_id = ${inquiryId}
+    		inquiry_id = #{inquiryId}
     </select>
     
     <update id="deleteInquiryOne">
@@ -66,4 +66,24 @@
     	WHERE
     		inquiry_id = #{inquiryId}
     </update>
+    
+    <delete id="deleteAndUser">
+    	DELETE
+    	FROM
+    		inquiries
+    	WHERE
+    		inquiry_id = #{inquiryId}
+    </delete>
+    
+    <select id="selectAllUser" resultMap="InquiryMap">
+    	SELECT
+    		*
+    	FROM
+    		inquiries
+    	INNER JOIN
+    		users
+    	ON users.user_id = inquiries.user_id
+    	WHERE
+    		inquiries.user_id = #{userId}
+    </select>
 </mapper>

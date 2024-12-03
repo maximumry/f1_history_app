@@ -11,8 +11,14 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.f1.f1history.config.CustomUserDetails;
+import com.f1.f1history.dao.CommentInfoMapper;
+import com.f1.f1history.dao.InquiryInfoMapper;
 import com.f1.f1history.dao.UserInfoMapper;
+import com.f1.f1history.entity.Comment;
+import com.f1.f1history.entity.Inquiry;
 import com.f1.f1history.entity.MUser;
+import com.f1.f1history.service.comment.CommentService;
+import com.f1.f1history.service.inquiry.InquiryService;
 
 import lombok.RequiredArgsConstructor;
 
@@ -23,6 +29,10 @@ public class UserServiceImpl implements UserService {
 
 	private final PasswordEncoder encoder;
 	private final UserInfoMapper userInfoMapper;
+	private final CommentService commentService;
+	private final CommentInfoMapper commentInfoMapper;
+	private final InquiryService inquiryService;
+	private final InquiryInfoMapper inquiryInfoMapper;
 	private String keepUserId = "";
 
 	@Override
@@ -67,6 +77,18 @@ public class UserServiceImpl implements UserService {
 
 	@Override
 	public void deleteUser(MUser user) {
+		List<Comment> comments = commentInfoMapper.selectAllUser(user.getUserId());
+		if (comments != null) {
+			for (Comment comment : comments) {
+				commentService.deleteComment(comment.getCommentId(), user.getUserId());
+			}
+		}
+		List<Inquiry> inquiries = inquiryInfoMapper.selectAllUser(user.getUserId());
+		if (inquiries != null) {
+			for (Inquiry inquiry : inquiries) {
+				inquiryService.deleteAndUser(inquiry.getInquiryId());
+			}
+		}
 		userInfoMapper.deleteUser(user);
 	}
 
