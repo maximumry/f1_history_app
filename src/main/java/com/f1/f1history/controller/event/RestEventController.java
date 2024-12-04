@@ -44,8 +44,9 @@ public class RestEventController {
 
 	//required falseで空送信されてもエラーを防ぐ
 	@GetMapping("/search")
-	public Map<String, ObjectNode> getSearchRace(@RequestParam(required = false, defaultValue = "") String raceSearch) {
-		return eventService.getSearchRace(raceSearch);
+	public Map<String, ObjectNode> getSearchRace(@RequestParam(required = false, defaultValue = "") int yearDecade,
+			@RequestParam(required = false, defaultValue = "") String raceSearch) {
+		return eventService.getSearchRace(yearDecade, raceSearch);
 	}
 
 	@PostMapping

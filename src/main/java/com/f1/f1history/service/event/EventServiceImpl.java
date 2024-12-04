@@ -1,6 +1,6 @@
 package com.f1.f1history.service.event;
 
-import java.time.Year;
+import java.util.Calendar;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -55,14 +55,13 @@ public class EventServiceImpl implements EventService {
 	}
 
 	@Override
-	public Map<String, ObjectNode> getSearchRace(String raceSearch) {
-		Map<String, ObjectNode> raceList = filterRace(raceSearch);
+	public Map<String, ObjectNode> getSearchRace(int yearDecade, String raceSearch) {
+		Map<String, ObjectNode> raceList = filterRace(yearDecade, raceSearch);
 		return raceList;
 	}
 
 	@Override
-	public Map<String, ObjectNode> filterRace(String raceSearch) {
-
+	public Map<String, ObjectNode> filterRace(int yearDecade, String raceSearch) {
 		//JavaでJSONデータを扱うためにArrayNodeのオブジェクトを作成
 		ArrayNode arrayNode = objectMapper.createArrayNode();
 		ArrayNode raceWinnerArray = objectMapper.createArrayNode();
@@ -70,15 +69,28 @@ public class EventServiceImpl implements EventService {
 		ObjectNode objectNode = objectMapper.createObjectNode();
 		ObjectNode winnerObjectNode = objectMapper.createObjectNode();
 
+		//セレクトボックスで選択された期間を抽出してその期間のレース内で検索
+		Calendar calendar = Calendar.getInstance();
+		int year = calendar.get(Calendar.YEAR);
+		double past = year - 1949;
+		double result = Math.ceil(past / 10);
+		int startYear = 1950;
+		Map<Integer, Integer> tenPeriod = new HashMap<Integer, Integer>();
+		for (int i = 0; i < result; i++) {
+			tenPeriod.put(i, startYear);
+			startYear += 10;
+		}
+
 		try {
 			if (raceSearch.getClass().getSimpleName().equals("String")) {
 				//クライアントサイドの文字列を小文字に変換することで一致させやすくした
 				raceSearch = raceSearch.toLowerCase();
-				int year = Year.now().getValue();
-				int past = year - 1949;
+				//検索する年を代入
+				int searchYear = tenPeriod.get(yearDecade);
 
-				for (int i = 0; i < past; i++) {
-					String url = "https://ergast.com/api/f1/" + year + ".json";
+				for (int i = searchYear; i < searchYear + 10; i++) {
+					System.out.println(searchYear + 10);
+					String url = "https://ergast.com/api/f1/" + searchYear + ".json";
 					String raceUrl = restTemplate.getForObject(url, String.class);
 					JsonNode jsonNode = objectMapper.readTree(raceUrl);
 					JsonNode raceData = jsonNode.get("MRData")
@@ -99,7 +111,7 @@ public class EventServiceImpl implements EventService {
 					}
 					objectNode.set("raceSearch", arrayNode);
 
-					String winnerUrl = "https://ergast.com/api/f1/" + year + "/results/1.json";
+					String winnerUrl = "https://ergast.com/api/f1/" + searchYear + "/results/1.json";
 					String getRest = restTemplate.getForObject(winnerUrl, String.class);
 					JsonNode winNode = objectMapper.readTree(getRest);
 					JsonNode winnerData = winNode.get("MRData")
@@ -113,13 +125,6 @@ public class EventServiceImpl implements EventService {
 						}
 					}
 					winnerObjectNode.set("raceWinData", raceWinnerArray);
-					// 現在の年から1950年まで遡って処理するために年を1年ずつ減少させる
-					year--;
-					System.out.println(year);
-					if (i == 10) {
-						System.out.println("処理終了");
-						break;
-					}
 				}
 			}
 		} catch (Exception e) {
