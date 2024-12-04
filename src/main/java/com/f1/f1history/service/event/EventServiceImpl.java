@@ -88,9 +88,11 @@ public class EventServiceImpl implements EventService {
 				//検索する年を代入
 				int searchYear = tenPeriod.get(yearDecade);
 
-				for (int i = searchYear; i < searchYear + 10; i++) {
-					System.out.println(searchYear + 10);
-					String url = "https://ergast.com/api/f1/" + searchYear + ".json";
+				for (int i = searchYear; i <= searchYear + 10; i++) {
+					if (i > year) {
+						break;
+					}
+					String url = "https://ergast.com/api/f1/" + i + ".json";
 					String raceUrl = restTemplate.getForObject(url, String.class);
 					JsonNode jsonNode = objectMapper.readTree(raceUrl);
 					JsonNode raceData = jsonNode.get("MRData")
@@ -111,7 +113,7 @@ public class EventServiceImpl implements EventService {
 					}
 					objectNode.set("raceSearch", arrayNode);
 
-					String winnerUrl = "https://ergast.com/api/f1/" + searchYear + "/results/1.json";
+					String winnerUrl = "https://ergast.com/api/f1/" + i + "/results/1.json";
 					String getRest = restTemplate.getForObject(winnerUrl, String.class);
 					JsonNode winNode = objectMapper.readTree(getRest);
 					JsonNode winnerData = winNode.get("MRData")
