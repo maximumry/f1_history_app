@@ -19,7 +19,7 @@ public interface EventService {
 
 	void deleteEvent(Event event);
 
-	Map<String, ObjectNode> getSearchRace(String raceSearch);
+	Map<String, ObjectNode> filterRace(int yearDecade, String raceSearch);
 
-	Map<String, ObjectNode> filterRace(String raceSearch);
+	Map<String, ObjectNode> getSearchRace(int yearDecade, String raceSearch);
 }
