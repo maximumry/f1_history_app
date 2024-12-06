@@ -20,14 +20,14 @@ public class UpdateMUserForm {
 	@NotNull
 	private String userId;
 
-	@NotNull(message = "名前を入力してください")
+	@NotBlank(message = "名前を入力してください")
 	@Size(max = 50, message = "50文字以内で入力してください")
 	private String name;
 
 	@UniquePassword
 	private String password;
 
-	@NotNull(message = "メールアドレスを入力してください")
+	@NotBlank(message = "メールアドレスを入力してください")
 	@Email(message = "メールアドレスの形式が間違っています")
 	@Size(max = 100, message = "1〜100桁を入力してください")
 	@UniqueEmail
