@@ -4,13 +4,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.security.access.prepost.PreAuthorize;
-import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.f1.f1history.config.CustomUserDetails;
 import com.f1.f1history.dao.CommentInfoMapper;
 import com.f1.f1history.dao.InquiryInfoMapper;
 import com.f1.f1history.dao.UserInfoMapper;
@@ -100,18 +98,6 @@ public class UserServiceImpl implements UserService {
 		authorityList.add("GENERAL");
 
 		return authorityList;
-	}
-
-	@Override
-	public boolean emailUniqueForUpdate(MUser value, CustomUserDetails userDetails) {
-		String authority = "";
-		for (GrantedAuthority grantedAuthority : userDetails.getAuthorities()) {
-			authority = grantedAuthority.getAuthority();
-		}
-		if (value.getUserId().equals(userDetails.getUserId())) {
-			return true;
-		}
-		return false;
 	}
 
 	@Override

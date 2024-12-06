@@ -21,6 +21,7 @@ public class SignupForm {
 	private String name;
 
 	@Size(min = 12, max = 255, message = "12文字以上、255文字以内で入力してください")
+	@NotBlank(message = "パスワードを入力してください")
 	private String password;
 
 	@NotNull(message = "メールアドレスを入力してください")

@@ -44,17 +44,4 @@ public class DriverController {
 		model.addAttribute("driverId", driverId);
 		return "/driver/driver-detail";
 	}
-
-	@GetMapping("/form")
-	public String driverForm(@ModelAttribute DriverForm form) {
-		return "/driver/driver-form";
-	}
-
-	@GetMapping("/{driverId}/edit")
-	public String editDriver(@PathVariable("driverId") String driverId,
-			@ModelAttribute DriverForm form,
-			Model model) {
-		model.addAttribute("driverId", driverId);
-		return "/driver/driver-edit";
-	}
 }

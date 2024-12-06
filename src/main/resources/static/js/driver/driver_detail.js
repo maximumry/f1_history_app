@@ -62,42 +62,4 @@ jQuery(function($){
 		})
 	}
 	
-	//ドライバーについて聞きたいことをChatGPTに聞く処理
-	$('#send-button').click(function(){
-		const message = $('#input-field').val()
-		sendRequest(message)
-	})
-	
-	function sendRequest(message){
-		$.ajax({
-			type: 'POST',
-			url: "/openAiChat",
-			dataType: 'json',
-			data: JSON.stringify({
-				message : message
-			})
-		}).done(function(response){
-			$('.chat-response-area').html('<p>' + insertNewlines(response) + '</p>');
-		}).fail(function(){
-			alert("OpenAIとの接続に失敗しました")
-		})
-	}
-	
-	function insertNewlines(str){
-		let result = ''
-		
-		for(let i = 0;i < str.length;i++){
-			let substr = str.substring(i, i + 10)
-			let idx = substr.lastIndexOf('。')
-			if(idx !== -1){
-				result += substr.substring(0, idx + 1) + '<br>'
-				i += idx + 1
-			}else{
-				result += substr
-				i += 10
-			}
-		}
-		return result
-	}
-	
 })

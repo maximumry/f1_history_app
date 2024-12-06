@@ -2,7 +2,6 @@ package com.f1.f1history.service.event;
 
 import java.util.Calendar;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 
@@ -30,28 +29,8 @@ public class EventServiceImpl implements EventService {
 	private final ObjectMapper objectMapper;
 
 	@Override
-	public List<Event> getEventAll() {
-		return eventInfoMapper.getEventAll();
-	}
-
-	@Override
-	public void insertEvent(Event event) {
-		eventInfoMapper.insertEvent(event);
-	}
-
-	@Override
-	public void updateEvent(Event event) {
-		eventInfoMapper.updateEvent(event);
-	}
-
-	@Override
 	public Optional<Event> getEvent(String eventId) {
 		return eventInfoMapper.getEvent(eventId);
-	}
-
-	@Override
-	public void deleteEvent(Event event) {
-		eventInfoMapper.deleteEvent(event);
 	}
 
 	@Override

@@ -79,26 +79,26 @@ class UserController {
 		userService.keepCurrentLoginUser(userId);
 		model.addAttribute("inquiryList", inquiryList);
 		model.addAttribute("commentList", commentList);
-		model.addAttribute("MUserForm", userForm);
+		model.addAttribute("updateMUserForm", userForm);
 		return "/user/user-detail";
 	}
 
 	@PostMapping(value = "detail", params = "update")
-	public String updateUser(@ModelAttribute @Validated UpdateMUserForm mUserForm,
+	public String updateUser(@ModelAttribute @Validated UpdateMUserForm updateMUserForm,
 			BindingResult result,
 			Model model) {
 		if (result.hasErrors()) {
-			model.addAttribute("MUserForm", mUserForm);
+			userService.keepCurrentLoginUser(updateMUserForm.getUserId());
 			return "/user/user-detail";
 		}
-		MUser user = modelMapper.map(mUserForm, MUser.class);
+		MUser user = modelMapper.map(updateMUserForm, MUser.class);
 		userService.updateUser(user);
 		return "redirect:/driver";
 	}
 
 	@PostMapping(value = "detail", params = "delete")
-	public String deleteUser(@ModelAttribute UpdateMUserForm mUserForm) {
-		MUser user = modelMapper.map(mUserForm, MUser.class);
+	public String deleteUser(@ModelAttribute UpdateMUserForm updateMUserForm) {
+		MUser user = modelMapper.map(updateMUserForm, MUser.class);
 		userService.deleteUser(user);
 		return "redirect:/user/logout";
 	}

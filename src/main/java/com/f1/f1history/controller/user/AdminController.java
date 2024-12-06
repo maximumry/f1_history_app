@@ -39,31 +39,30 @@ public class AdminController {
 		UpdateMUserForm userForm = modelMapper.map(user, UpdateMUserForm.class);
 		List<String> authorityList = userService.getAuthority();
 		userService.keepCurrentLoginUser(userId);
-		System.out.println(userId + "keepuserId");
 		model.addAttribute("authorityList", authorityList);
-		model.addAttribute("MUserForm", userForm);
+		model.addAttribute("updateMUserForm", userForm);
 		return "/admin/admin-user-detail";
 	}
 
 	@PostMapping(value = "detail", params = "update")
-	public String updateUser(@ModelAttribute @Validated UpdateMUserForm mUserForm,
+	public String updateUser(@ModelAttribute @Validated UpdateMUserForm updateMUserForm,
 			BindingResult result,
 			Model model) {
-		System.out.println(result.getAllErrors());
 		if (result.hasErrors()) {
 			List<String> authorityList = userService.getAuthority();
+			userService.keepCurrentLoginUser(updateMUserForm.getUserId());
 			model.addAttribute("authorityList", authorityList);
-			model.addAttribute("MUserForm", mUserForm);
+			model.addAttribute("updateMUserForm", updateMUserForm);
 			return "/admin/admin-user-detail";
 		}
-		MUser user = modelMapper.map(mUserForm, MUser.class);
+		MUser user = modelMapper.map(updateMUserForm, MUser.class);
 		userService.updateUser(user);
 		return "redirect:/admin";
 	}
 
 	@PostMapping(value = "detail", params = "delete")
-	public String deleteUser(@ModelAttribute UpdateMUserForm mUserForm) {
-		MUser user = modelMapper.map(mUserForm, MUser.class);
+	public String deleteUser(@ModelAttribute UpdateMUserForm updateMUserForm) {
+		MUser user = modelMapper.map(updateMUserForm, MUser.class);
 		userService.deleteUser(user);
 		return "redirect:/admin";
 	}

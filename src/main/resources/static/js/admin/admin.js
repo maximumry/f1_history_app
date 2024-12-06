@@ -2,7 +2,7 @@
 jQuery(function($){
 	
 	let contentType = ''
-	let selectedYear = ''
+	let selectedYear = new Date().getFullYear();
 	let aftCommentData = []
 	let filteredCommentData = []
 	let thisYear
@@ -77,10 +77,13 @@ jQuery(function($){
 		let aftSelectedRound = []
 		let selectedRound = $(this).val()
 		
-		$.each(filteredCommentData, function(index, value){
+		$.each(aftCommentData, function(index, value){
+			console.log(value)
 			let sortRound = String(value.eventId)
+			let sortYear = value.eventId.slice(0, 4)
+			console.log(sortYear)
 			sortRound = sortRound.slice(4)
-			if(sortRound == selectedRound){
+			if(sortRound == selectedRound && selectedYear == sortYear){
 				aftSelectedRound.push(value)
 			}
 		})

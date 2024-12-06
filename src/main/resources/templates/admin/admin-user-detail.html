@@ -23,7 +23,7 @@
 	</nav>
 	<div class="container">
 		<div class="d-flex justify-content-center align-items-center vh-100 w-100">
-			<form method="post" th:action="@{/admin/detail}" th:object="${MUserForm}" class="w-50" id="userDetailForm">
+			<form method="post" th:action="@{/admin/detail}" th:object="${updateMUserForm}" class="w-50" id="userDetailForm">
 				<h2 class="text-center">ログイン</h2>
 				<input type="hidden" th:field="*{userId}">
 				<div class="mt-3">

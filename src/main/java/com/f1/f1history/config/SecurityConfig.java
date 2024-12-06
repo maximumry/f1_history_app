@@ -70,7 +70,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 				.logoutUrl("/user/logout")
 				.logoutSuccessUrl("/login?logout");
 
-		//一時的に無効化
 		http.csrf().disable();
 	}
 
