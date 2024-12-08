@@ -24,7 +24,7 @@ jQuery(function($){
 	
 	$('.commentDeleteBtn').click(function(){
 		let commentId = $(this).data('id')
-		let result = confirm('アカウントを削除してもよろしいですか？\nアカウントは元に戻せませんのでご注意下さい')
+		let result = confirm('コメントを削除してもよろしいですか？')
 		if(result){
 			deleteMyComment(commentId)
 		}

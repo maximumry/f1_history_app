@@ -2,7 +2,6 @@ package com.f1.f1history.form;
 
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
 import com.f1.f1history.validation.UniqueEmail;
@@ -24,7 +23,7 @@ public class SignupForm {
 	@NotBlank(message = "パスワードを入力してください")
 	private String password;
 
-	@NotNull(message = "メールアドレスを入力してください")
+	@NotBlank(message = "メールアドレスを入力してください")
 	@Email(message = "メールアドレスの形式が間違っています")
 	@Size(max = 100, message = "1〜100桁を入力してください")
 	@UniqueEmail
