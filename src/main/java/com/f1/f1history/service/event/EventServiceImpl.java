@@ -3,13 +3,10 @@ package com.f1.f1history.service.event;
 import java.util.Calendar;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.Optional;
 
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
-import com.f1.f1history.dao.EventInfoMapper;
-import com.f1.f1history.entity.Event;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.ArrayNode;
@@ -24,14 +21,8 @@ public class EventServiceImpl implements EventService {
 	public static final String RACEURL = "https://ergast.com/api/f1/year.json";
 	public static final String WINNERURL = "https://ergast.com/api/f1/${year}/results/1.json";
 
-	private final EventInfoMapper eventInfoMapper;
 	private final RestTemplate restTemplate;
 	private final ObjectMapper objectMapper;
-
-	@Override
-	public Optional<Event> getEvent(String eventId) {
-		return eventInfoMapper.getEvent(eventId);
-	}
 
 	@Override
 	public Map<String, ObjectNode> getSearchRace(int yearDecade, String raceSearch) {

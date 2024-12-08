@@ -117,14 +117,12 @@ jQuery(function($){
 				//シーズンの優勝者の名前を繰り返し処理で取得
 				$.each(value.Results, function(index, value){
 					raceWinner.push(value.Driver.givenName + ' ' + value.Driver.familyName)
-					console.log(value.Driver + "ドライバーウィン")
 					winConstructor.push(value.Constructor.name)
 					driverId.push(value.Driver.driverId)
 				})
 			})
 			
 			$.each(raceSearch.raceSearch, function(index, value){
-				console.log(value + "ドライバー除法")
 				//選択されたシーズンのレースを表示
 				var raceDataHtml = `
 					<tr>

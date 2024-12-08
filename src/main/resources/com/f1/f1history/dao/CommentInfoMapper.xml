@@ -9,7 +9,6 @@
         <result column="event_id" property="eventId"/>
         <result column="created_at" property="createdAt"/>
         <association property="user" resultMap="userMap" />
-        <association property="event" resultMap="eventMap" />
     </resultMap>
     
     <!-- Userのマッピング -->
@@ -20,18 +19,6 @@
     	<result column="role" property="role"/>
     	<result column="created_at" property="createdAt"/>
     	<result column="email" property="email"/>
-    </resultMap>
-    
-    <!-- Eventのマッピング -->
-    <resultMap type="com.f1.f1history.entity.Event" id="eventMap">
-        <id column="event_id" property="eventId"/>
-	    <result column="driver_id" property="driverId"/>
-	    <result column="description" property="description"/>
-	    <result column="date" property="date"/>
-	    <result column="category" property="category"/>
-	    <result column="title" property="title"/>
-	    <result column="youtube_url" property="youtubeUrl"/>
-	    <result column="weather_condition" property="weatherCondition" />
     </resultMap>
     
     <insert id="insertComment" useGeneratedKeys="true" keyProperty="commentId">
