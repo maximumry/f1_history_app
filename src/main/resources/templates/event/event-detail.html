@@ -69,8 +69,14 @@
 		</div>
 	</th:block>
 	<th:block th:if="${userId eq null}">
-		<div class="container d-flex justify-content-center mt-3 mb-5">
-			<a th:href="@{/user/login}" class="link-primary link-offset-2 link-underline-opacity-25 link-underline-opacity-100-hover">ログインをしてコメントしてみましょう</a>
+		<div class="container">
+			<div class="container d-flex justify-content-center mt-3 mb-5">
+				<a th:href="@{/user/login}" class="link-primary link-offset-2 link-underline-opacity-25 link-underline-opacity-100-hover">ログインをしてコメントしてみましょう</a>
+			</div>
+			<!-- コメント表示領域 -->
+			<div class="mb-3 mt-3" id="showComment">
+				
+			</div>
 		</div>
 	</th:block>
 </body>

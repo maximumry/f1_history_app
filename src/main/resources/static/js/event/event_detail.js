@@ -3,19 +3,22 @@ jQuery(function($){
 	const raceUrl = `http://ergast.com/api/f1/${eventId[0]}/${eventId[1]}/results.json`
 	const commentUrl = `http://localhost:8080/comment/${eventId[0]}${eventId[1]}`
 	
-	async function allAjax(){
-		const urls =[raceUrl, commentUrl]
-		
-		let response = await Promise.all(urls.map(url => fetch(url)))
-		let data = await Promise.all(response.map(res => res.json()))
-		const raceDetail = data[0].MRData.RaceTable
-		const commentData = data[1]
-		detailRaceInsert(raceDetail)
-		showComments(commentData)
+	try{
+		async function allAjax(){
+			const urls =[raceUrl, commentUrl]
+			
+			let response = await Promise.all(urls.map(url => fetch(url)))
+			let data = await Promise.all(response.map(res => res.json()))
+			const raceDetail = data[0].MRData.RaceTable
+			const commentData = data[1]
+			detailRaceInsert(raceDetail)
+			showComments(commentData)
+		}
+		//非同期通信の処理を開始
+		allAjax()
+	}catch(error){
+		console.log("Asynchronous communication failure" + error)
 	}
-	
-	//非同期通信の処理を開始
-	allAjax()
 
 	//非同期処理で得たデータを変数に定義してDOMに挿入
 	function detailRaceInsert(raceDetail){
@@ -103,7 +106,6 @@ jQuery(function($){
 			//ajaxに成功した時の処理の関数
 			if(data.result === 0){
 				const comment = data.comment
-				console.log(data)
 				const newComment = `
 					<div class="card mb-2" id="cardContainer${comment.commentId}">
 						<div class="card-body">

@@ -78,10 +78,8 @@ jQuery(function($){
 		let selectedRound = $(this).val()
 		
 		$.each(aftCommentData, function(index, value){
-			console.log(value)
 			let sortRound = String(value.eventId)
 			let sortYear = value.eventId.slice(0, 4)
-			console.log(sortYear)
 			sortRound = sortRound.slice(4)
 			if(sortRound == selectedRound && selectedYear == sortYear){
 				aftSelectedRound.push(value)

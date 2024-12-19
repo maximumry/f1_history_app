@@ -17,27 +17,31 @@ jQuery(function($){
 		const allRaceUrl = `https://ergast.com/api/f1/${year}.json`
 		const winRaceUrl = `https://ergast.com/api/f1/${year}/results/1.json`
 		
-		async function allFetch(){
-			const urls = [allRaceUrl, winRaceUrl]
-			
-			let response = await Promise.all(urls.map(url => fetch(url)))
-			let data = await Promise.all(response.map(res => res.json()))
-			let raceData;
-			let raceWinData;
-			//二つのAPIを呼び出したので配列を用意して代入する
-			for(let i = 0;i < data.length;i++){
-				$.each(data[i], function(index, value){
-					if(i === 0){
-						raceData = value.RaceTable
-					}else{
-						raceWinData = value.RaceTable.Races
-					}
-				})
+		try{
+			async function allFetch(){
+				const urls = [allRaceUrl, winRaceUrl]
+				
+				let response = await Promise.all(urls.map(url => fetch(url)))
+				let data = await Promise.all(response.map(res => res.json()))
+				let raceData;
+				let raceWinData;
+				//二つのAPIを呼び出したので配列を用意して代入する
+				for(let i = 0;i < data.length;i++){
+					$.each(data[i], function(index, value){
+						if(i === 0){
+							raceData = value.RaceTable
+						}else{
+							raceWinData = value.RaceTable.Races
+						}
+					})
+				}
+				insertRace(raceData, raceWinData);
 			}
-			insertRace(raceData, raceWinData);
+			allFetch()
+		}catch(error){
+			console.log("Asynchronous communication failure" + error)
 		}
 		
-		allFetch()
 	}
 	
 	//セレクトボックスに変化があった時の処理

@@ -3,6 +3,7 @@
 jQuery(function($){
 	//wikipediaのpageIdをお入れておく変数
 	var pageId;
+	var driverName;
 	
 	const driverUrl = `http://ergast.com/api/f1/drivers/${driverId}.json`;
 	
@@ -27,11 +28,15 @@ jQuery(function($){
 		$('#driverBirth').text(driverData.dateOfBirth.replace(/-/g, '/'))
 		$('#abbr').text(driverData.code)
 		$('#driverLink').attr('href', driverData.url)
+		
+		driverName = driverData.givenName + ' ' + driverData.familyName
 	}
 	
+	//driverIdを元に取得したドライバーの名前を元にドライバーのWikiepdia情報を取得
 	function selectInfoDriverPlus(driverData){
 		const wikiUrl = `https://en.wikipedia.org/w/api.php?action=query&format=json&list=search&srsearch=${driverData.givenName}%20${driverData.familyName}&origin=*`
 		
+		//wikiUrl変数で取得したドライバーの検索結果配列1つ目のページのimage情報を取得
 		$.ajax({
 			type: 'GET',
 			url: wikiUrl,
@@ -61,5 +66,47 @@ jQuery(function($){
 			alet("ドライバーの画像取得に失敗しました")
 		})
 	}
+	
+	$('#chatGptBtn').click(function(event){
+		let formData = $('#ChatGptForm').serialize()
+		
+		$.ajax({
+			type: 'GET',
+			url: '/driver/chatgpt',
+			data: formData,
+			dataType: 'text',
+		}).done(function(data){
+			renderChatGPTResponse(data)
+		}).fail(function(jqXHR, textStatus, errorThrown){
+			alert("ChatGPTへのリクエストに失敗しました")
+		})
+	})
+	
+	function renderChatGPTResponse(data){
+		if(data === "" || data === null){
+			$('#chatGptResponse').text("こんにちは")
+		}
+		$('#chatGptResponse').text(data)
+	}
+	
+	setTimeout(() => {
+		generateTemplateBtn()
+	}, "1000")
+	
+	function generateTemplateBtn(){
+		var templateHtml = `
+			<button type="button" class="btn btn-outline-dark templateText" data-id="template1" id="template1">${driverName}の名レースを教えて</button>
+			<button type="button" class="btn btn-outline-dark templateText" data-id="template2" id="template2">${driverName}最大のライバルは？</button>
+			<button type="button" class="btn btn-outline-dark templateText" data-id="template3" id="template3">${driverName}と他のドライバーと比較して</button>
+		`
+		$('#askTemplate').append(templateHtml)
+	}
+	
+	$(document).on('click', '.templateText', function(){
+		let btnId = $(this).data('id')
+		let btnText = $(`#${btnId}`).text()
+		console.log(btnText)
+		$('#userMessage').val(btnText)
+	})
 	
 })
