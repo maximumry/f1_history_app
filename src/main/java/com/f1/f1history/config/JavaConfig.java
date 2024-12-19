@@ -30,4 +30,9 @@ public class JavaConfig {
 	public JSONObject jsonObject() {
 		return new JSONObject();
 	}
+
+	//	@Bean
+	//	public Nl2brDialect dialect() {
+	//		return new Nl2brDialect();
+	//	}
 }

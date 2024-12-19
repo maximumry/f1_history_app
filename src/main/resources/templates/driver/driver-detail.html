@@ -51,12 +51,36 @@
 						<span id="abbr"></span>
 					</li>
 					<li class="list-group-item"	style="display: flex; justify-content: space-between;margin-bottom: 7px;">
-						<a id="driverLink" href="#" class="pull-right link-info link-offset-2 link-underline-opacity-25 link-underline-opacity-100-hover">Wikipedia</a>
+						<div>
+							<a id="driverLink" href="#" class="pull-right link-info link-offset-2 link-underline-opacity-25 link-underline-opacity-100-hover">Wikipedia</a>
+							<div class="form-text">
+						        ※ Wikipediaのリンク先は英語ページです。日本語版を表示するには、ページ右上の「Languages」から日本語を選択してください。
+						    </div>
+						</div>
 					</li>
                 </ul>
             </div>
 		  </div>
 		</div>
+		<div class="container mb-5">
+			<h1 class="mt-5 text-center" id="driverNameHeader">ドライバーについてChatGPTに聞く</h1>
+			<div class="form-text text-center">
+		        ※ 一問一答形式ですので、続けての会話は出来ません。
+				また下記テンプレートから選び質問も出来ます。
+		    </div>
+			<div id="askTemplate" class="container text-center mt-3">
+				
+			</div>
+			<form class="form-floating m-5" role="search" id="ChatGptForm">
+				<textarea class="form-control" id="userMessage" name="userMessage" style="height: 100px"></textarea>
+				<label for="userMessage">Enter you message</label>
+			  	<button class="btn btn-outline-success mt-3 text-left" type="button" id="chatGptBtn">Generate Response</button>
+			</form>
+		  </div>
+		  <div class="m-5 p-3 bg-light rounded">
+			<h2>ChatGPTからの返答</h2>
+			<p class="message m-3" id="chatGptResponse"></p>
+		  </div>
 	</div>
 </body>
 </html>
