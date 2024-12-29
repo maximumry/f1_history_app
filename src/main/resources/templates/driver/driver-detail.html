@@ -71,10 +71,11 @@
 			<div id="askTemplate" class="container text-center mt-3">
 				
 			</div>
-			<form class="form-floating m-5" role="search" id="ChatGptForm">
+			<div id="genMessage" class="text-center"></div>
+			<form class="form-floating m-5 d-flex" role="search" id="ChatGptForm">
 				<textarea class="form-control" id="userMessage" name="userMessage" style="height: 100px"></textarea>
-				<label for="userMessage">Enter you message</label>
-			  	<button class="btn btn-outline-success mt-3 text-left" type="button" id="chatGptBtn">Generate Response</button>
+				<label for="userMessage">ChatGPTに聞く</label>
+			  	<button class="btn btn-outline-success m-3" type="button" id="chatGptBtn">送信</button>
 			</form>
 		  </div>
 		  <div class="m-5 p-3 bg-light rounded">

@@ -69,6 +69,7 @@ jQuery(function($){
 	
 	$('#chatGptBtn').click(function(event){
 		let formData = $('#ChatGptForm').serialize()
+		$('#genMessage').append("<p>生成中です。少々お待ちください</p>")
 		
 		$.ajax({
 			type: 'GET',
@@ -78,6 +79,7 @@ jQuery(function($){
 		}).done(function(data){
 			renderChatGPTResponse(data)
 		}).fail(function(jqXHR, textStatus, errorThrown){
+			$('#genMessage').children().remove()
 			alert("ChatGPTへのリクエストに失敗しました")
 		})
 	})
@@ -86,6 +88,7 @@ jQuery(function($){
 		if(data === "" || data === null){
 			$('#chatGptResponse').text("こんにちは")
 		}
+		$('#genMessage').children().remove()
 		$('#chatGptResponse').text(data)
 	}
 	
@@ -105,7 +108,6 @@ jQuery(function($){
 	$(document).on('click', '.templateText', function(){
 		let btnId = $(this).data('id')
 		let btnText = $(`#${btnId}`).text()
-		console.log(btnText)
 		$('#userMessage').val(btnText)
 	})
 	
