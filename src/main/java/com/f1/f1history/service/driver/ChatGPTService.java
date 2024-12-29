@@ -54,7 +54,7 @@ public class ChatGPTService {
 
 		//リクエストボディ生成
 		ChatGPTRequest body = new ChatGPTRequest();
-		body.setModel("gpt-4o-mini");
+		body.setModel("gpt-4o");
 		body.setMessages(List.of(
 				body.new Message("system", SYSTEM_MESSAGE),
 				body.new Message("user", userMessage)));
@@ -77,7 +77,7 @@ public class ChatGPTService {
 		}
 
 		//1つ目の回答からメッセージを抽出して返却
-		// *ChatGPTは複数回答をレスポンスするが、今回は一つ目の回答のみを扱う
+		//一つ目の回答のみを扱う
 		return responseBody.getChoices()[0].getMessage().getContent();
 	}
 }
