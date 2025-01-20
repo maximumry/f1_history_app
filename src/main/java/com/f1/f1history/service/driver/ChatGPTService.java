@@ -42,6 +42,9 @@ public class ChatGPTService {
 		} catch (RestClientException e) {
 			e.printStackTrace();
 			return "Error connecting to the API";
+		} catch (Exception e) {
+			e.printStackTrace();
+			return "Error connecting to the API";
 		}
 	}
 

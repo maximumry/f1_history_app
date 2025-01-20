@@ -39,7 +39,7 @@ jQuery(function($){
 			}
 			allFetch()
 		}catch(error){
-			console.log("Asynchronous communication failure" + error)
+			console.log("非同期通信障害" + error)
 		}
 		
 	}
@@ -73,6 +73,10 @@ jQuery(function($){
 		
 		//選択されたシーズンのレースを表示
 		$.each(raceData.Races, function(index, value){
+			console.log(value.length)
+			if(value == 0){
+				$('#raceDataTbody').append("まだシーズンは始まっていないようです。上記セレクトボックスからシーズンを変更してみましょう")
+			}
 					
 			var raceDataHtml = `
 				<tr>

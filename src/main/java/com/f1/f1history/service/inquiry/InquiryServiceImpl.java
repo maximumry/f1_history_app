@@ -1,6 +1,7 @@
 package com.f1.f1history.service.inquiry;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -29,7 +30,9 @@ public class InquiryServiceImpl implements InquiryService {
 
 	@Override
 	public Inquiry getInquiry(int inquiryId) {
-		return inquiryInfoMapper.getInquiry(inquiryId);
+		Optional<Inquiry> optInquiry = inquiryInfoMapper.getInquiry(inquiryId);
+		Inquiry inquiry = optInquiry.orElse(new Inquiry());
+		return inquiry;
 	}
 
 	@Override
