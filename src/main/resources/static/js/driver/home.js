@@ -71,13 +71,12 @@ jQuery(function($){
 			})
 		})
 		
+		if(raceData.Races.length == 0){
+			$('#nonRaceData').append("まだシーズンは始まっていないようです。上記セレクトボックスからシーズンを変更してみましょう")
+		}
+		
 		//選択されたシーズンのレースを表示
 		$.each(raceData.Races, function(index, value){
-			console.log(value.length)
-			if(value == 0){
-				$('#raceDataTbody').append("まだシーズンは始まっていないようです。上記セレクトボックスからシーズンを変更してみましょう")
-			}
-					
 			var raceDataHtml = `
 				<tr>
 			      <th scope="row" id="round">${value.round}</th>
