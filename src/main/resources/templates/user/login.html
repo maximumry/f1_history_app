@@ -21,6 +21,7 @@
 	<div class="d-flex justify-content-center align-items-center vh-100">
 		<form method="post" th:action="@{/user/login}" th:object="${MUserForm}" class="w-50">
 			<h2 class="text-center">ログイン</h2>
+			<!-- エラーメッセージ表示 -->
 			<p th:if="${session['SPRING_SECURITY_LAST_EXCEPTION']} != null"
 			   th:text="${session['SPRING_SECURITY_LAST_EXCEPTION'].message}"
 			   class="text-danger text-center mt-3">
