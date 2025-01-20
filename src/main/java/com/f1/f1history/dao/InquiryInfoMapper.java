@@ -1,6 +1,7 @@
 package com.f1.f1history.dao;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.apache.ibatis.annotations.Mapper;
 
@@ -13,7 +14,7 @@ public interface InquiryInfoMapper {
 
 	List<Inquiry> getAllInquiry();
 
-	Inquiry getInquiry(int inquiryId);
+	Optional<Inquiry> getInquiry(int inquiryId);
 
 	void deleteInquiryOne(int inquiryId);
 
