@@ -23,15 +23,18 @@ public class UniqueEmailValidator implements ConstraintValidator<UniqueEmail, St
 
 	@Override
 	public boolean isValid(String value, ConstraintValidatorContext context) {
+		//ログインしているユーザー情報を取得
 		Object userDetails = SecurityContextHolder.getContext().getAuthentication()
 				.getPrincipal();
 
+		//メールアドレスからユーザー情報を取得
 		Optional<MUser> mUserOptional = userInfoMapper.findLoginUser(value);
 
 		//リクエストのemailを元にヒットしなかったらバリデーションをかけない
 		if (mUserOptional.isEmpty())
 			return true;
 
+		System.out.println(userDetails);
 		if (userDetails != "anonymousUser") {
 			CustomUserDetails customUserDetails = (CustomUserDetails) userDetails;
 			MUser user = mUserOptional.get();
