@@ -54,6 +54,7 @@ public class InquiryController {
 			Model model,
 			@AuthenticationPrincipal CustomUserDetails userDetails) {
 		if (result.hasErrors()) {
+			model.addAttribute("userName", userDetails.getUsername());
 			return "/inquiry/form";
 		}
 		Inquiry inquiry = modelMapper.map(form, Inquiry.class);

@@ -37,7 +37,6 @@ public class InquiryServiceImpl implements InquiryService {
 
 	@Override
 	public void deleteInquiryOne(int inquiryId) {
-		System.out.println(inquiryId);
 		inquiryInfoMapper.deleteInquiryOne(inquiryId);
 	}
 
