@@ -3,6 +3,7 @@ package com.f1.f1history.controller.user;
 import java.util.List;
 
 import org.modelmapper.ModelMapper;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -14,6 +15,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import com.f1.f1history.config.CustomUserDetails;
 import com.f1.f1history.entity.Comment;
 import com.f1.f1history.entity.Inquiry;
 import com.f1.f1history.entity.MUser;
@@ -64,42 +66,54 @@ class UserController {
 
 	@GetMapping("/{userId}")
 	public String getUser(@PathVariable("userId") String userId,
-			Model model) {
+			Model model,
+			@AuthenticationPrincipal CustomUserDetails userDetails) {
 		MUser user = userService.getUser(userId);
-		List<Comment> commentList = user.getCommentList();
-		for (Comment comment : commentList) {
-			comment.setUser(user);
-			comment.setUserId(user.getUserId());
+		if (user.getUserId().equals(userDetails.getUserId())) {
+			List<Comment> commentList = user.getCommentList();
+			for (Comment comment : commentList) {
+				comment.setUser(user);
+				comment.setUserId(user.getUserId());
+			}
+			List<Inquiry> inquiryList = user.getInquiryList();
+			for (Inquiry inquiry : inquiryList) {
+				inquiry.setUser(user);
+			}
+			UpdateMUserForm userForm = modelMapper.map(user, UpdateMUserForm.class);
+			userService.keepCurrentLoginUser(userId);
+			model.addAttribute("inquiryList", inquiryList);
+			model.addAttribute("commentList", commentList);
+			model.addAttribute("updateMUserForm", userForm);
+			return "/user/user-detail";
 		}
-		List<Inquiry> inquiryList = user.getInquiryList();
-		for (Inquiry inquiry : inquiryList) {
-			inquiry.setUser(user);
-		}
-		UpdateMUserForm userForm = modelMapper.map(user, UpdateMUserForm.class);
-		userService.keepCurrentLoginUser(userId);
-		model.addAttribute("inquiryList", inquiryList);
-		model.addAttribute("commentList", commentList);
-		model.addAttribute("updateMUserForm", userForm);
-		return "/user/user-detail";
+		return "/driver/home";
 	}
 
 	@PostMapping(value = "detail", params = "update")
 	public String updateUser(@ModelAttribute @Validated UpdateMUserForm updateMUserForm,
 			BindingResult result,
-			Model model) {
-		if (result.hasErrors()) {
-			userService.keepCurrentLoginUser(updateMUserForm.getUserId());
-			return "/user/user-detail";
+			Model model,
+			@AuthenticationPrincipal CustomUserDetails userDetails) {
+		if (userDetails.getUserId().equals(updateMUserForm.getUserId())) {
+			if (result.hasErrors()) {
+				userService.keepCurrentLoginUser(updateMUserForm.getUserId());
+				return "/user/user-detail";
+			}
+			MUser user = modelMapper.map(updateMUserForm, MUser.class);
+			userService.updateUser(user);
+			return "redirect:/driver";
 		}
-		MUser user = modelMapper.map(updateMUserForm, MUser.class);
-		userService.updateUser(user);
-		return "redirect:/driver";
+		return "/driver/home";
 	}
 
 	@PostMapping(value = "detail", params = "delete")
-	public String deleteUser(@ModelAttribute UpdateMUserForm updateMUserForm) {
-		MUser user = modelMapper.map(updateMUserForm, MUser.class);
-		userService.deleteUser(user);
-		return "redirect:/user/logout";
+	public String deleteUser(@ModelAttribute UpdateMUserForm updateMUserForm,
+			@AuthenticationPrincipal CustomUserDetails userDetails) {
+		if (userDetails.getUserId().equals(updateMUserForm.getUserId())) {
+			MUser user = modelMapper.map(updateMUserForm, MUser.class);
+			userService.deleteUser(user);
+			return "redirect:/user/logout";
+		}
+		return "/driver/home";
 	}
 }

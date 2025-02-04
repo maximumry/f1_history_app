@@ -32,6 +32,8 @@ public class EventServiceImpl implements EventService {
 
 	@Override
 	public Map<String, ObjectNode> filterRace(int yearDecade, String raceSearch) {
+		Map<String, ObjectNode> resultRace = new HashMap<String, ObjectNode>();
+
 		//JavaでJSONデータを扱うためにArrayNodeのオブジェクトを作成
 		ArrayNode arrayNode = objectMapper.createArrayNode();
 		ArrayNode raceWinnerArray = objectMapper.createArrayNode();
@@ -101,8 +103,10 @@ public class EventServiceImpl implements EventService {
 			}
 		} catch (Exception e) {
 			System.out.println(e + "エラーが発生しました");
+			resultRace.put("objectNode", null);
+			resultRace.put("winnerObjectNode", null);
+			return resultRace;
 		}
-		Map<String, ObjectNode> resultRace = new HashMap<String, ObjectNode>();
 		resultRace.put("objectNode", objectNode);
 		resultRace.put("winnerObjectNode", winnerObjectNode);
 		return resultRace;
