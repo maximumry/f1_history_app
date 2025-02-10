@@ -35,6 +35,7 @@ jQuery(function($){
 						}
 					})
 				}
+				$('#nonRaceData').text("")
 				insertRace(raceData, raceWinData);
 			}
 			allFetch()
