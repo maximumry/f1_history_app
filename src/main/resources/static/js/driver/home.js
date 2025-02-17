@@ -94,6 +94,10 @@ jQuery(function($){
 		
 		//検索ボタンを押したときの処理
 		$('#raceBtnSearch').click(function(event){
+			
+			$('#nonRaceData').text("")
+			$('#nonRaceData').append("検索中です")
+			
 			//セレクトボックスのvalueを受け取ってその期間のyearを繰り返しで検索実施
 			let formData = $('#searchRaceForm').serializeArray();
 			
@@ -113,6 +117,12 @@ jQuery(function($){
 	 	function renderSearchResults(searchData){
 			let raceWinData = searchData.winnerObjectNode.raceWinData
 			let raceSearch = searchData.objectNode
+			
+			if(raceSearch.raceSearch.length === 0){
+				$('#nonRaceData').text("検索結果は0件でした")
+			}else{
+				$('#nonRaceData').text("")
+			}
 			//優勝者とコンストラクタの名前を入れておく変数
 			let raceWinner = []
 			let winConstructor = []
